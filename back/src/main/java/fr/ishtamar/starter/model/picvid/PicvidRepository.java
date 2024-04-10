@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface PicvidRepository extends JpaRepository<Picvid,Long> {
     List<Picvid> findAllByAlbum(Album album);
+    List<Picvid> findAllByFileLocation(String string);
 }
