@@ -22,6 +22,10 @@ export class AlbumService {
     return this.httpClient.put<Album>(`api/album/${id}`, request);
   }
 
+  public delete(id: number): Observable<string> {
+    return this.httpClient.delete(`api/album/${id}`, { responseType: 'text' });
+  }
+
   public list(id: number): Observable<AlbumRequestResponse> {
     return this.httpClient.get<AlbumRequestResponse>(
       `${this.pathService}/${id}/album`

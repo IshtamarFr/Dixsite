@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, NgZone, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { Album } from '../../../main/interfaces/album.interface';
 import { AlbumService } from '../../services/album.service';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MatDividerModule } from '@angular/material/divider';
 import { FileHandle } from '../../../../interfaces/file-handle.interface';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -20,6 +20,8 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { take } from 'rxjs';
+import { DialogService } from '../../../../utils/dialog.service';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-album-title',
@@ -36,6 +38,7 @@ import { take } from 'rxjs';
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
+    MatTooltipModule,
   ],
   templateUrl: './album-title.component.html',
   styleUrl: './album-title.component.scss',
@@ -52,7 +55,10 @@ export class AlbumTitleComponent implements OnInit {
   constructor(
     private albumService: AlbumService,
     private sanitizer: DomSanitizer,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private dialogService: DialogService,
+    private router: Router,
+    private ngZone: NgZone
   ) {}
 
   ngOnInit(): void {
@@ -82,7 +88,26 @@ export class AlbumTitleComponent implements OnInit {
   }
 
   deleteAlbum(): void {
-    window.alert('WIP deleteAlbum');
+    this.dialogService
+      .openInputDialog(
+        "Tapez 'Supprimer' pour effacer définitivement cet album"
+      )
+      .subscribe({
+        next: (resp) => {
+          if (resp == 'Supprimer') {
+            this.albumService
+              .delete(this.album.id)
+              .pipe(take(1))
+              .subscribe({
+                next: (_) => {
+                  this.ngZone.run(() => {
+                    this.router.navigate(['main']);
+                  });
+                },
+              });
+          }
+        },
+      });
   }
 
   deletePic(): void {

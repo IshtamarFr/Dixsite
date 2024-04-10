@@ -2,7 +2,7 @@
   <p class="input-dialog-message">{{ message }}</p>
   <form class="login-form" [formGroup]="form" (ngSubmit)="onConfirm()">
     <mat-form-field>
-      <input matInput placeholder="Content" formControlName="content" />
+      <input matInput placeholder="Mon texte" formControlName="content" />
     </mat-form-field>
     <div class="input-dialog-buttons">
       <button mat-raised-button (click)="onCancel()" type="button">

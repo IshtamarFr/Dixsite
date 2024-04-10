@@ -4,6 +4,7 @@
     class="remove"
     *ngIf="isAdminTriggered"
     (click)="deleteAlbum(); $event.stopPropagation()"
+    matTooltip="Effacer l'album"
   >
     <mat-icon>cancel</mat-icon>
   </button>
@@ -27,6 +28,7 @@
           mat-mini-fab
           class="removePic"
           (click)="deletePic(); $event.stopPropagation()"
+          matTooltip="Effacer la photo"
         >
           <mat-icon>cancel</mat-icon>
         </button>
