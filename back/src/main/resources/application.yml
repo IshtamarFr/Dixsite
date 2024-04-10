@@ -1,0 +1,60 @@
+#Database settings
+spring:
+  main.allow-circular-references: false
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+      naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties.hibernate.dialect: org.hibernate.dialect.MySQLDialect
+  #email settings
+  mail:
+    host: ${MAIL_HOST}
+    port: 587
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  # fileupload
+  servlet:
+    multipart:
+      max-file-size: 128MB
+      max-request-size: 128MB
+      enabled: true
+
+fr.ishtamar.starter:
+  #JWT Security
+  lifespan: 9999 #jwt duration in minutes
+  secret: ${JWT_SECRET}
+  dev-url: http://localhost:4200
+  prod-url: https://dixsite.ishtamar.fr
+  base-url: ${fr.ishtamar.starter.prod-url}
+  #Files upload
+  files-upload: Files-Upload
+  cropped-size: 300
+  quota: 500 #(in MB, default)
+  max-albums: 1 #per account, default
+
+#Server settings
+server:
+  port: 3001
+  servlet.context-path: /api
+
+#Logging levels
+logging:
+  level:
+    root: ERROR
+    fr.ishtamar.starter: INFO
+    org.springframework.boot.web: DEBUG
+  file:
+    path: logs/
+    max-history: 5

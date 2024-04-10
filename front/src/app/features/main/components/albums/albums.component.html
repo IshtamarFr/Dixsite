@@ -1,0 +1,50 @@
+<app-menu />
+<button mat-icon-button (click)="back()">
+  <mat-icon>arrow_back</mat-icon>
+</button>
+<span class="title">Albums :</span>
+
+<mat-paginator
+  [length]="albums.length"
+  [pageSize]="paginator.pageSize"
+  [pageSizeOptions]="[20, 50, 100]"
+  [pageIndex]="paginator.pageIndex"
+  [showFirstLastButtons]="paginator.showFirstLastButtons"
+  (page)="handlePageEvent($event)"
+  aria-label="Select page"
+/>
+<div class="album-list">
+  <mat-card *ngFor="let album of albums" (click)="openAlbum(album)">
+    <img
+      *ngIf="!album.homePicture"
+      src="../../../../../assets/logo.png"
+      alt="generic album picture"
+    />
+    <img
+      *ngIf="album.homePicture"
+      [src]="getImageURL(album.homePicture)"
+      alt="specific album picture"
+    />
+    <mat-card-title>{{ album.name }}</mat-card-title>
+    <div>
+      <div>par {{ album.owner_name }}</div>
+      <div>{{ album.modifiedAt | date : "short" }}</div>
+    </div>
+    <button
+      mat-mini-fab
+      *ngIf="subscribedAlbums.includes(album.id)"
+      class="unsubButton"
+      (click)="onUnsubscribe(album); $event.stopPropagation()"
+    >
+      <mat-icon>remove</mat-icon>
+    </button>
+    <button
+      mat-mini-fab
+      *ngIf="!subscribedAlbums.includes(album.id)"
+      class="subButton"
+      (click)="onSubscribe(album); $event.stopPropagation()"
+    >
+      <mat-icon>add</mat-icon>
+    </button>
+  </mat-card>
+</div>

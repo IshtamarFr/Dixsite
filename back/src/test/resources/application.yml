@@ -1,0 +1,56 @@
+#Test Database settings
+spring:
+  main.allow-circular-references: true
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+      naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties.hibernate.dialect: org.hibernate.dialect.H2Dialect
+  #email settings
+  mail:
+    host: fake.ishtamar.fr
+    port: 587
+    username: fake@ishtamar.fr
+    password: 123456
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  # fileupload
+  servlet:
+    multipart:
+      max-file-size: 128MB
+      max-request-size: 128MB
+      enabled: true
+
+#JWT Security
+fr.ishtamar.starter:
+  lifespan: 9999 #jwt duration in minutes
+  secret: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA11111111111111111111111111111111
+  dev-url: http://localhost:4200
+  prod-url: https://test.ishtamar.fr
+  base-url: ${fr.ishtamar.starter.dev-url}
+  files-upload: Tests-Upload
+  cropped-size: 300
+  quota: 500 #(in MB, default)
+  max-albums: 1 #per account, default
+
+#Server settings
+server:
+  port: 3001
+  servlet.context-path: /api
+
+#Logging levels
+logging:
+  level:
+    root: ERROR
+    fr.ishtamar.starter: INFO
+    org.springframework.boot.web.embedded.tomcat: INFO

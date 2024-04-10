@@ -1,0 +1,51 @@
+<mat-card class="comment" [ngClass]="{ me: comment.owner_id == myId }">
+  <mat-card-subtitle>
+    Par {{ comment.owner_name }}, le
+    {{ comment.createdAt | date : "medium" }}
+  </mat-card-subtitle>
+  <mat-card-content>
+    {{ comment.content }}
+  </mat-card-content>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header collapsedHeight="35px">
+      {{ comment.subcomments!.length }}
+      {{ comment.subcomments!.length > 1 ? "réponses" : "réponse" }}
+    </mat-expansion-panel-header>
+    <ng-template matExpansionPanelContent>
+      <mat-card id="newMessage">
+        <form [formGroup]="form" (ngSubmit)="submit()">
+          <mat-card-content>
+            <mat-form-field>
+              <mat-label>Nouvelle réponse</mat-label>
+              <textarea matInput formControlName="content"></textarea>
+            </mat-form-field>
+            <button
+              mat-mini-fab
+              class="button submitNew"
+              type="submit"
+              [disabled]="form.invalid"
+            >
+              <mat-icon class="sendButton">send</mat-icon>
+            </button>
+          </mat-card-content>
+        </form>
+      </mat-card>
+
+      <div *ngFor="let subcomment of subcomments.reverse()">
+        <mat-card
+          class="comment"
+          [ngClass]="{ me: subcomment.owner_id == myId }"
+        >
+          <mat-card-subtitle>
+            Par {{ subcomment.owner_name }}, le
+            {{ subcomment.createdAt | date : "medium" }}
+          </mat-card-subtitle>
+          <mat-card-content>
+            {{ subcomment.content }}
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </ng-template>
+  </mat-expansion-panel>
+</mat-card>

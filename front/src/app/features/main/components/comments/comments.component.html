@@ -1,0 +1,53 @@
+<app-menu />
+<button mat-icon-button (click)="back()">
+  <mat-icon>arrow_back</mat-icon>
+</button>
+<span class="title">Commentaires</span>
+
+<mat-paginator
+  [length]="paginator.length"
+  [pageSize]="paginator.pageSize"
+  [pageSizeOptions]="[20, 50, 100]"
+  [pageIndex]="paginator.pageIndex"
+  [showFirstLastButtons]="paginator.showFirstLastButtons"
+  (page)="handlePageEvent($event)"
+  aria-label="Select page"
+/>
+<mat-tab-group (selectedTabChange)="onTabChange($event)">
+  <mat-tab label="Mes commentaires">
+    <ng-template matTabContent>
+      <div class="collection">
+        <app-mycomment
+          *ngFor="let comment of myComments"
+          [comment]="comment"
+          class="Link"
+          (click)="goTo(comment)"
+        />
+      </div>
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="Mes réponses">
+    <ng-template matTabContent>
+      <div class="collection">
+        <app-mycomment
+          *ngFor="let comment of myAnswers"
+          [comment]="comment"
+          class="Link"
+          (click)="goTo(comment)"
+        />
+      </div>
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="Sur mes albums">
+    <ng-template matTabContent>
+      <div class="collection">
+        <app-mycomment
+          *ngFor="let comment of myAlbumsComments"
+          [comment]="comment"
+          class="Link"
+          (click)="goTo(comment)"
+        />
+      </div>
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>

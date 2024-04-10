@@ -1,0 +1,25 @@
+.input-dialog-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+}
+
+.input-dialog-message {
+  margin: 0 0 10px;
+  text-align: center;
+}
+
+.input-dialog-buttons {
+  width: 90%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.input-dialog-button {
+  margin: 0 5px;
+}

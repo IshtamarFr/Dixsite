@@ -1,0 +1,47 @@
+.title {
+  font-size: 20px;
+}
+
+#loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+mat-card {
+  margin: auto;
+  width: 98%;
+
+  mat-card-content {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    margin: auto;
+  }
+
+  button {
+    margin: auto;
+  }
+
+  .link {
+    padding-top: 15px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 15px;
+    text-decoration: none;
+  }
+
+  .link:hover {
+    font-weight: bold;
+    transform: translateX(2px) translateY(-2px);
+  }
+
+  .error {
+    color: red;
+    padding-top: 15px;
+    text-align: center;
+  }
+}

@@ -1,0 +1,16 @@
+<p>Test connexion Internet (Appel Externe) : {{ testInternet }}</p>
+<p>Test connexion BackEnd (Appel Welcome) : {{ testWelcome }}</p>
+<p>
+  Ecran (h x l) : {{ screenHeight }} x {{ screenWidth }} (screenClass :
+  {{ screenClass(screenWidth) }})
+</p>
+<button (click)="hideLoading = !hideLoading">Afficher le loading</button>
+<br /><br />
+<button (click)="testInputDialog()">Afficher une inputbox de test</button>
+<div id="loading">
+  <img
+    id="loading"
+    src="../../../../assets/perfect_loading.gif"
+    [hidden]="hideLoading"
+  />
+</div>

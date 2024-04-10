@@ -1,0 +1,73 @@
+<app-menu />
+<button mat-icon-button (click)="back()">
+  <mat-icon>arrow_back</mat-icon>
+</button>
+<span class="title">Ajouter une ressource (photo / vidéo)</span>
+
+<mat-card *ngIf="fileHandle" class="candidate">
+  <img [src]="fileHandle.url" />
+  <button mat-mini-fab class="remove" (click)="removeCandidate()">
+    <mat-icon>cancel</mat-icon>
+  </button>
+</mat-card>
+
+<mat-card>
+  <mat-card-content>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div
+        *ngIf="!fileHandle"
+        appDragSingle
+        class="dropzone"
+        (files)="filesDropped($event)"
+      >
+        <div class="text-wrapper">
+          <div class="centered">Glissez-déposez votre photo ou vidéo ici</div>
+          <h2>ou</h2>
+          <label for="uploadPicture">Choisissez-la</label>
+        </div>
+        <input
+          formControlName="picvid"
+          type="file"
+          accept="image/png, image/gif, image/jpeg"
+          id="uploadPicture"
+          (change)="onFileSelected($event)"
+          style="display: none"
+        />
+      </div>
+      <mat-form-field>
+        <mat-label>Nommer la ressource</mat-label>
+        <input matInput formControlName="name" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description"></textarea>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Lieu</mat-label>
+        <input matInput formControlName="takenLocation" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Date</mat-label>
+        <input matInput formControlName="date" [matDatepicker]="picker" />
+        <mat-hint>jj/mm/aaaa</mat-hint>
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="picker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="form.invalid"
+        data-cy="submit"
+        *ngIf="fileHandle"
+      >
+        Créer
+      </button>
+      <p *ngIf="onError" class="error">La ressource n'a pas pu être créée</p>
+    </form>
+  </mat-card-content>
+</mat-card>

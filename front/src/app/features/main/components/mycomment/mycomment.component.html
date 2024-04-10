@@ -1,0 +1,23 @@
+<mat-card class="mainContainer">
+  <img
+    *ngIf="picvid"
+    [src]="getImageURL(picvid.fileLocation)"
+    alt="picvid picture"
+  />
+  <div class="content">
+    <div>
+      <mat-card-subtitle>
+        Le {{ comment.createdAt | date : "short" }}
+      </mat-card-subtitle>
+      <mat-card-content>
+        {{ comment.content }}
+      </mat-card-content>
+    </div>
+    <mat-card-actions
+      ><div *ngIf="!comment.mother_id" class="answers">
+        {{ comment.subcomments!.length }}
+        {{ comment.subcomments!.length > 1 ? "réponses" : "réponse" }}
+      </div>
+    </mat-card-actions>
+  </div>
+</mat-card>

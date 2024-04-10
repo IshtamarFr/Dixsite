@@ -1,0 +1,49 @@
+.title {
+  font-size: 20px;
+}
+mat-paginator {
+  background-color: transparent;
+}
+
+.album-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  mat-card {
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px;
+    width: 400px;
+
+    div {
+      margin-right: 5px;
+      margin-left: 5px;
+    }
+
+    img {
+      max-height: 60px;
+      max-width: 60px;
+      border-radius: 10px;
+      margin-right: 5px;
+    }
+
+    .subButton {
+      background-color: #209cee;
+      color: white;
+    }
+
+    .unsubButton {
+      background-color: red;
+      color: white;
+    }
+  }
+
+  mat-card:hover {
+    cursor: pointer;
+    transform: translateX(2px) translateY(-2px);
+  }
+}

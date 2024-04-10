@@ -1,0 +1,48 @@
+.comment {
+  margin-bottom: 10px;
+  margin-right: 10px;
+  width: 60%;
+
+  mat-card-subtitle,
+  mat-card-content {
+    padding: 3px;
+    text-align: justify;
+    word-wrap: break-word;
+  }
+
+  mat-card-actions {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    display: flex;
+    flex-direction: right;
+    justify-content: flex-end;
+  }
+
+  mat-expansion-panel-header {
+    background-color: darkgrey;
+  }
+
+  mat-expansion-panel {
+    background-color: rgb(236, 236, 236);
+  }
+}
+
+#newMessage {
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+  .submitNew {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+  }
+}
+
+mat-form-field {
+  width: 87%;
+  height: 100%;
+}
+
+.me {
+  margin-left: auto;
+}

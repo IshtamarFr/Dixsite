@@ -1,0 +1,108 @@
+<mat-card class="mainContainer">
+  <button
+    mat-mini-fab
+    class="remove"
+    *ngIf="isAdminTriggered"
+    (click)="deleteAlbum(); $event.stopPropagation()"
+  >
+    <mat-icon>cancel</mat-icon>
+  </button>
+
+  <div class="top">
+    <div *ngIf="!isAdminTriggered">
+      <img
+        *ngIf="album.homePicture"
+        [src]="getImageURL(album.homePicture)"
+        alt="home picture"
+      />
+      <img
+        *ngIf="!album.homePicture"
+        src="../../../../../assets/logo.png"
+        alt="generic home picture"
+      />
+    </div>
+    <div *ngIf="isAdminTriggered">
+      <div *ngIf="album.homePicture">
+        <button
+          mat-mini-fab
+          class="removePic"
+          (click)="deletePic(); $event.stopPropagation()"
+        >
+          <mat-icon>cancel</mat-icon>
+        </button>
+        <img [src]="getImageURL(album.homePicture)" alt="home picture" />
+      </div>
+      <div *ngIf="!album.homePicture">
+        <div
+          *ngIf="!fileHandle"
+          appDragSingle
+          class="dropzone"
+          (files)="filesDropped($event)"
+        >
+          <div class="text-wrapper">
+            <div class="centered">Glissez-déposez votre photo ici</div>
+            <h2>ou</h2>
+            <label for="uploadPicture">Choisissez-la</label>
+          </div>
+          <input
+            type="file"
+            accept="image/png, image/gif, image/jpeg"
+            id="uploadPicture"
+            (change)="onFileSelected($event)"
+            style="display: none"
+          />
+        </div>
+        <div *ngIf="fileHandle">
+          <button
+            mat-mini-fab
+            class="removePic"
+            (click)="deleteTempPic(); $event.stopPropagation()"
+          >
+            <mat-icon>cancel</mat-icon>
+          </button>
+          <img [src]="fileHandle.url" />
+        </div>
+      </div>
+    </div>
+
+    <form [formGroup]="form" class="content">
+      <mat-card-title *ngIf="!isAdminTriggered">
+        {{ album.name }}
+      </mat-card-title>
+      <mat-form-field *ngIf="isAdminTriggered">
+        <mat-label>Nom de l'album</mat-label>
+        <input matInput formControlName="name" />
+      </mat-form-field>
+      <mat-card-subtitle>
+        <div class="date">
+          Créé le : {{ album.createdAt | date : "medium" }}
+        </div>
+        <div class="date">
+          Modifié le : {{ album.modifiedAt | date : "medium" }}
+        </div>
+      </mat-card-subtitle>
+      <mat-divider />
+      <mat-card-content *ngIf="!isAdminTriggered">{{
+        album.description
+      }}</mat-card-content>
+      <mat-form-field *ngIf="isAdminTriggered">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description"></textarea>
+      </mat-form-field>
+    </form>
+  </div>
+
+  <mat-card-actions *ngIf="isAdminTriggered">
+    <button mat-raised-button (click)="modifyAlbum()" [disabled]="form.invalid">
+      Modifier
+    </button>
+    <div class>
+      <button mat-raised-button routerLink="picvid" id="newPicvid">
+        <mat-icon>add_circle</mat-icon> Photo / Vidéo
+      </button>
+      <button mat-raised-button routerLink="picvids" id="newPicvids">
+        <mat-icon>add_circle</mat-icon> Multiple
+      </button>
+    </div>
+  </mat-card-actions>
+</mat-card>

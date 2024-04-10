@@ -1,0 +1,52 @@
+<app-menu />
+<button mat-icon-button (click)="back()">
+  <mat-icon>arrow_back</mat-icon>
+</button>
+
+<mat-slide-toggle *ngIf="isAdmin" [(ngModel)]="isAdminPanelShown"
+  >Administration</mat-slide-toggle
+>
+<app-album-title
+  *ngIf="album"
+  [album]="album"
+  [isAdminTriggered]="isAdminPanelShown"
+/>
+
+<mat-paginator
+  [length]="picvids.length"
+  [pageSize]="paginator.pageSize"
+  [pageSizeOptions]="[20, 50, 100]"
+  [pageIndex]="paginator.pageIndex"
+  [showFirstLastButtons]="paginator.showFirstLastButtons"
+  (page)="handlePageEvent($event)"
+  aria-label="Select page"
+/>
+<div class="albumList">
+  <mat-card
+    *ngFor="
+      let picvid of picvids
+        | slice
+          : paginator.pageIndex * paginator.pageSize
+          : (paginator.pageIndex + 1) * paginator.pageSize
+    "
+    class="picvid"
+    (click)="goToPicvid(picvid)"
+  >
+    <mat-card-subtitle>{{
+      bestDate(picvid) | date : "short"
+    }}</mat-card-subtitle>
+    <img
+      [src]="getImageURL(picvid.fileLocation)"
+      alt="specific album picture"
+    />
+    <mat-card-title>{{ picvid.name }}</mat-card-title>
+    <button
+      mat-mini-fab
+      class="remove"
+      *ngIf="isAdminPanelShown"
+      (click)="deletePicvid(picvid); $event.stopPropagation()"
+    >
+      <mat-icon>cancel</mat-icon>
+    </button>
+  </mat-card>
+</div>

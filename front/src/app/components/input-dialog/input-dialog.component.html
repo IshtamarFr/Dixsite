@@ -1,0 +1,16 @@
+<div class="input-dialog-container">
+  <p class="input-dialog-message">{{ message }}</p>
+  <form class="login-form" [formGroup]="form" (ngSubmit)="onConfirm()">
+    <mat-form-field>
+      <input matInput placeholder="Content" formControlName="content" />
+    </mat-form-field>
+    <div class="input-dialog-buttons">
+      <button mat-raised-button (click)="onCancel()" type="button">
+        Annuler
+      </button>
+      <button mat-raised-button type="submit" [disabled]="form.invalid">
+        Confirmer
+      </button>
+    </div>
+  </form>
+</div>

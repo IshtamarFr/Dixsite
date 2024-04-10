@@ -1,0 +1,29 @@
+.footer {
+  position: relative;
+  width: 98%;
+  bottom: 0;
+  z-index: 20;
+  background-color: white;
+
+  .mentions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding-bottom: 2px;
+  }
+}
+
+.link {
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+}
+
+hr {
+  margin-top: 1px;
+}
+
+.link:hover {
+  font-weight: bold;
+  transform: translateX(2px) translateY(-2px);
+}

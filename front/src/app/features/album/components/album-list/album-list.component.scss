@@ -1,0 +1,49 @@
+.title {
+  font-size: 20px;
+}
+mat-paginator {
+  background-color: transparent;
+}
+
+mat-slide-toggle {
+  margin-left: 10px;
+}
+
+.albumList {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  .picvid {
+    margin: 10px;
+    padding: 10px;
+    width: 270px;
+    display: flex;
+
+    mat-card-subtitle,
+    mat-card-title {
+      text-align: center;
+    }
+
+    img {
+      width: 250px;
+      height: 250px;
+      border-radius: 20px;
+    }
+
+    .remove {
+      position: absolute;
+      bottom: 0px;
+      right: 0px;
+      background-color: red;
+      border-color: black;
+      border-style: solid;
+      border-width: medium;
+    }
+  }
+
+  .picvid:hover {
+    cursor: pointer;
+    transform: translateX(2px) translateY(-2px);
+  }
+}

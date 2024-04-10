@@ -1,0 +1,60 @@
+<!--List of all items to show-->
+<ng-template #menuTemplate>
+  <div routerLink="/main/albums" class="link admin">Albums</div>
+  <div routerLink="/main/comments" class="link admin">Comments</div>
+  <div
+    *ngIf="user?.roles?.includes('ADMIN')"
+    routerLink="/ishta"
+    class="link admin"
+  >
+    Dev.
+  </div>
+</ng-template>
+
+<div id="menu">
+  <div id="infos">
+    <img
+      src="../../../favicon.ico"
+      alt="app_logo"
+      routerLink="/main"
+      class="link"
+    />
+    <div class="title link" routerLink="/main">Dixsite</div>
+    <ng-container *ngTemplateOutlet="menuTemplate"></ng-container>
+  </div>
+  <div id="items" *ngIf="screenWidth > MIN_PC_SIZE; else mobileItems">
+    <span routerLink="/main/me" class="link">Mon compte</span>
+    <span (click)="logout()" class="link">Déconnexion</span>
+  </div>
+  <ng-template #mobileItems>
+    <mat-icon (click)="snav.toggle()">menu</mat-icon>
+  </ng-template>
+</div>
+<hr />
+<mat-sidenav-container class="example-sidenav-container">
+  <mat-sidenav
+    #snav
+    [mode]="'over'"
+    fixedInViewport
+    fixedTopGap="50"
+    position="end"
+    (click)="snav.close()"
+  >
+    <div id="sidenav">
+      <div id="sidenav-items">
+        <ng-container *ngTemplateOutlet="menuTemplate"></ng-container>
+      </div>
+      <div id="sidenav-menus">
+        <mat-divider></mat-divider>
+        <div routerLink="/main/me" class="link">
+          <mat-icon>person</mat-icon>
+        </div>
+        <div (click)="logout()" class="link">
+          <mat-icon>power_settings_new</mat-icon>
+        </div>
+      </div>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content> </mat-sidenav-content>
+</mat-sidenav-container>

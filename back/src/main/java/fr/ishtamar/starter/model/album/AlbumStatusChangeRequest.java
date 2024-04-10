@@ -1,0 +1,14 @@
+package fr.ishtamar.starter.model.album;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class AlbumStatusChangeRequest {
+    private String action;
+}

@@ -1,0 +1,46 @@
+<app-menu />
+<div *ngIf="user" class="top">
+  <p>Bienvenue, {{ user.name }}</p>
+  <button
+    *ngIf="ownedAlbums.length < user.maxAlbums"
+    mat-raised-button
+    routerLink="create"
+    id="newAlbum"
+  >
+    <mat-icon>add_circle</mat-icon> Album
+  </button>
+  <div
+    *ngIf="ownedAlbums.length >= user.maxAlbums"
+    matTooltip="Pour plus d'albums, nous contacter"
+  >
+    <button disabled mat-raised-button>
+      <mat-icon>not_interested</mat-icon> Quota
+    </button>
+  </div>
+</div>
+
+<h1>Mes albums</h1>
+<div class="myAlbums">
+  <app-main-album-card
+    *ngFor="let album of ownedAlbums"
+    [album]="album"
+    [userId]="userId"
+  />
+  <h2 *ngIf="ownedAlbums.length == 0" class="noAlbum">
+    Vous n'avez pas encore d'albums
+  </h2>
+</div>
+
+<hr />
+<h1>Mes abonnements</h1>
+<div class="subscribedAlbums">
+  <app-main-album-card
+    *ngFor="let album of subscribedAlbums"
+    [album]="album"
+    [userId]="userId"
+    (unsubscribeEmitter)="onUnsubscribe(album.id)"
+  />
+  <h2 *ngIf="subscribedAlbums.length == 0" class="noAlbum">
+    Vous n'êtes abonné à aucun album
+  </h2>
+</div>

@@ -1,0 +1,81 @@
+.title {
+  font-size: 20px;
+}
+
+.picvidGeneral {
+  display: flex;
+  flex-direction: row;
+  width: 95vw;
+  height: 85vh;
+
+  .picvidRessource {
+    max-width: 50%;
+    height: auto;
+    margin-left: 5px;
+    margin-right: 5px;
+    border: solid thin;
+    border-radius: 20px;
+  }
+
+  .picvidAdditional {
+    max-width: 50%;
+  }
+}
+
+.picvidMobile {
+  display: flex;
+  flex-direction: column;
+
+  .picvidRessource {
+    max-height: 60vh;
+    max-width: 98%;
+    margin: auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border: solid thin;
+    border-radius: 10px;
+  }
+
+  .picvidAdditional {
+    max-width: 95vw;
+  }
+}
+
+mat-card-title {
+  text-align: center;
+}
+
+mat-form-field {
+  width: 87%;
+  height: 100%;
+}
+
+.picvidAdditional {
+  flex-grow: 1;
+  margin-left: 5px;
+  margin-right: 5px;
+
+  mat-card-subtitle,
+  mat-card-content {
+    padding: 3px;
+  }
+}
+
+.picvidMessages {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+#newMessage {
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+  .submitNew {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+  }
+}

@@ -1,0 +1,54 @@
+<app-menu />
+<div id="loading">
+  <img
+    id="loading"
+    src="../../../../../assets/perfect_loading.gif"
+    [hidden]="hideLoading"
+  />
+</div>
+<button mat-icon-button (click)="back()">
+  <mat-icon>arrow_back</mat-icon>
+</button>
+<span class="title">Ajouter plusieurs ressources en lot (photo / vidéo)</span>
+<div
+  *ngIf="!fileHandle?.length"
+  appDragMultiple
+  class="dropzone"
+  (files)="filesDropped($event)"
+>
+  <div class="text-wrapper">
+    <div class="centered">Glissez-déposez vos photos et vidéos ici</div>
+    <h2>ou</h2>
+    <label for="uploadPicture">Choisissez-les</label>
+  </div>
+  <input
+    formControlName="picvid"
+    type="file"
+    accept="image/png, image/gif, image/jpeg"
+    id="uploadPicture"
+    (change)="onFileSelected($event)"
+    multiple
+    style="display: none"
+  />
+</div>
+
+<div *ngIf="fileHandle?.length">
+  <button
+    mat-raised-button
+    [disabled]="!fileHandle.length"
+    (click)="sendAllPicvids()"
+    class="submit"
+  >
+    Ajouter tout
+  </button>
+  <p *ngIf="onError" class="error">Au moins une ressource n'a pu être créée</p>
+  <h1>Fichiers sélectionnés:</h1>
+  <div class="candidates">
+    <mat-card *ngFor="let candidate of fileHandle">
+      <img [src]="candidate.url" />
+      <button mat-mini-fab class="remove" (click)="removeCandidate(candidate)">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </mat-card>
+  </div>
+</div>

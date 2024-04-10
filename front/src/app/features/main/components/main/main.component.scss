@@ -1,0 +1,34 @@
+.top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-left: 10px;
+  padding-right: 10px;
+
+  #newAlbum {
+    background-color: #209cee;
+    color: white;
+  }
+}
+
+h1 {
+  margin-left: 20px;
+}
+
+.myAlbums,
+.subscribedAlbums {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: stretch;
+
+  app-main-album-card {
+    overflow: hidden;
+  }
+}
+
+.noAlbum {
+  display: block;
+  text-align: center;
+  margin: auto;
+}

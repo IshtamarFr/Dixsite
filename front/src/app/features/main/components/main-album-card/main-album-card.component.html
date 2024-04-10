@@ -1,0 +1,45 @@
+<mat-card class="albumCard" (click)="openAlbum(album)">
+  <img
+    *ngIf="!album.homePicture"
+    src="../../../../../assets/logo.png"
+    alt="generic album picture"
+  />
+  <img
+    *ngIf="album.homePicture"
+    [src]="getImageURL(album.homePicture)"
+    alt="specific album picture"
+  />
+  <mat-card-content>
+    <mat-card-title>{{ album.name }}</mat-card-title>
+    <div class="dateAuthor">
+      <div>le {{ album.modifiedAt | date : "medium" }}</div>
+      <div>{{ album.owner_name }}</div>
+    </div>
+    <div>{{ album.description }}</div>
+
+    <div *ngIf="album.owner_id == userId">
+      <mat-slide-toggle
+        *ngIf="album.status !== 'MODERATED'"
+        [ngModel]="album.status === 'ONLINE'"
+        (change)="onOwnToggleChange(album)"
+        (click)="$event.stopPropagation()"
+      ></mat-slide-toggle>
+      <a
+        *ngIf="album.status === 'MODERATED'"
+        class="moderated"
+        [href]="'mailto:' + CONTACT_EMAIL"
+        (click)="$event.stopPropagation()"
+        matTooltip="Album indisponible : nous contacter"
+        >modéré</a
+      >
+    </div>
+    <button
+      *ngIf="album.owner_id != userId"
+      mat-raised-button
+      (click)="onUnsubscribe(album); $event.stopPropagation()"
+      class="unsubscribe"
+    >
+      se désinscrire
+    </button>
+  </mat-card-content>
+</mat-card>
