@@ -15,4 +15,5 @@ public interface AlbumService {
     void changeStatus(Album album,String action,boolean isAdmin) throws GenericException;
     List<Album> findAll();
     List<Album> findByStatus(String status);
+    void deleteAlbum(Album album);
 }

@@ -178,7 +178,7 @@ public class AlbumController {
 
     //TODO: OpenAPI
     @PutMapping("/album/{id}")
-    @Secured("ROLE_USER")
+    @Secured({"ROLE_USER","ROLE_ADMIN"})
     public AlbumDto modifyAlbumById(
             @PathVariable final Long id,
             @RequestHeader(value="Authorization",required=false) String jwt,
@@ -189,6 +189,24 @@ public class AlbumController {
 
         if (sender.getRoles().contains("ADMIN") || Objects.equals(sender.getId(),album.getOwner().getId())) {
             return albumMapper.toDto(albumService.modifyAlbum(album,request));
+        } else {
+            throw new GenericException("You are not allowed to modify this album");
+        }
+    }
+
+    //TODO: OpenAPI
+    @DeleteMapping("/album/{id}")
+    @Secured({"ROLE_USER","ROLE_ADMIN"})
+    public String deleteAlbumById(
+            @PathVariable final Long id,
+            @RequestHeader(value="Authorization",required=false) String jwt
+    ) throws EntityNotFoundException,GenericException {
+        UserInfo sender=userInfoService.getUserByUsername(jwtService.extractUsername(jwt.substring(7)));
+        Album album=albumService.getAlbumById(id);
+
+        if (sender.getRoles().contains("ADMIN") || Objects.equals(sender.getId(),album.getOwner().getId())) {
+            albumService.deleteAlbum(album);
+            return "Album deleted with success";
         } else {
             throw new GenericException("You are not allowed to modify this album");
         }

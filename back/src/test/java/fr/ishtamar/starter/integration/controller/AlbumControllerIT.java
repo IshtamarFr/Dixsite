@@ -514,4 +514,25 @@ class AlbumControllerIT {
                 //Then
                 .andExpect(status().isBadRequest());
     }
+
+    @Test
+    @DisplayName("When owner wants to delete their album, it works")
+    @WithMockUser(roles="USER")
+    void testDeleteAlbum() throws Exception {
+        //Given
+        userInfoRepository.save(initialUser);
+        userInfoRepository.save(initialUser2);
+        String jwt=jwtService.generateToken(initialUser.getEmail());
+        Long id=repository.save(initialAlbum).getId();
+        repository.save(initialAlbum2);
+        assertThat(repository.findAll().size()).isEqualTo(2);
+
+        //When
+        mockMvc.perform(delete("/album/"+id)
+                        .header("Authorization","Bearer "+jwt))
+
+                //Then
+                .andExpect(status().isOk());
+        assertThat(repository.findAll().size()).isEqualTo(1);
+    }
 }

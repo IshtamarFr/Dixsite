@@ -143,4 +143,10 @@ public class AlbumServiceImpl implements AlbumService {
         }
         return repository.save(album);
     }
+
+    @Override
+    public void deleteAlbum(Album album) {
+        if (album.getHomePicture()!=null) fileUploadService.deletePicvidFromFS(album.getHomePicture());
+        repository.delete(album);
+    }
 }
