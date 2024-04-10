@@ -22,6 +22,7 @@ import { MatInputModule } from '@angular/material/input';
 import { take } from 'rxjs';
 import { DialogService } from '../../../../utils/dialog.service';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @Component({
   selector: 'app-album-title',
@@ -39,6 +40,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatFormFieldModule,
     MatInputModule,
     MatTooltipModule,
+    MatExpansionModule,
   ],
   templateUrl: './album-title.component.html',
   styleUrl: './album-title.component.scss',

@@ -8,4 +8,6 @@ export interface Album {
   owner_name: string;
   createdAt: Date;
   modifiedAt: Date;
+  moderator_ids: number[];
+  moderator_names: string[];
 }
