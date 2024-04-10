@@ -212,4 +212,29 @@ public class AlbumController {
             throw new GenericException("You are not allowed to modify this album");
         }
     }
+
+    //TODO: OpenAPI
+    @PostMapping("/api/user/{userId}/album/{albumId}/moderation")
+    @Secured("ROLE_USER")
+    public String deleteAlbumById(
+            @PathVariable final Long userId,
+            @PathVariable final Long albumId,
+            @RequestBody final String moderatorEmail,
+            @RequestHeader(value="Authorization",required=false) String jwt
+    ) throws EntityNotFoundException,GenericException {
+        UserInfo sender=userInfoService.getUserByUsername(jwtService.extractUsername(jwt.substring(7)));
+        Album album=albumService.getAlbumById(albumId);
+
+        if (sender.getRoles().contains("ADMIN")) {
+            //TODO: add moderator
+            return "User " + userId + " successfully added to moderators for album " + albumId;
+        } else if (!Objects.equals(userId, sender.getId())) {
+            throw new BadCredentialsException();
+        } else if (Objects.equals(userId,album.getOwner().getId())) {
+            //TODO: add moderator
+            return "User " + userId + " successfully added to moderators for album " + albumId;
+        } else {
+            return "Action has been cancelled";
+        }
+    }
 }

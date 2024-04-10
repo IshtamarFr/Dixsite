@@ -149,4 +149,9 @@ public class AlbumServiceImpl implements AlbumService {
         if (album.getHomePicture()!=null) fileUploadService.deletePicvidFromFS(album.getHomePicture());
         repository.delete(album);
     }
+
+    @Override
+    public void addModeratorToAlbum(Album album, String moderatorEmail) throws GenericException, EntityNotFoundException {
+        //TODO: Add moderator (not self, not already existing)
+    }
 }
