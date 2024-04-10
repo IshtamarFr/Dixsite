@@ -46,6 +46,10 @@ public class Album {
     @JoinTable(name="user_album_subscription", joinColumns= @JoinColumn(name="album_id"),inverseJoinColumns = @JoinColumn(name="user_id"))
     private List<UserInfo> subscribers;
 
+    @ManyToMany
+    @JoinTable(name="user_album_moderation", joinColumns= @JoinColumn(name="album_id"),inverseJoinColumns = @JoinColumn(name="user_id"))
+    private List<UserInfo> moderators;
+
     @NotNull
     private LocalDateTime createdAt;
 

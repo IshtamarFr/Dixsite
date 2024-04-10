@@ -47,6 +47,7 @@ public class AlbumController {
         UserInfo owner=userInfoService.getUserById(userId);
 
         map.put("owned",albumMapper.toDto(owner.getOwnedAlbums()));
+        map.put("moderated",albumMapper.toDto(owner.getModeratedAlbums()));
         map.put("subscribed",albumMapper.toDto(
                 owner.getSubscribedAlbums().stream()
                         .filter(x->x.getStatus().equals("ONLINE"))

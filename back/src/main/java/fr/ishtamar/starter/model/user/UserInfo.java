@@ -51,5 +51,8 @@ public class UserInfo {
     @ManyToMany(mappedBy="subscribers")
     private List<Album> subscribedAlbums;
 
+    @ManyToMany(mappedBy="moderators")
+    private List<Album> moderatedAlbums;
+
     private Integer maxAlbums;
 }

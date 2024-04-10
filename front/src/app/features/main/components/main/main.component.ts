@@ -31,6 +31,12 @@ import { RouterModule } from '@angular/router';
 export class MainComponent implements OnInit {
   ownedAlbums: Album[] = [];
   subscribedAlbums: Album[] = [];
+  moderatedAlbums: Album[] = [];
+
+  ownedShow: string = 'remove';
+  subscribedShow: string = 'remove';
+  moderatedShow: string = 'remove';
+
   user?: User;
   userId: number = 0;
 
@@ -50,6 +56,7 @@ export class MainComponent implements OnInit {
           next: (resp: AlbumRequestResponse) => {
             this.ownedAlbums = resp.owned;
             this.subscribedAlbums = resp.subscribed;
+            this.moderatedAlbums = resp.moderated;
           },
         });
     }
@@ -59,5 +66,23 @@ export class MainComponent implements OnInit {
     this.subscribedAlbums = this.subscribedAlbums.filter(
       (x) => x.id != albumId
     );
+  }
+
+  toggleShow(collection: string) {
+    if (collection == 'owned') {
+      this.ownedShow == 'remove'
+        ? (this.ownedShow = 'add')
+        : (this.ownedShow = 'remove');
+    }
+    if (collection == 'moderated') {
+      this.moderatedShow == 'remove'
+        ? (this.moderatedShow = 'add')
+        : (this.moderatedShow = 'remove');
+    }
+    if (collection == 'subscribed') {
+      this.subscribedShow == 'remove'
+        ? (this.subscribedShow = 'add')
+        : (this.subscribedShow = 'remove');
+    }
   }
 }
