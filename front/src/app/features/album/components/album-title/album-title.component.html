@@ -100,7 +100,22 @@
       {{ album.moderator_ids.length > 1 ? "modérateurs" : "modérateur" }}
     </mat-expansion-panel-header>
     <ng-template matExpansionPanelContent>
-      List of moderators here + way to add some
+      <form [formGroup]="form2">
+        <mat-card class="addModo">
+          <mat-form-field>
+            <mat-label>Ajouter un modérateur (par email)</mat-label>
+            <input matInput formControlName="modoEmail" />
+          </mat-form-field>
+          <button
+            mat-mini-fab
+            class="button submitNew"
+            type="submit"
+            [disabled]="form2.invalid"
+          >
+            <mat-icon>send</mat-icon>
+          </button>
+        </mat-card>
+      </form>
     </ng-template>
   </mat-expansion-panel>
 

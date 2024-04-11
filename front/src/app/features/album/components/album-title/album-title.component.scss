@@ -143,3 +143,19 @@ mat-expansion-panel {
   background-color: rgb(236, 236, 236);
   margin-bottom: 10px;
 }
+
+.addModo {
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+  mat-form-field {
+    width: 80%;
+  }
+
+  .submitNew {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+  }
+}

@@ -52,6 +52,7 @@ export class AlbumTitleComponent implements OnInit {
 
   public fileHandle: FileHandle | undefined;
   public form!: FormGroup;
+  public form2!: FormGroup;
   public isHomePictureEmpty: boolean = false;
 
   constructor(
@@ -82,6 +83,13 @@ export class AlbumTitleComponent implements OnInit {
         ],
       ],
       homePicture: [''],
+    });
+
+    this.form2 = this.fb.group({
+      modoEmail: [
+        '',
+        [Validators.required, Validators.maxLength(63), Validators.email],
+      ],
     });
   }
 

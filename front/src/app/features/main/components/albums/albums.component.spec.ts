@@ -25,6 +25,8 @@ describe('AlbumsComponent', () => {
     owner_name: 'scp682 evil',
     createdAt: new Date(),
     modifiedAt: new Date(),
+    moderator_ids: [],
+    moderator_names: [],
   };
 
   beforeEach(async () => {

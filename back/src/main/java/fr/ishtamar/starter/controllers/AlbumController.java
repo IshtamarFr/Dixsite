@@ -214,24 +214,24 @@ public class AlbumController {
     }
 
     //TODO: OpenAPI
-    @PostMapping("/api/user/{userId}/album/{albumId}/moderation")
+    @PostMapping("/user/{userId}/album/{albumId}/moderation")
     @Secured("ROLE_USER")
-    public String deleteAlbumById(
+    public String AddNewValidModerator(
             @PathVariable final Long userId,
             @PathVariable final Long albumId,
-            @RequestBody final String moderatorEmail,
+            @RequestParam final String moderatorEmail,
             @RequestHeader(value="Authorization",required=false) String jwt
     ) throws EntityNotFoundException,GenericException {
         UserInfo sender=userInfoService.getUserByUsername(jwtService.extractUsername(jwt.substring(7)));
         Album album=albumService.getAlbumById(albumId);
 
         if (sender.getRoles().contains("ADMIN")) {
-            //TODO: add moderator
+            albumService.addModeratorToAlbum(album,moderatorEmail);
             return "User " + userId + " successfully added to moderators for album " + albumId;
         } else if (!Objects.equals(userId, sender.getId())) {
             throw new BadCredentialsException();
         } else if (Objects.equals(userId,album.getOwner().getId())) {
-            //TODO: add moderator
+            albumService.addModeratorToAlbum(album,moderatorEmail);
             return "User " + userId + " successfully added to moderators for album " + albumId;
         } else {
             return "Action has been cancelled";

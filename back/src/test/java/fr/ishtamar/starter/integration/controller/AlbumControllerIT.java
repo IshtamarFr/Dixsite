@@ -8,6 +8,7 @@ import fr.ishtamar.starter.model.user.UserInfo;
 import fr.ishtamar.starter.model.user.UserInfoRepository;
 import org.apache.commons.io.IOUtils;
 import org.hamcrest.Matchers;
+import org.hibernate.Hibernate;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -21,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 import static fr.ishtamar.starter.security.SecurityConfig.passwordEncoder;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -79,6 +81,7 @@ class AlbumControllerIT {
             .status("ONLINE")
             .createdAt(LocalDateTime.now())
             .modifiedAt(LocalDateTime.now())
+            .moderators(List.of())
             .build();
 
     final Album initialAlbum2=Album.builder()
@@ -534,5 +537,64 @@ class AlbumControllerIT {
                 //Then
                 .andExpect(status().isOk());
         assertThat(repository.findAll().size()).isEqualTo(1);
+    }
+
+    @Test
+    @DisplayName("When owner wants to add a moderator, it works")
+    @WithMockUser(roles="USER")
+    void testAddModerator() throws Exception {
+        //Given
+        Long userId=userInfoRepository.save(initialUser).getId();
+        userInfoRepository.save(initialUser2);
+        String jwt=jwtService.generateToken(initialUser.getEmail());
+        Long albumId=repository.save(initialAlbum).getId();
+
+
+
+        //When
+        mockMvc.perform(post("/user/"+userId+"/album/"+albumId+"/moderation")
+                .header("Authorization","Bearer "+jwt)
+                .param("moderatorEmail","test17@test.com"))
+
+                //Then
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("When owner wants to add himself as a moderator, it is bad request")
+    @WithMockUser(roles="USER")
+    void testAddMyselfAsModerator() throws Exception {
+        //Given
+        Long userId=userInfoRepository.save(initialUser).getId();
+        userInfoRepository.save(initialUser2);
+        String jwt=jwtService.generateToken(initialUser.getEmail());
+        Long albumId=repository.save(initialAlbum).getId();
+
+        //When
+        mockMvc.perform(post("/user/"+userId+"/album/"+albumId+"/moderation")
+                        .header("Authorization","Bearer "+jwt)
+                        .param("moderatorEmail","test@test.com"))
+
+                //Then
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @DisplayName("When user wants to add someone as a moderator, it is bad request")
+    @WithMockUser(roles="USER")
+    void testAddModeratorFromUser() throws Exception {
+        //Given
+        Long userId=userInfoRepository.save(initialUser).getId();
+        userInfoRepository.save(initialUser2);
+        String jwt=jwtService.generateToken(initialUser2.getEmail());
+        Long albumId=repository.save(initialAlbum).getId();
+
+        //When
+        mockMvc.perform(post("/user/"+userId+"/album/"+albumId+"/moderation")
+                        .header("Authorization","Bearer "+jwt)
+                        .param("moderatorEmail","test@test.com"))
+
+                //Then
+                .andExpect(status().isBadRequest());
     }
 }
