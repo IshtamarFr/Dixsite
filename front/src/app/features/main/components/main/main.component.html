@@ -28,6 +28,7 @@
 <div class="myAlbums" *ngIf="ownedShow == 'remove'">
   <app-main-album-card
     *ngFor="let album of ownedAlbums"
+    [context]="'owner'"
     [album]="album"
     [userId]="userId"
   />
@@ -47,6 +48,7 @@
   <div class="myAlbums" *ngIf="moderatedShow == 'remove'">
     <app-main-album-card
       *ngFor="let album of moderatedAlbums"
+      [context]="'moderated'"
       [album]="album"
       [userId]="userId"
     />
@@ -63,6 +65,7 @@
 <div class="subscribedAlbums" *ngIf="subscribedShow == 'remove'">
   <app-main-album-card
     *ngFor="let album of subscribedAlbums"
+    [context]="'subscribed'"
     [album]="album"
     [userId]="userId"
     (unsubscribeEmitter)="onUnsubscribe(album.id)"

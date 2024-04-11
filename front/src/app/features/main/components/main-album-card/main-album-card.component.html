@@ -20,13 +20,13 @@
     </mat-card-content>
     <mat-card-actions>
       <mat-slide-toggle
-        *ngIf="album.status !== 'MODERATED' && album.owner_id == userId"
+        *ngIf="album.status !== 'MODERATED' && context == 'owner'"
         [ngModel]="album.status === 'ONLINE'"
         (change)="onOwnToggleChange(album)"
         (click)="$event.stopPropagation()"
       ></mat-slide-toggle>
       <a
-        *ngIf="album.status === 'MODERATED' && album.owner_id == userId"
+        *ngIf="album.status === 'MODERATED' && context == 'owner'"
         class="moderated"
         [href]="'mailto:' + CONTACT_EMAIL"
         (click)="$event.stopPropagation()"
@@ -34,9 +34,7 @@
         >modéré</a
       >
       <button
-        *ngIf="
-          !album.moderator_ids.includes(userId) && album.owner_id != userId
-        "
+        *ngIf="context == 'subscribed'"
         mat-raised-button
         (click)="onUnsubscribe(album); $event.stopPropagation()"
         class="unsubscribe"
@@ -44,7 +42,7 @@
         se désinscrire
       </button>
       <button
-        *ngIf="album.moderator_ids.includes(userId) && album.owner_id != userId"
+        *ngIf="context == 'moderated'"
         mat-raised-button
         (click)="onUnmoderate(album); $event.stopPropagation()"
         class="unsubscribe"

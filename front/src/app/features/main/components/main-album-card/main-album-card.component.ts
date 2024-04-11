@@ -29,6 +29,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 export class MainAlbumCardComponent {
   @Input() album!: Album;
   @Input() userId!: number;
+  @Input() context!: string;
   @Output() unsubscribeEmitter = new EventEmitter<number>();
   CONTACT_EMAIL = AppSettings.CONTACT_EMAIL;
 
