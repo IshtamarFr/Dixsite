@@ -216,7 +216,7 @@ public class AlbumController {
     //TODO: OpenAPI
     @PostMapping("/user/{userId}/album/{albumId}/moderation")
     @Secured("ROLE_USER")
-    public String AddNewValidModerator(
+    public AlbumDto AddNewValidModerator(
             @PathVariable final Long userId,
             @PathVariable final Long albumId,
             @RequestParam final String moderatorEmail,
@@ -226,15 +226,13 @@ public class AlbumController {
         Album album=albumService.getAlbumById(albumId);
 
         if (sender.getRoles().contains("ADMIN")) {
-            albumService.addModeratorToAlbum(album,moderatorEmail);
-            return "User " + userId + " successfully added to moderators for album " + albumId;
+            return albumMapper.toDto(albumService.addModeratorToAlbum(album,moderatorEmail));
         } else if (!Objects.equals(userId, sender.getId())) {
             throw new BadCredentialsException();
         } else if (Objects.equals(userId,album.getOwner().getId())) {
-            albumService.addModeratorToAlbum(album,moderatorEmail);
-            return "User " + userId + " successfully added to moderators for album " + albumId;
+            return albumMapper.toDto(albumService.addModeratorToAlbum(album,moderatorEmail));
         } else {
-            return "Action has been cancelled";
+            throw new GenericException("You are not allowed to add a moderator to this album");
         }
     }
 }

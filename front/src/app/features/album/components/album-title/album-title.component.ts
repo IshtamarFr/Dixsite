@@ -174,4 +174,21 @@ export class AlbumTitleComponent implements OnInit {
       this.fileHandle = undefined;
     }
   }
+
+  addModo(): void {
+    this.albumService
+      .addModo(
+        this.album.owner_id,
+        this.album.id,
+        this.form2.get('modoEmail')!.value
+      )
+      .pipe(take(1))
+      .subscribe({
+        next: (resp) => {
+          this.album.moderator_ids = resp.moderator_ids;
+          this.album.moderator_names = resp.moderator_names;
+        },
+      });
+    this.form2.get('modoEmail')!.reset();
+  }
 }

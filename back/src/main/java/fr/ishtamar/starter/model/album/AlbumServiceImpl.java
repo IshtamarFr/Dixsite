@@ -151,7 +151,7 @@ public class AlbumServiceImpl implements AlbumService {
     }
 
     @Override
-    public void addModeratorToAlbum(Album album, String moderatorEmail) throws GenericException, EntityNotFoundException {
+    public Album addModeratorToAlbum(Album album, String moderatorEmail) throws GenericException, EntityNotFoundException {
         UserInfo moderator=userService.getUserByUsername(moderatorEmail);
 
         if (!Objects.equals(album.getOwner(),moderator)) {
@@ -159,6 +159,7 @@ public class AlbumServiceImpl implements AlbumService {
                 throw new GenericException("This moderator is already registered");
             } else {
                 album.getModerators().add(moderator);
+                return repository.save(album);
             }
         } else {
             throw new GenericException("You cannot add yourself as a moderator");

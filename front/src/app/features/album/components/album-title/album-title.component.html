@@ -94,13 +94,31 @@
     </form>
   </div>
 
+  <mat-card-actions *ngIf="isAdminTriggered">
+    <button
+      mat-raised-button
+      (click)="modifyAlbum()"
+      [disabled]="form.invalid || !form.dirty"
+    >
+      Modifier
+    </button>
+    <div class>
+      <button mat-raised-button routerLink="picvid" id="newPicvid">
+        <mat-icon>add_circle</mat-icon> Photo / Vidéo
+      </button>
+      <button mat-raised-button routerLink="picvids" id="newPicvids">
+        <mat-icon>add_circle</mat-icon> Multiple
+      </button>
+    </div>
+  </mat-card-actions>
+
   <mat-expansion-panel *ngIf="isAdminTriggered">
     <mat-expansion-panel-header>
       {{ album.moderator_ids.length }}
       {{ album.moderator_ids.length > 1 ? "modérateurs" : "modérateur" }}
     </mat-expansion-panel-header>
     <ng-template matExpansionPanelContent>
-      <form [formGroup]="form2">
+      <form [formGroup]="form2" (submit)="addModo()">
         <mat-card class="addModo">
           <mat-form-field>
             <mat-label>Ajouter un modérateur (par email)</mat-label>
@@ -118,18 +136,4 @@
       </form>
     </ng-template>
   </mat-expansion-panel>
-
-  <mat-card-actions *ngIf="isAdminTriggered">
-    <button mat-raised-button (click)="modifyAlbum()" [disabled]="form.invalid">
-      Modifier
-    </button>
-    <div class>
-      <button mat-raised-button routerLink="picvid" id="newPicvid">
-        <mat-icon>add_circle</mat-icon> Photo / Vidéo
-      </button>
-      <button mat-raised-button routerLink="picvids" id="newPicvids">
-        <mat-icon>add_circle</mat-icon> Multiple
-      </button>
-    </div>
-  </mat-card-actions>
 </mat-card>

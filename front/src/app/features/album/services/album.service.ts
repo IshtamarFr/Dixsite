@@ -70,4 +70,16 @@ export class AlbumService {
   public getAlbumById(id: number): Observable<Album> {
     return this.httpClient.get<Album>(`api/album/${id}`);
   }
+
+  public addModo(
+    id: number,
+    idAlbum: number,
+    modoEmail: string
+  ): Observable<Album> {
+    return this.httpClient.post<Album>(
+      `${this.pathService}/${id}/album/${idAlbum}/moderation`,
+      null,
+      { params: { modoEmail } }
+    );
+  }
 }
