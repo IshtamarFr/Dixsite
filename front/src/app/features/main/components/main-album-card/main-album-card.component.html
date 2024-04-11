@@ -9,37 +9,48 @@
     [src]="getImageURL(album.homePicture)"
     alt="specific album picture"
   />
-  <mat-card-content>
-    <mat-card-title>{{ album.name }}</mat-card-title>
-    <div class="dateAuthor">
-      <div>le {{ album.modifiedAt | date : "medium" }}</div>
-      <div>{{ album.owner_name }}</div>
-    </div>
-    <div>{{ album.description }}</div>
-
-    <div *ngIf="album.owner_id == userId">
+  <div class="right">
+    <mat-card-content>
+      <mat-card-title>{{ album.name }}</mat-card-title>
+      <div class="dateAuthor">
+        <div>le {{ album.modifiedAt | date : "medium" }}</div>
+        <div>{{ album.owner_name }}</div>
+      </div>
+      <div class="roomForButton">{{ album.description }}</div>
+    </mat-card-content>
+    <mat-card-actions>
       <mat-slide-toggle
-        *ngIf="album.status !== 'MODERATED'"
+        *ngIf="album.status !== 'MODERATED' && album.owner_id == userId"
         [ngModel]="album.status === 'ONLINE'"
         (change)="onOwnToggleChange(album)"
         (click)="$event.stopPropagation()"
       ></mat-slide-toggle>
       <a
-        *ngIf="album.status === 'MODERATED'"
+        *ngIf="album.status === 'MODERATED' && album.owner_id == userId"
         class="moderated"
         [href]="'mailto:' + CONTACT_EMAIL"
         (click)="$event.stopPropagation()"
         matTooltip="Album indisponible : nous contacter"
         >modéré</a
       >
-    </div>
-    <button
-      *ngIf="album.owner_id != userId"
-      mat-raised-button
-      (click)="onUnsubscribe(album); $event.stopPropagation()"
-      class="unsubscribe"
-    >
-      se désinscrire
-    </button>
-  </mat-card-content>
+      <button
+        *ngIf="
+          !album.moderator_ids.includes(userId) && album.owner_id != userId
+        "
+        mat-raised-button
+        (click)="onUnsubscribe(album); $event.stopPropagation()"
+        class="unsubscribe"
+      >
+        se désinscrire
+      </button>
+      <button
+        *ngIf="album.moderator_ids.includes(userId) && album.owner_id != userId"
+        mat-raised-button
+        (click)="onUnmoderate(album); $event.stopPropagation()"
+        class="unsubscribe"
+      >
+        ne plus modérer
+      </button>
+    </mat-card-actions>
+  </div>
 </mat-card>

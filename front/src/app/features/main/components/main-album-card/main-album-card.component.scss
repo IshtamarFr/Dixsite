@@ -7,10 +7,17 @@
   margin: 10px;
   padding: 10px;
 
+  .right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
   mat-card-content {
     width: 220px;
     word-wrap: break-word;
     text-align: justify;
+    padding-top: 0px;
   }
 
   .dateAuthor {
@@ -33,17 +40,20 @@
     border-radius: 15px;
   }
 
-  mat-slide-toggle,
-  .unsubscribe,
-  .moderated {
-    position: absolute;
-    bottom: 5px;
-    right: 5px;
-  }
+  mat-card-actions {
+    padding: 2px;
 
-  .unsubscribe {
-    background-color: red;
-    color: white;
+    mat-slide-toggle,
+    .unsubscribe,
+    .moderated {
+      margin-right: 0px;
+      margin-left: auto;
+      margin-top: auto;
+    }
+    .unsubscribe {
+      background-color: red;
+      color: white;
+    }
   }
 }
 

@@ -71,4 +71,8 @@ export class MainAlbumCardComponent {
   openAlbum(album: Album): void {
     this.router.navigate(['/album', album.id]);
   }
+
+  onUnmoderate(album: Album): void {
+    window.alert('WIP');
+  }
 }
