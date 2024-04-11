@@ -95,11 +95,7 @@
   </div>
 
   <mat-card-actions *ngIf="isAdminTriggered">
-    <button
-      mat-raised-button
-      (click)="modifyAlbum()"
-      [disabled]="form.invalid || !form.dirty"
-    >
+    <button mat-raised-button (click)="modifyAlbum()" [disabled]="form.invalid">
       Modifier
     </button>
     <div class>
