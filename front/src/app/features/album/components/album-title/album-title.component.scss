@@ -159,3 +159,37 @@ mat-expansion-panel {
     right: 5px;
   }
 }
+
+.currentModos {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  .currentModo {
+    overflow: none;
+    width: 230px;
+    height: 40px;
+    border-radius: 20px;
+
+    .removeModo {
+      position: absolute;
+      left: 0px;
+      background-color: red;
+      border-color: black;
+      border-style: solid;
+      border-width: medium;
+    }
+
+    mat-card-content {
+      margin-left: 30px;
+      height: 40px;
+      padding-top: 10px;
+      font-weight: bold;
+      font-size: 1.3em;
+    }
+  }
+
+  .currentModo + .currentModo {
+    margin-left: 10px;
+  }
+}

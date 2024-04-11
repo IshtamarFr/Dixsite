@@ -191,4 +191,8 @@ export class AlbumTitleComponent implements OnInit {
       });
     this.form2.get('moderatorEmail')!.reset();
   }
+
+  removeModo(moderator_id: number): void {
+    window.alert('WIP moderator ' + moderator_id);
+  }
 }

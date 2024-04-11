@@ -134,6 +134,23 @@
           </button>
         </mat-card>
       </form>
+
+      <div class="currentModos">
+        <mat-card
+          *ngFor="let moderator_id of album.moderator_ids; index as i"
+          class="currentModo"
+        >
+          <button
+            mat-mini-fab
+            class="removeModo"
+            (click)="removeModo(moderator_id)"
+            matTooltip="Désactiver"
+          >
+            <mat-icon>cancel</mat-icon>
+          </button>
+          <mat-card-content>{{ album.moderator_names[i] }}</mat-card-content>
+        </mat-card>
+      </div>
     </ng-template>
   </mat-expansion-panel>
 </mat-card>
