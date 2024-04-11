@@ -74,12 +74,12 @@ export class AlbumService {
   public addModo(
     id: number,
     idAlbum: number,
-    modoEmail: string
+    moderatorEmail: string
   ): Observable<Album> {
     return this.httpClient.post<Album>(
       `${this.pathService}/${id}/album/${idAlbum}/moderation`,
       null,
-      { params: { modoEmail } }
+      { params: { moderatorEmail } }
     );
   }
 }

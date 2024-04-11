@@ -25,5 +25,5 @@ public class AlbumDto {
     private List<Long> picvid_ids;
     private Long quota;
     private List<Long> moderator_ids;
-    private List<Long> moderator_names;
+    private List<String> moderator_names;
 }

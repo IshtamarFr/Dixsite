@@ -86,7 +86,7 @@ export class AlbumTitleComponent implements OnInit {
     });
 
     this.form2 = this.fb.group({
-      modoEmail: [
+      moderatorEmail: [
         '',
         [Validators.required, Validators.maxLength(63), Validators.email],
       ],
@@ -180,7 +180,7 @@ export class AlbumTitleComponent implements OnInit {
       .addModo(
         this.album.owner_id,
         this.album.id,
-        this.form2.get('modoEmail')!.value
+        this.form2.get('moderatorEmail')!.value
       )
       .pipe(take(1))
       .subscribe({
@@ -189,6 +189,6 @@ export class AlbumTitleComponent implements OnInit {
           this.album.moderator_names = resp.moderator_names;
         },
       });
-    this.form2.get('modoEmail')!.reset();
+    this.form2.get('moderatorEmail')!.reset();
   }
 }
