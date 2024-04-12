@@ -150,6 +150,7 @@ export class AlbumTitleComponent implements OnInit {
       .subscribe({
         next: (album) => {
           this.album = album;
+          this.fileHandle = undefined;
         },
       });
   }

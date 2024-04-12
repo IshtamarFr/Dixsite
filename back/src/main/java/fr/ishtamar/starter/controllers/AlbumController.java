@@ -215,13 +215,13 @@ public class AlbumController {
 
     //TODO: OpenAPI
     @PostMapping("/user/{userId}/album/{albumId}/moderation")
-    @Secured("ROLE_USER")
+    @Secured({"ROLE_USER", "ROLE_ADMIN"})
     public AlbumDto AddNewValidModerator(
             @PathVariable final Long userId,
             @PathVariable final Long albumId,
             @RequestParam final String moderatorEmail,
             @RequestHeader(value="Authorization",required=false) String jwt
-    ) throws EntityNotFoundException,GenericException {
+    ) throws EntityNotFoundException,GenericException, BadCredentialsException {
         UserInfo sender=userInfoService.getUserByUsername(jwtService.extractUsername(jwt.substring(7)));
         Album album=albumService.getAlbumById(albumId);
 
@@ -233,6 +233,32 @@ public class AlbumController {
             return albumMapper.toDto(albumService.addModeratorToAlbum(album,moderatorEmail));
         } else {
             throw new GenericException("You are not allowed to add a moderator to this album");
+        }
+    }
+
+    //TODO: OpenAPI
+    @DeleteMapping("/user/{userId}/album/{albumId}/moderation/{moderatorId}")
+    @Secured({"ROLE_USER","ROLE_ADMIN"})
+    public AlbumDto RemoveModerator(
+            @PathVariable final Long userId,
+            @PathVariable final Long albumId,
+            @PathVariable final Long moderatorId,
+            @RequestHeader(value="Authorization",required=false) String jwt
+    ) throws EntityNotFoundException,GenericException, BadCredentialsException {
+        UserInfo sender=userInfoService.getUserByUsername(jwtService.extractUsername(jwt.substring(7)));
+        Album album=albumService.getAlbumById(albumId);
+        UserInfo moderator=userInfoService.getUserById(moderatorId);
+
+        if (sender.getRoles().contains("ADMIN")) {
+            return albumMapper.toDto(albumService.removeModeratorFromAlbum(album,moderator));
+        } else if (!Objects.equals(moderatorId, sender.getId())) {
+            return albumMapper.toDto(albumService.removeModeratorFromAlbum(album,moderator));
+        } else if (!Objects.equals(userId, sender.getId())) {
+            throw new BadCredentialsException();
+        } else if (Objects.equals(userId,album.getOwner().getId())) {
+            return albumMapper.toDto(albumService.removeModeratorFromAlbum(album,moderator));
+        } else {
+            throw new GenericException("You are not allowed to remove a moderator to this album");
         }
     }
 }

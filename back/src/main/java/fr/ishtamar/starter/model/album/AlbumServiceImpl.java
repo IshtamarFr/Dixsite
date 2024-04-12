@@ -165,4 +165,9 @@ public class AlbumServiceImpl implements AlbumService {
             throw new GenericException("You cannot add yourself as a moderator");
         }
     }
+
+    @Override
+    public Album removeModeratorFromAlbum(Album album, UserInfo moderator) throws GenericException {
+        return null;
+    }
 }

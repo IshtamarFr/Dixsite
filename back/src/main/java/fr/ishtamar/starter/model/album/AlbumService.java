@@ -17,4 +17,5 @@ public interface AlbumService {
     List<Album> findByStatus(String status);
     void deleteAlbum(Album album);
     Album addModeratorToAlbum(Album album,String moderatorEmail) throws GenericException, EntityNotFoundException;
+    Album removeModeratorFromAlbum(Album album,UserInfo moderator) throws GenericException;
 }
