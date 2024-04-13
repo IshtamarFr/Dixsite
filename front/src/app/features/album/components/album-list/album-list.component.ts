@@ -40,6 +40,7 @@ export class AlbumListComponent implements OnInit {
   public albumId: number = 0;
   public album?: Album;
   public isAdmin: boolean = false;
+  public isModo: boolean = false;
   public isAdminPanelShown: boolean = false;
   public picvids: Picvid[] = [];
 
@@ -77,11 +78,18 @@ export class AlbumListComponent implements OnInit {
       .subscribe({
         next: (resp) => {
           this.album = resp;
-          if (
-            this.sessionService.user?.roles.includes('ADMIN') ||
-            this.sessionService.user?.id === this.album?.owner_id
-          )
-            this.isAdmin = true;
+          if (this.sessionService.user) {
+            if (
+              this.sessionService.user.roles.includes('ADMIN') ||
+              this.sessionService.user.id === this.album?.owner_id
+            ) {
+              this.isAdmin = true;
+              this.isModo = true;
+            }
+
+            if (this.album?.moderator_ids.includes(this.sessionService.user.id))
+              this.isModo = true;
+          }
         },
         error: () => {
           this.ngZone.run(() => {

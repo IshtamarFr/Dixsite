@@ -3,12 +3,13 @@
   <mat-icon>arrow_back</mat-icon>
 </button>
 
-<mat-slide-toggle *ngIf="isAdmin" [(ngModel)]="isAdminPanelShown"
+<mat-slide-toggle *ngIf="isModo" [(ngModel)]="isAdminPanelShown"
   >Administration</mat-slide-toggle
 >
 <app-album-title
   *ngIf="album"
   [album]="album"
+  [isAdminOrOwner]="isAdmin"
   [isAdminTriggered]="isAdminPanelShown"
 />
 

@@ -6,8 +6,8 @@ import fr.ishtamar.starter.model.album.*;
 import fr.ishtamar.starter.security.JwtService;
 import fr.ishtamar.starter.model.user.UserInfo;
 import fr.ishtamar.starter.model.user.UserInfoRepository;
-import jakarta.transaction.Transactional;
 import org.hamcrest.Matchers;
+import org.hibernate.Hibernate;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -553,6 +553,9 @@ class AlbumControllerIT {
 
                 //Then
                 .andExpect(status().isOk());
+        Album album=repository.findById(albumId).get();
+        Hibernate.initialize(album);
+        assertThat(album.getModerators().size()).isEqualTo(1);
     }
 
     @Test
@@ -610,6 +613,9 @@ class AlbumControllerIT {
 
                 //Then
                 .andExpect(status().isOk());
+        Album album=repository.findById(albumId).get();
+        Hibernate.initialize(album);
+        assertThat(album.getModerators().size()).isEqualTo(0);
 
     }
 
@@ -649,6 +655,9 @@ class AlbumControllerIT {
 
                 //Then
                 .andExpect(status().isOk());
+        Album album=repository.findById(albumId).get();
+        Hibernate.initialize(album);
+        assertThat(album.getModerators().size()).isEqualTo(0);
 
     }
 
@@ -670,6 +679,9 @@ class AlbumControllerIT {
 
                 //Then
                 .andExpect(status().isBadRequest());
+        Album album=repository.findById(albumId).get();
+        Hibernate.initialize(album);
+        assertThat(album.getModerators().size()).isEqualTo(2);
 
     }
 }

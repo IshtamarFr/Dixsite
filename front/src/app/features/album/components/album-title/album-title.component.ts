@@ -48,6 +48,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 export class AlbumTitleComponent implements OnInit {
   @Input() album!: Album;
   @Input() isAdminTriggered: boolean = false;
+  @Input() isAdminOrOwner: boolean = false;
   @Input() nbPicvids: number = 0;
 
   public fileHandle: FileHandle | undefined;
