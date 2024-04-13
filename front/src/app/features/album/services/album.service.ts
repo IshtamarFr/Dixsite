@@ -38,26 +38,26 @@ export class AlbumService {
 
   public changeStatus(
     id: number,
-    idAlbum: number,
+    albumId: number,
     action: string
   ): Observable<string> {
     return this.httpClient.put(
-      `${this.pathService}/${id}/album/${idAlbum}/status`,
+      `${this.pathService}/${id}/album/${albumId}/status`,
       { action },
       { responseType: 'text' }
     );
   }
 
-  public unSubscribeToAlbum(id: number, idAlbum: number): Observable<string> {
+  public unSubscribeToAlbum(id: number, albumId: number): Observable<string> {
     return this.httpClient.delete(
-      `${this.pathService}/${id}/album/${idAlbum}/subscribe`,
+      `${this.pathService}/${id}/album/${albumId}/subscribe`,
       { responseType: 'text' }
     );
   }
 
-  public subscribeToAlbum(id: number, idAlbum: number): Observable<string> {
+  public subscribeToAlbum(id: number, albumId: number): Observable<string> {
     return this.httpClient.post(
-      `${this.pathService}/${id}/album/${idAlbum}/subscribe`,
+      `${this.pathService}/${id}/album/${albumId}/subscribe`,
       null,
       { responseType: 'text' }
     );
@@ -73,13 +73,23 @@ export class AlbumService {
 
   public addModo(
     id: number,
-    idAlbum: number,
+    albumId: number,
     moderatorEmail: string
   ): Observable<Album> {
     return this.httpClient.post<Album>(
-      `${this.pathService}/${id}/album/${idAlbum}/moderation`,
+      `${this.pathService}/${id}/album/${albumId}/moderation`,
       null,
       { params: { moderatorEmail } }
+    );
+  }
+
+  public removeModo(
+    id: number,
+    albumId: number,
+    moderatorId: number
+  ): Observable<Album> {
+    return this.httpClient.delete<Album>(
+      `${this.pathService}/${id}/album/${albumId}/moderation/${moderatorId}`
     );
   }
 }

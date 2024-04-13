@@ -68,6 +68,10 @@ export class MainComponent implements OnInit {
     );
   }
 
+  onUnmoderate(albumId: number): void {
+    this.moderatedAlbums = this.moderatedAlbums.filter((x) => x.id != albumId);
+  }
+
   toggleShow(collection: string) {
     if (collection == 'owned') {
       this.ownedShow == 'remove'

@@ -74,6 +74,13 @@ export class MainAlbumCardComponent {
   }
 
   onUnmoderate(album: Album): void {
-    window.alert('WIP');
+    this.albumService
+      .removeModo(album.owner_id, album.id, this.userId)
+      .pipe(take(1))
+      .subscribe({
+        next: () => {
+          this.unsubscribeEmitter.emit(album.id);
+        },
+      });
   }
 }

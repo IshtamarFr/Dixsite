@@ -51,6 +51,7 @@
       [context]="'moderated'"
       [album]="album"
       [userId]="userId"
+      (unsubscribeEmitter)="onUnmoderate(album.id)"
     />
   </div>
 </div>
