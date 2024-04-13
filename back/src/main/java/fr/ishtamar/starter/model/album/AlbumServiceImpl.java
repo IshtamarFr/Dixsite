@@ -168,6 +168,11 @@ public class AlbumServiceImpl implements AlbumService {
 
     @Override
     public Album removeModeratorFromAlbum(Album album, UserInfo moderator) throws GenericException {
-        return null;
+        if (album.getModerators().contains(moderator)) {
+            album.getModerators().remove(moderator);
+            return repository.save(album);
+        } else {
+            throw new GenericException("This moderator was not registered");
+        }
     }
 }

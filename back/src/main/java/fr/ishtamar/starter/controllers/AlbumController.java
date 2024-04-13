@@ -244,18 +244,18 @@ public class AlbumController {
             @PathVariable final Long albumId,
             @PathVariable final Long moderatorId,
             @RequestHeader(value="Authorization",required=false) String jwt
-    ) throws EntityNotFoundException,GenericException, BadCredentialsException {
+    ) throws EntityNotFoundException,GenericException {
         UserInfo sender=userInfoService.getUserByUsername(jwtService.extractUsername(jwt.substring(7)));
         Album album=albumService.getAlbumById(albumId);
         UserInfo moderator=userInfoService.getUserById(moderatorId);
 
         if (sender.getRoles().contains("ADMIN")) {
+            //Admin can always remove moderator
             return albumMapper.toDto(albumService.removeModeratorFromAlbum(album,moderator));
-        } else if (!Objects.equals(moderatorId, sender.getId())) {
-            return albumMapper.toDto(albumService.removeModeratorFromAlbum(album,moderator));
-        } else if (!Objects.equals(userId, sender.getId())) {
-            throw new BadCredentialsException();
-        } else if (Objects.equals(userId,album.getOwner().getId())) {
+        } else if (!Objects.equals(userId, album.getOwner().getId())) {
+            throw new GenericException("Incorrect album path");
+        } else if (Objects.equals(moderatorId, sender.getId()) || Objects.equals(userId, sender.getId())) {
+            //Moderator can remove self or owner can remove all
             return albumMapper.toDto(albumService.removeModeratorFromAlbum(album,moderator));
         } else {
             throw new GenericException("You are not allowed to remove a moderator to this album");

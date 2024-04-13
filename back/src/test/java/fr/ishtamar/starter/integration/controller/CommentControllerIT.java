@@ -52,21 +52,21 @@ public class CommentControllerIT {
 
     final ObjectMapper mapper=new ObjectMapper();
 
-    UserInfo initialUser=UserInfo.builder()
+    final UserInfo initialUser=UserInfo.builder()
             .name("Ishta")
             .email("test@test.com")
             .password(passwordEncoder().encode("123456"))
             .roles("ROLE_USER")
             .build();
 
-    UserInfo initialUser2=UserInfo.builder()
+    final UserInfo initialUser2=UserInfo.builder()
             .name("Pal")
             .email("test17@test.com")
             .password(passwordEncoder().encode("654321"))
             .roles("ROLE_USER")
             .build();
 
-    Album initialAlbum=Album.builder()
+    final Album initialAlbum=Album.builder()
             .name("Dixee")
             .owner(initialUser)
             .description("La plus belle")
@@ -75,7 +75,7 @@ public class CommentControllerIT {
             .modifiedAt(LocalDateTime.now())
             .build();
 
-    Picvid initialPicvid=Picvid.builder()
+    final Picvid initialPicvid=Picvid.builder()
             .album(initialAlbum)
             .createdAt(LocalDateTime.now())
             .modifiedAt(LocalDateTime.now())
@@ -83,7 +83,7 @@ public class CommentControllerIT {
             .fileSize(123456L)
             .build();
 
-    Comment initialComment1=Comment.builder()
+    final Comment initialComment1=Comment.builder()
             .content("Super commentaire")
             .picvid(initialPicvid)
             .owner(initialUser)
@@ -91,7 +91,7 @@ public class CommentControllerIT {
             .status("ENABLED")
             .build();
 
-    Comment initialComment2=Comment.builder()
+    final Comment initialComment2=Comment.builder()
             .content("Je n'aime pas")
             .picvid(initialPicvid)
             .owner(initialUser2)
@@ -99,7 +99,7 @@ public class CommentControllerIT {
             .status("ENABLED")
             .build();
 
-    Comment initialAnswer=Comment.builder()
+    final Comment initialAnswer=Comment.builder()
             .content("Je n'aime pas")
             .picvid(initialPicvid)
             .owner(initialUser)

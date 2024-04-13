@@ -6,19 +6,16 @@ import fr.ishtamar.starter.model.album.*;
 import fr.ishtamar.starter.security.JwtService;
 import fr.ishtamar.starter.model.user.UserInfo;
 import fr.ishtamar.starter.model.user.UserInfoRepository;
-import org.apache.commons.io.IOUtils;
+import jakarta.transaction.Transactional;
 import org.hamcrest.Matchers;
-import org.hibernate.Hibernate;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -27,7 +24,6 @@ import java.util.List;
 import static fr.ishtamar.starter.security.SecurityConfig.passwordEncoder;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.containsString;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -50,7 +46,7 @@ class AlbumControllerIT {
 
     final ObjectMapper mapper=new ObjectMapper();
 
-    final static UserInfo initialUser=UserInfo.builder()
+    final UserInfo initialUser=UserInfo.builder()
             .name("Ishta")
             .email("test@test.com")
             .password(passwordEncoder().encode("123456"))
@@ -58,7 +54,7 @@ class AlbumControllerIT {
             .maxAlbums(10)
             .build();
 
-    final static UserInfo initialUser2=UserInfo.builder()
+    final UserInfo initialUser2=UserInfo.builder()
             .name("Pal")
             .email("test17@test.com")
             .password(passwordEncoder().encode("654321"))
@@ -74,7 +70,7 @@ class AlbumControllerIT {
             .maxAlbums(10)
             .build();
 
-    final static Album initialAlbum=Album.builder()
+    final Album initialAlbum=Album.builder()
             .name("Dixee")
             .owner(initialUser)
             .description("La plus belle")
@@ -94,7 +90,7 @@ class AlbumControllerIT {
             .subscribers(new ArrayList<>())
             .build();
 
-    final static Album initialAlbum3=Album.builder()
+    final Album initialAlbum3=Album.builder()
             .name("Freud")
             .owner(initialUser)
             .description("R.I.P")
@@ -103,7 +99,6 @@ class AlbumControllerIT {
             .modifiedAt(LocalDateTime.now())
             .build();
 
-    @BeforeEach
     @AfterEach
     void clean() {
         repository.deleteAll();
@@ -480,7 +475,7 @@ class AlbumControllerIT {
 
     @Test
     @DisplayName("When admin wants to update another's album, it is OK")
-    @WithMockUser(roles="USER")
+    @WithMockUser(roles="ADMIN")
     void testUpdateAlbumByAdmin() throws Exception {
         //Given
         userInfoRepository.save(initialUser);
@@ -596,5 +591,85 @@ class AlbumControllerIT {
 
                 //Then
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @DisplayName("When owner wants to remove a moderator, it works")
+    @WithMockUser(roles="USER")
+    void testRemoveModerator() throws Exception {
+        //Given
+        Long userId=userInfoRepository.save(initialUser).getId();
+        Long moderatorId=userInfoRepository.save(initialUser2).getId();
+        String jwt=jwtService.generateToken(initialUser.getEmail());
+        initialAlbum.setModerators(List.of(initialUser2));
+        Long albumId=repository.save(initialAlbum).getId();
+
+        //When
+        mockMvc.perform(delete("/user/"+userId+"/album/"+albumId+"/moderation/"+moderatorId)
+                        .header("Authorization","Bearer "+jwt))
+
+                //Then
+                .andExpect(status().isOk());
+
+    }
+
+    @Test
+    @DisplayName("When owner wants to remove inexistant moderator, it is bad request")
+    @WithMockUser(roles="USER")
+    void testRemoveInexistantModerator() throws Exception {
+        //Given
+        Long userId=userInfoRepository.save(initialUser).getId();
+        Long moderatorId=userInfoRepository.save(initialUser2).getId();
+        String jwt=jwtService.generateToken(initialUser.getEmail());
+        Long albumId=repository.save(initialAlbum).getId();
+
+        //When
+        mockMvc.perform(delete("/user/"+userId+"/album/"+albumId+"/moderation/"+moderatorId)
+                        .header("Authorization","Bearer "+jwt))
+
+                //Then
+                .andExpect(status().isBadRequest());
+
+    }
+
+    @Test
+    @DisplayName("When moderator wants to remove themselves, it works")
+    @WithMockUser(roles="USER")
+    void testRemoveSelfAsModerator() throws Exception {
+        //Given
+        Long userId=userInfoRepository.save(initialUser).getId();
+        Long moderatorId=userInfoRepository.save(initialUser2).getId();
+        String jwt=jwtService.generateToken(initialUser2.getEmail());
+        initialAlbum.setModerators(List.of(initialUser2));
+        Long albumId=repository.save(initialAlbum).getId();
+
+        //When
+        mockMvc.perform(delete("/user/"+userId+"/album/"+albumId+"/moderation/"+moderatorId)
+                        .header("Authorization","Bearer "+jwt))
+
+                //Then
+                .andExpect(status().isOk());
+
+    }
+
+    @Test
+    @DisplayName("When moderator wants to remove another moderator, it is bad request")
+    @WithMockUser(roles="USER")
+    void testRemoveOtherModeratorAsModerator() throws Exception {
+        //Given
+        Long userId=userInfoRepository.save(initialUser).getId();
+        userInfoRepository.save(initialUser2);
+        Long moderatorId=userInfoRepository.save(initialAdmin).getId();
+        String jwt=jwtService.generateToken(initialUser2.getEmail());
+        initialAlbum.setModerators(List.of(initialUser2,initialAdmin));
+        Long albumId=repository.save(initialAlbum).getId();
+
+        //When
+        mockMvc.perform(delete("/user/"+userId+"/album/"+albumId+"/moderation/"+moderatorId)
+                        .header("Authorization","Bearer "+jwt))
+
+                //Then
+                .andExpect(status().isBadRequest());
+
     }
 }

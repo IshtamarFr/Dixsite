@@ -47,21 +47,21 @@ class PicvidControllerIT {
 
     File folder;
 
-    final static UserInfo initialUser=UserInfo.builder()
+    final UserInfo initialUser=UserInfo.builder()
             .name("Ishta")
             .email("test@test.com")
             .password(passwordEncoder().encode("123456"))
             .roles("ROLE_USER")
             .build();
 
-    final static UserInfo initialUser2=UserInfo.builder()
+    final UserInfo initialUser2=UserInfo.builder()
             .name("Pal")
             .email("test17@test.com")
             .password(passwordEncoder().encode("654321"))
             .roles("ROLE_USER")
             .build();
 
-    final static Album initialAlbum=Album.builder()
+    final Album initialAlbum=Album.builder()
             .name("Dixee")
             .owner(initialUser)
             .quota(200000000L)
@@ -71,7 +71,7 @@ class PicvidControllerIT {
             .modifiedAt(LocalDateTime.now())
             .build();
 
-    final static Album initialAlbum2=Album.builder()
+    final Album initialAlbum2=Album.builder()
             .name("Ozie")
             .owner(initialUser)
             .quota(200000000L)
