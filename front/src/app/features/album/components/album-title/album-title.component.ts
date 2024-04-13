@@ -194,6 +194,14 @@ export class AlbumTitleComponent implements OnInit {
   }
 
   removeModo(moderator_id: number): void {
-    window.alert('WIP moderator ' + moderator_id);
+    this.albumService
+      .removeModo(this.album.owner_id, this.album.id, moderator_id)
+      .pipe(take(1))
+      .subscribe({
+        next: (resp) => {
+          this.album.moderator_ids = resp.moderator_ids;
+          this.album.moderator_names = resp.moderator_names;
+        },
+      });
   }
 }
