@@ -682,6 +682,5 @@ class AlbumControllerIT {
         Album album=repository.findById(albumId).get();
         Hibernate.initialize(album);
         assertThat(album.getModerators().size()).isEqualTo(2);
-
     }
 }

@@ -188,7 +188,10 @@ public class AlbumController {
         UserInfo sender=userInfoService.getUserByUsername(jwtService.extractUsername(jwt.substring(7)));
         Album album=albumService.getAlbumById(id);
 
-        if (sender.getRoles().contains("ADMIN") || Objects.equals(sender.getId(),album.getOwner().getId())) {
+        if (sender.getRoles().contains("ADMIN")
+                || Objects.equals(sender.getId(),album.getOwner().getId())
+                || album.getModerators().contains(sender)
+        ) {
             return albumMapper.toDto(albumService.modifyAlbum(album,request));
         } else {
             throw new GenericException("You are not allowed to modify this album");

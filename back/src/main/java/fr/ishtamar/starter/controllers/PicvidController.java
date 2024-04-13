@@ -63,7 +63,7 @@ public class PicvidController {
         UserInfo sender=userInfoService.getUserByUsername(jwtService.extractUsername(jwt.substring(7)));
         Album album=albumService.getAlbumById(id);
 
-        if(Objects.equals(sender.getId(), album.getOwner().getId())){
+        if(Objects.equals(sender.getId(), album.getOwner().getId()) || album.getModerators().contains(sender)){
             picvidService.createNewPicvid(album, request);
             return "Picvid has been added with success";
         }else{
@@ -87,7 +87,7 @@ public class PicvidController {
         UserInfo sender=userInfoService.getUserByUsername(jwtService.extractUsername(jwt.substring(7)));
         Album album=albumService.getAlbumById(id);
 
-        if(Objects.equals(sender.getId(), album.getOwner().getId())){
+        if(Objects.equals(sender.getId(), album.getOwner().getId()) || album.getModerators().contains(sender)){
             picvidService.createNewPicvids(album, pictures);
             return "Picvids have been added with success";
         }else{
@@ -166,7 +166,10 @@ public class PicvidController {
         Picvid picvid=picvidService.getPicvidById(picvidId);
 
         if (Objects.equals(picvid.getAlbum().getId(),id)){
-            if (Objects.equals(album.getOwner(),user) || user.getRoles().contains("ADMIN")) {
+            if (Objects.equals(album.getOwner(),user)
+                    || user.getRoles().contains("ADMIN")
+                    || album.getModerators().contains(user)
+            ) {
                 picvidService.deletePicvidById(picvid.getId());
                 return "Picvid " + picvidId + " successfully deleted";
             } else {

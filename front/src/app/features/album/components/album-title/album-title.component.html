@@ -2,7 +2,7 @@
   <button
     mat-mini-fab
     class="remove"
-    *ngIf="isAdminTriggered"
+    *ngIf="isAdminTriggered && isAdminOrOwner"
     (click)="deleteAlbum(); $event.stopPropagation()"
     matTooltip="Effacer l'album"
   >
@@ -108,7 +108,7 @@
     </div>
   </mat-card-actions>
 
-  <mat-expansion-panel *ngIf="isAdminTriggered">
+  <mat-expansion-panel *ngIf="isAdminTriggered && isAdminOrOwner">
     <mat-expansion-panel-header>
       {{ album.moderator_ids.length }}
       {{ album.moderator_ids.length > 1 ? "modérateurs" : "modérateur" }}
