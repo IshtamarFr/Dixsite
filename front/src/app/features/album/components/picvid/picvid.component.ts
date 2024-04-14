@@ -21,6 +21,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CreateCommentRequest } from '../../interfaces/create-comment-request.interface';
 import { PicvidCommentComponent } from '../picvid-comment/picvid-comment.component';
+import { PicvidTitleComponent } from '../picvid-title/picvid-title.component';
 
 @Component({
   selector: 'app-picvid',
@@ -36,6 +37,7 @@ import { PicvidCommentComponent } from '../picvid-comment/picvid-comment.compone
     ReactiveFormsModule,
     MatFormFieldModule,
     PicvidCommentComponent,
+    PicvidTitleComponent,
   ],
   templateUrl: './picvid.component.html',
   styleUrl: './picvid.component.scss',
