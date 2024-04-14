@@ -10,6 +10,7 @@ import { AppSettings } from '../../../../utils/app-settings';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { DialogService } from '../../../../utils/dialog.service';
 
 @Component({
   selector: 'app-main-album-card',
@@ -35,7 +36,8 @@ export class MainAlbumCardComponent {
 
   public constructor(
     private router: Router,
-    private albumService: AlbumService
+    private albumService: AlbumService,
+    private dialogService: DialogService
   ) {}
 
   getImageURL(imageId: string): string {
@@ -74,12 +76,24 @@ export class MainAlbumCardComponent {
   }
 
   onUnmoderate(album: Album): void {
-    this.albumService
-      .removeModo(album.owner_id, album.id, this.userId)
+    this.dialogService
+      .openConfirmDialog(
+        'Etes-vous sûr de vouloir cesser de modérer cet album ?',
+        true
+      )
       .pipe(take(1))
       .subscribe({
-        next: () => {
-          this.unsubscribeEmitter.emit(album.id);
+        next: (confirmed) => {
+          if (confirmed) {
+            this.albumService
+              .removeModo(album.owner_id, album.id, this.userId)
+              .pipe(take(1))
+              .subscribe({
+                next: () => {
+                  this.unsubscribeEmitter.emit(album.id);
+                },
+              });
+          }
         },
       });
   }

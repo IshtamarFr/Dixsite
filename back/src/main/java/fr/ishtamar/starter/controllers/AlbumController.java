@@ -122,7 +122,7 @@ public class AlbumController {
 
     @Operation(summary = "owner/admin changes album status",responses={
             @ApiResponse(responseCode="200", description = "Album status changed"),
-            @ApiResponse(responseCode="400", description = "User is illegitimate or album status can't bne modified"),
+            @ApiResponse(responseCode="400", description = "User is illegitimate or album status can't be modified"),
             @ApiResponse(responseCode="403", description = "Access unauthorized"),
             @ApiResponse(responseCode="404", description = "User or album is not found")
     })
@@ -177,7 +177,12 @@ public class AlbumController {
         return albumMapper.toDto(albumService.getAlbumById(id));
     }
 
-    //TODO: OpenAPI
+    @Operation(summary = "owner/moderator/admin changes album (description, home picture, etc.)",responses={
+            @ApiResponse(responseCode="200", description = "Album changed"),
+            @ApiResponse(responseCode="400", description = "User is illegitimate to modify album"),
+            @ApiResponse(responseCode="403", description = "Access unauthorized"),
+            @ApiResponse(responseCode="404", description = "User or album is not found")
+    })
     @PutMapping("/album/{id}")
     @Secured({"ROLE_USER","ROLE_ADMIN"})
     public AlbumDto modifyAlbumById(
@@ -198,7 +203,12 @@ public class AlbumController {
         }
     }
 
-    //TODO: OpenAPI
+    @Operation(summary = "deletes an album, and all its contents",responses={
+            @ApiResponse(responseCode="200", description = "Album deleted with success"),
+            @ApiResponse(responseCode="400", description = "User is illegitimate to modify album"),
+            @ApiResponse(responseCode="403", description = "Access unauthorized"),
+            @ApiResponse(responseCode="404", description = "User or album is not found")
+    })
     @DeleteMapping("/album/{id}")
     @Secured({"ROLE_USER","ROLE_ADMIN"})
     public String deleteAlbumById(
@@ -216,7 +226,12 @@ public class AlbumController {
         }
     }
 
-    //TODO: OpenAPI
+    @Operation(summary = "Add a new moderator to album by email, if they exist",responses={
+            @ApiResponse(responseCode="200", description = "Moderator added with success"),
+            @ApiResponse(responseCode="400", description = "User is illegitimate to add moderator"),
+            @ApiResponse(responseCode="403", description = "Access unauthorized"),
+            @ApiResponse(responseCode="404", description = "User or album is not found")
+    })
     @PostMapping("/user/{userId}/album/{albumId}/moderation")
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
     public AlbumDto AddNewValidModerator(
@@ -239,7 +254,12 @@ public class AlbumController {
         }
     }
 
-    //TODO: OpenAPI
+    @Operation(summary = "Remove a moderator from album (or self from any album)",responses={
+            @ApiResponse(responseCode="200", description = "Moderator removed with success"),
+            @ApiResponse(responseCode="400", description = "User is illegitimate to modify album"),
+            @ApiResponse(responseCode="403", description = "Access unauthorized"),
+            @ApiResponse(responseCode="404", description = "User or album is not found")
+    })
     @DeleteMapping("/user/{userId}/album/{albumId}/moderation/{moderatorId}")
     @Secured({"ROLE_USER","ROLE_ADMIN"})
     public AlbumDto RemoveModerator(

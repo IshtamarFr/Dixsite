@@ -1,8 +1,8 @@
 export interface Picvid {
   id: number;
   name: string;
-  dateTime: Date;
-  dateTimeExif: Date;
+  dateTime?: Date;
+  dateTimeExif?: Date;
   takenLocation: string;
   fileLocation: string;
   description: string;
