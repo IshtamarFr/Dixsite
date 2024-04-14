@@ -67,7 +67,10 @@ export class AlbumListComponent implements OnInit {
       .getAllPicvidsByAlbumId(this.albumId)
       .pipe(take(1))
       .subscribe({
-        next: (resp) => (this.picvids = resp),
+        next: (resp) =>
+          (this.picvids = resp.sort((a, b) =>
+            this.bestDate(a) > this.bestDate(b) ? -1 : 1
+          )),
       });
   }
 
