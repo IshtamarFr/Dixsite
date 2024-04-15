@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MenuComponent } from '../../../../components/menu/menu.component';
 import { CommonModule } from '@angular/common';
 import {
@@ -16,9 +16,14 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { FileHandle } from '../../../../interfaces/file-handle.interface';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import {
+  DateAdapter,
+  MAT_DATE_LOCALE,
+  MatNativeDateModule,
+} from '@angular/material/core';
 import { PicvidService } from '../../services/picvid.service';
 import { DragSingleDirective } from '../../../../directives/drag-single.directive';
+import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
 
 @Component({
   selector: 'app-form-picvid',
@@ -37,7 +42,11 @@ import { DragSingleDirective } from '../../../../directives/drag-single.directiv
     CommonModule,
     DragSingleDirective,
   ],
-  providers: [MatDatepickerModule],
+  providers: [
+    MatDatepickerModule,
+    { provide: MAT_DATE_LOCALE, useValue: 'fr' },
+    provideMomentDateAdapter(),
+  ],
   templateUrl: './form-picvid.component.html',
   styleUrl: './form-picvid.component.scss',
 })
@@ -51,10 +60,14 @@ export class FormPicvidComponent implements OnInit {
     private fb: FormBuilder,
     private sanitizer: DomSanitizer,
     private picvidService: PicvidService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private _adapter: DateAdapter<any>,
+    @Inject(MAT_DATE_LOCALE) private _locale: string
   ) {}
 
   ngOnInit(): void {
+    this._locale = 'fr';
+    this._adapter.setLocale(this._locale);
     this.albumId = this.activatedRoute.snapshot.params['albumId'];
 
     this.form = this.fb.group({
