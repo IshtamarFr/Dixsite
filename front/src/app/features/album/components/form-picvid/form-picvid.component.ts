@@ -127,8 +127,8 @@ export class FormPicvidComponent implements OnInit {
       this.form.get('takenLocation')?.value != ''
     )
       formData.append('takenLocation', this.form.get('takenLocation')!.value);
-    if (this.form.get('date') && this.form.get('date')?.value != '')
-      formData.append('date', this.form.get('date')!.value);
+    if (this.form.get('date') && this.form.get('date')!.value != '')
+      formData.append('date', this.form.get('date')!.value.toDate());
 
     this.picvidService.createSinglePicvid(this.albumId, formData).subscribe({
       next: () => {

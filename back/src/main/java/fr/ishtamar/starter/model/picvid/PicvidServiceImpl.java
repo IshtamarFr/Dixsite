@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -53,7 +54,7 @@ public class PicvidServiceImpl implements PicvidService {
                 picvid.setDateTimeExif(fileUploadResponse.getDateTimeExif());
             if (request.getName() != null) picvid.setName(request.getName());
             if (request.getDescription() != null) picvid.setDescription(request.getDescription());
-            if (request.getDateTime() != null) picvid.setDateTime(request.getDateTime());
+            if (request.getDate() != null) picvid.setDateTime(request.getDate());
             if (request.getTakenLocation() != null) picvid.setTakenLocation(request.getTakenLocation());
 
             repository.save(picvid);

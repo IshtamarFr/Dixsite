@@ -18,7 +18,7 @@ public class CreatePicvidRequest {
     @Size(max=63)
     private String name;
 
-    private Date dateTime;
+    private Date date;
 
     @NotNull
     private MultipartFile picvid;
