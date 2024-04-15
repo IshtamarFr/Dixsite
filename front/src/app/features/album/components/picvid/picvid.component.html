@@ -8,6 +8,9 @@
   />
   <div class="picvidAdditional">
     <div>
+      <mat-slide-toggle *ngIf="isModo" [(ngModel)]="isAdminPanelShown"
+        >Administration</mat-slide-toggle
+      >
       <app-picvid-title [picvid]="picvid" />
 
       <div class="picvidMessages">

@@ -1,6 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { MenuComponent } from '../../../../components/menu/menu.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Picvid } from '../../interfaces/picvid.interface';
 import { PicvidService } from '../../services/picvid.service';
 import { Observable, Subscription, fromEvent, take } from 'rxjs';
@@ -22,6 +22,9 @@ import { MatInputModule } from '@angular/material/input';
 import { CreateCommentRequest } from '../../interfaces/create-comment-request.interface';
 import { PicvidCommentComponent } from '../picvid-comment/picvid-comment.component';
 import { PicvidTitleComponent } from '../picvid-title/picvid-title.component';
+import { AlbumService } from '../../services/album.service';
+import { SessionService } from '../../../../services/session.service';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-picvid',
@@ -38,6 +41,7 @@ import { PicvidTitleComponent } from '../picvid-title/picvid-title.component';
     MatFormFieldModule,
     PicvidCommentComponent,
     PicvidTitleComponent,
+    MatSlideToggleModule,
   ],
   templateUrl: './picvid.component.html',
   styleUrl: './picvid.component.scss',
@@ -47,6 +51,9 @@ export class PicvidComponent implements OnInit, OnDestroy {
   public albumId: number = 0;
   public picvid!: Picvid;
   public myId?: number = 0;
+
+  public isModo: boolean = false;
+  public isAdminPanelShown: boolean = false;
 
   screenWidth: number = window.innerWidth;
   resizeObservable$!: Observable<Event>;
@@ -63,13 +70,18 @@ export class PicvidComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private picvidService: PicvidService,
     private commentService: CommentService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private albumService: AlbumService,
+    private router: Router,
+    private ngZone: NgZone,
+    private sessionService: SessionService
   ) {}
 
   ngOnInit(): void {
     this.albumId = this.activatedRoute.snapshot.params['albumId'];
     this.picvidId = this.activatedRoute.snapshot.params['picvidId'];
 
+    this.initAllPicvids();
     this.picvidService
       .getPicvidById(this.albumId, this.picvidId)
       .pipe(take(1))
@@ -85,6 +97,32 @@ export class PicvidComponent implements OnInit, OnDestroy {
     });
 
     this.refreshComments();
+  }
+
+  initAllPicvids(): void {
+    this.albumService
+      .getAlbumById(this.albumId)
+      .pipe(take(1))
+      .subscribe({
+        next: (resp) => {
+          if (this.sessionService.user) {
+            if (
+              this.sessionService.user.roles.includes('ADMIN') ||
+              this.sessionService.user.id === resp.owner_id
+            ) {
+              this.isModo = true;
+            }
+
+            if (resp.moderator_ids.includes(this.sessionService.user.id))
+              this.isModo = true;
+          }
+        },
+        error: () => {
+          this.ngZone.run(() => {
+            this.router.navigate(['/main']);
+          });
+        },
+      });
   }
 
   ngOnDestroy(): void {

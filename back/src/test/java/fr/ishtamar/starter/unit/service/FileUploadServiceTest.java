@@ -65,8 +65,8 @@ class FileUploadServiceTest {
     }
 
     @Test
-    @Disabled
-    @DisplayName("When I delete a file, it is deleted from folger")
+    //@Disabled
+    @DisplayName("When I delete a file, it is deleted from folder")
     void testDeleteFromFSWorks() throws Exception {
         //Given
         folder= ResourceUtils.getFile(filesUpload);

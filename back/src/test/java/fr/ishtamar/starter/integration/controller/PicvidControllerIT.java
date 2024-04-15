@@ -166,7 +166,7 @@ class PicvidControllerIT {
 
     @Test
     @WithMockUser(roles="USER")
-    @Disabled
+    //@Disabled
     @DisplayName("When I try to upload correct multiple picvids to my album, it works")
     void testCreateNewMultiplePicvids() throws Exception {
         //Given
