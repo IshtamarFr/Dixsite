@@ -1,4 +1,4 @@
-<mat-card class="mainContainer">
+<mat-card class="mainContainer" *ngIf="!isAdminTriggered">
   <mat-card-title>{{ picvid.name }}</mat-card-title>
   <mat-card-subtitle>
     <span>Le {{ bestDate(picvid) | date : "short" }}</span>
@@ -7,4 +7,41 @@
   <mat-card-content *ngIf="picvid.description">{{
     picvid.description
   }}</mat-card-content>
+</mat-card>
+
+<mat-card class="mainContainer" *ngIf="isAdminTriggered">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <mat-form-field>
+      <mat-label>Nommer la ressource</mat-label>
+      <input matInput formControlName="name" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description"></textarea>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Lieu</mat-label>
+      <input matInput formControlName="takenLocation" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Date</mat-label>
+      <input matInput formControlName="date" [matDatepicker]="picker" />
+      <mat-hint>jj/mm/aaaa</mat-hint>
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="form.invalid"
+      data-cy="submit"
+    >
+      Créer
+    </button>
+  </form>
 </mat-card>

@@ -11,7 +11,10 @@
       <mat-slide-toggle *ngIf="isModo" [(ngModel)]="isAdminPanelShown"
         >Administration</mat-slide-toggle
       >
-      <app-picvid-title [picvid]="picvid" />
+      <app-picvid-title
+        [picvid]="picvid"
+        [isAdminTriggered]="isAdminPanelShown"
+      />
 
       <div class="picvidMessages">
         <div>

@@ -35,6 +35,7 @@ describe('PicvidTitleComponent', () => {
     fixture = TestBed.createComponent(PicvidTitleComponent);
     component = fixture.componentInstance;
     component.picvid = mockPicvid;
+    component.isAdminTriggered = false;
     fixture.detectChanges();
   });
 
