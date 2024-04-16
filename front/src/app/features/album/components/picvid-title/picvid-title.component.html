@@ -34,14 +34,28 @@
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
 
+    <mat-divider />
+    <mat-card-content>
+      <div class="dates">
+        <div>Créé le : {{ picvid.createdAt | date : "medium" }}</div>
+        <div
+          *ngIf="picvid.dateTimeExif"
+          matTooltip="date fournie par le fichier lui-même"
+        >
+          Date EXIF : {{ picvid.dateTimeExif | date : "medium" }}
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-divider />
+
     <button
       mat-raised-button
       color="primary"
       type="submit"
-      [disabled]="form.invalid"
+      [disabled]="form.invalid || !form.dirty"
       data-cy="submit"
     >
-      Créer
+      Modifier
     </button>
   </form>
 </mat-card>

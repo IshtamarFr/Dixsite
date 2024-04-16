@@ -16,6 +16,8 @@ import {
 } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-picvid-title',
@@ -30,6 +32,8 @@ import { MatButtonModule } from '@angular/material/button';
     FormsModule,
     MatInputModule,
     MatButtonModule,
+    MatDividerModule,
+    MatTooltipModule,
   ],
   providers: [
     MatDatepickerModule,

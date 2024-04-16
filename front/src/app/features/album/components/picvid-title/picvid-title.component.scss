@@ -1,0 +1,40 @@
+mat-card {
+  mat-card-subtitle,
+  mat-card-content {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    mat-form-field {
+      width: 70%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    mat-divider {
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+
+    .dates {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      align-items: stretch;
+    }
+
+    button {
+      margin-top: 10px;
+      max-width: 250px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}

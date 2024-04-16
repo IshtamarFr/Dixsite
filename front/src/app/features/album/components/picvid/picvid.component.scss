@@ -9,11 +9,11 @@
   height: 85vh;
 
   .picvidRessource {
+    object-fit: contain;
     max-width: 50%;
     height: auto;
     margin-left: 5px;
     margin-right: 5px;
-    border: solid thin;
     border-radius: 20px;
   }
 
@@ -27,12 +27,12 @@
   flex-direction: column;
 
   .picvidRessource {
+    object-fit: contain;
     max-height: 60vh;
     max-width: 98%;
     margin: auto;
     margin-top: 5px;
     margin-bottom: 5px;
-    border: solid thin;
     border-radius: 10px;
   }
 
@@ -58,6 +58,11 @@ mat-form-field {
   mat-card-subtitle,
   mat-card-content {
     padding: 3px;
+  }
+
+  mat-slide-toggle {
+    margin-bottom: 7px;
+    margin-top: 3px;
   }
 }
 
