@@ -118,11 +118,12 @@ public class PicvidServiceImpl implements PicvidService {
 
     @Override
     public Picvid modifyPicvid(Picvid picvid, ModifyPicvidRequest request) {
-        if (request.getName()!=null)
+        System.out.println(request);
+        if (request.getName()!=null && !request.getName().equals("null"))
             picvid.setName(request.getName()); else picvid.setName(null);
-        if (request.getTakenLocation()!=null)
+        if (request.getTakenLocation()!=null && !request.getTakenLocation().equals("null"))
             picvid.setTakenLocation(request.getTakenLocation()); else picvid.setTakenLocation(null);
-        if (request.getDescription()!=null)
+        if (request.getDescription()!=null && !request.getDescription().equals("null"))
             picvid.setDescription(request.getDescription()); else picvid.setDescription(null);
         if (!request.isDateDeleted())
             picvid.setDateTime(request.getDate()); else request.setDate(null);

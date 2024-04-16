@@ -60,7 +60,10 @@ export class PicvidTitleComponent implements OnInit {
   ngOnInit(): void {
     this._locale = 'fr';
     this._adapter.setLocale(this._locale);
+    this.reinitForm();
+  }
 
+  reinitForm(): void {
     this.form = this.fb.group({
       name: [
         this.picvid.name,
@@ -112,6 +115,7 @@ export class PicvidTitleComponent implements OnInit {
       .subscribe({
         next: (resp) => {
           this.picvid = resp;
+          this.reinitForm();
         },
       });
   }
