@@ -179,4 +179,27 @@ public class PicvidController {
             throw new GenericException("This picture mismatches this album's id");
         }
     }
+
+    //TODO: OpenAPI
+    @PutMapping("/picvid/{picvidId}")
+    @Secured("ROLE_USER")
+    public String modifyPicvid(
+            @RequestHeader(value="Authorization",required=false) String jwt,
+            @PathVariable final Long id,
+            @PathVariable final Long picvidId,
+            @Valid ModifyPicvidRequest request
+    ) throws Exception {
+        UserInfo sender=userInfoService.getUserByUsername(jwtService.extractUsername(jwt.substring(7)));
+        Album album=albumService.getAlbumById(id);
+        Picvid picvid=picvidService.getPicvidById(picvidId);
+
+        if (!Objects.equals(album,picvid.getAlbum())) {
+            throw new GenericException("This picvid Id mismatches this album Id");
+        } else if(Objects.equals(sender.getId(), album.getOwner().getId()) || album.getModerators().contains(sender)){
+            picvidService.modifyPicvid(picvid, request);
+            return "Picvid information have been modified with success";
+        }else{
+            throw new GenericException("Only the owner can modify pictures or videos to album");
+        }
+    }
 }

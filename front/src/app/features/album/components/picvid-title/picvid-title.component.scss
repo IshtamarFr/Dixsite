@@ -1,4 +1,10 @@
 mat-card {
+  mat-card-title {
+    padding-left: 5px;
+    padding-right: 5px;
+    text-align: center;
+  }
+
   mat-card-subtitle,
   mat-card-content {
     padding-left: 5px;

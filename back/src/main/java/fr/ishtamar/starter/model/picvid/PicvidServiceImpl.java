@@ -115,4 +115,14 @@ public class PicvidServiceImpl implements PicvidService {
             throw new GenericException("Quota exceeded");
         }
     }
+
+    @Override
+    public Picvid modifyPicvid(Picvid picvid, ModifyPicvidRequest request) {
+        picvid.setName(request.getName());
+        picvid.setTakenLocation(request.getTakenLocation());
+        picvid.setDescription(request.getDescription());
+        picvid.setDateTime(request.getDate());
+
+        return repository.save(picvid);
+    }
 }

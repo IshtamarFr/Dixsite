@@ -60,10 +60,22 @@ export class PicvidTitleComponent implements OnInit {
     this._adapter.setLocale(this._locale);
 
     this.form = this.fb.group({
-      name: ['', [Validators.minLength(3), Validators.maxLength(63)]],
-      description: ['', [Validators.minLength(3), Validators.maxLength(255)]],
-      takenLocation: ['', [Validators.minLength(3), Validators.maxLength(63)]],
-      date: ['', [Validators.minLength(3), Validators.maxLength(255)]],
+      name: [
+        this.picvid.name,
+        [Validators.minLength(3), Validators.maxLength(63)],
+      ],
+      description: [
+        this.picvid.description,
+        [Validators.minLength(3), Validators.maxLength(255)],
+      ],
+      takenLocation: [
+        this.picvid.takenLocation,
+        [Validators.minLength(3), Validators.maxLength(63)],
+      ],
+      date: [
+        this.picvid.dateTime,
+        [Validators.minLength(3), Validators.maxLength(255)],
+      ],
     });
   }
 

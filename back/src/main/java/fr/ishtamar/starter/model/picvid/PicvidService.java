@@ -13,4 +13,5 @@ public interface PicvidService {
     void createNewPicvids(Album album, List<MultipartFile> picvids) throws Exception;
     List<Picvid> getAllPicvidsByAlbum(Album album);
     String deletePicvidById(final Long id) throws EntityNotFoundException;
+    Picvid modifyPicvid(Picvid picvid,ModifyPicvidRequest request);
 }
