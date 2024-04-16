@@ -5,6 +5,7 @@
 <span class="title">Albums :</span>
 
 <mat-paginator
+  *ngIf="albums.length > 20"
   [length]="albums.length"
   [pageSize]="paginator.pageSize"
   [pageSizeOptions]="[20, 50, 100]"
@@ -14,7 +15,15 @@
   aria-label="Select page"
 />
 <div class="album-list">
-  <mat-card *ngFor="let album of albums" (click)="openAlbum(album)">
+  <mat-card
+    *ngFor="
+      let album of albums
+        | slice
+          : paginator.pageIndex * paginator.pageSize
+          : (paginator.pageIndex + 1) * paginator.pageSize
+    "
+    (click)="openAlbum(album)"
+  >
     <img
       *ngIf="!album.homePicture"
       src="../../../../../assets/logo.png"

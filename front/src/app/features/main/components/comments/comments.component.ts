@@ -78,6 +78,7 @@ export class CommentsComponent implements OnInit {
   }
 
   onTabChange(e: MatTabChangeEvent): void {
+    this.paginator.pageIndex = 0;
     switch (e.index) {
       case 0:
         this.paginator.length = this.myComments.length;

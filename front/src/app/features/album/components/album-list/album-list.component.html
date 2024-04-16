@@ -14,6 +14,7 @@
 />
 
 <mat-paginator
+  *ngIf="picvids.length > 20"
   [length]="picvids.length"
   [pageSize]="paginator.pageSize"
   [pageSizeOptions]="[20, 50, 100]"

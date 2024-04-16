@@ -5,6 +5,7 @@
 <span class="title">Commentaires</span>
 
 <mat-paginator
+  *ngIf="paginator.length! > 20"
   [length]="paginator.length"
   [pageSize]="paginator.pageSize"
   [pageSizeOptions]="[20, 50, 100]"
@@ -18,7 +19,12 @@
     <ng-template matTabContent>
       <div class="collection">
         <app-mycomment
-          *ngFor="let comment of myComments"
+          *ngFor="
+            let comment of myComments
+              | slice
+                : paginator.pageIndex * paginator.pageSize
+                : (paginator.pageIndex + 1) * paginator.pageSize
+          "
           [comment]="comment"
           class="Link"
           (click)="goTo(comment)"
@@ -30,7 +36,12 @@
     <ng-template matTabContent>
       <div class="collection">
         <app-mycomment
-          *ngFor="let comment of myAnswers"
+          *ngFor="
+            let comment of myAnswers
+              | slice
+                : paginator.pageIndex * paginator.pageSize
+                : (paginator.pageIndex + 1) * paginator.pageSize
+          "
           [comment]="comment"
           class="Link"
           (click)="goTo(comment)"
@@ -42,7 +53,12 @@
     <ng-template matTabContent>
       <div class="collection">
         <app-mycomment
-          *ngFor="let comment of myAlbumsComments"
+          *ngFor="
+            let comment of myAlbumsComments
+              | slice
+                : paginator.pageIndex * paginator.pageSize
+                : (paginator.pageIndex + 1) * paginator.pageSize
+          "
           [comment]="comment"
           class="Link"
           (click)="goTo(comment)"
