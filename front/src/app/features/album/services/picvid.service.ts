@@ -62,4 +62,15 @@ export class PicvidService {
       { responseType: 'text' }
     );
   }
+
+  public modifyPicvid(
+    albumId: number,
+    picvidId: number,
+    request: FormData
+  ): Observable<Picvid> {
+    return this.httpClient.put<Picvid>(
+      `${this.pathService}/${albumId}/picvid/${picvidId}`,
+      request
+    );
+  }
 }
