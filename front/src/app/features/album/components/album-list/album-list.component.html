@@ -25,13 +25,13 @@
 />
 <div class="albumList">
   <mat-card
+    class="picvid"
     *ngFor="
       let picvid of picvids
         | slice
           : paginator.pageIndex * paginator.pageSize
           : (paginator.pageIndex + 1) * paginator.pageSize
     "
-    class="picvid"
     (click)="goToPicvid(picvid)"
   >
     <mat-card-subtitle>{{

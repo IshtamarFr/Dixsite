@@ -17,6 +17,7 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { CustomMatPaginator } from '../../../../interfaces/custom-mat-paginator.interface';
 import { AlbumTitleComponent } from '../album-title/album-title.component';
 import { MatCardModule } from '@angular/material/card';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-album-list',
@@ -32,6 +33,7 @@ import { MatCardModule } from '@angular/material/card';
     MatPaginatorModule,
     AlbumTitleComponent,
     MatCardModule,
+    MatTabsModule,
   ],
   templateUrl: './album-list.component.html',
   styleUrl: './album-list.component.scss',
@@ -73,7 +75,6 @@ export class AlbumListComponent implements OnInit {
             this.bestDate(a) > this.bestDate(b) ? -1 : 1
           );
           this.getUniqueYears(resp);
-          console.log(this.uniqueYears);
         },
       });
   }
