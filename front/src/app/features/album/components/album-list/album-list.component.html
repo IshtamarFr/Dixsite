@@ -24,31 +24,32 @@
   aria-label="Select page"
 />
 <div class="albumList">
-  <mat-card
-    class="picvid"
+  <div
     *ngFor="
       let picvid of picvids
         | slice
           : paginator.pageIndex * paginator.pageSize
           : (paginator.pageIndex + 1) * paginator.pageSize
     "
-    (click)="goToPicvid(picvid)"
+    class="pre-picvid"
   >
-    <mat-card-subtitle>{{
-      bestDate(picvid) | date : "short"
-    }}</mat-card-subtitle>
-    <img
-      [src]="getImageURL(picvid.fileLocation)"
-      alt="specific album picture"
-    />
-    <mat-card-title>{{ picvid.name }}</mat-card-title>
-    <button
-      mat-mini-fab
-      class="remove"
-      *ngIf="isAdminPanelShown"
-      (click)="deletePicvid(picvid); $event.stopPropagation()"
-    >
-      <mat-icon>cancel</mat-icon>
-    </button>
-  </mat-card>
+    <mat-card class="picvid" (click)="goToPicvid(picvid)">
+      <mat-card-subtitle>{{
+        bestDate(picvid) | date : "short"
+      }}</mat-card-subtitle>
+      <img
+        [src]="getImageURL(picvid.fileLocation)"
+        alt="specific album picture"
+      />
+      <mat-card-title>{{ picvid.name }}</mat-card-title>
+      <button
+        mat-mini-fab
+        class="remove"
+        *ngIf="isAdminPanelShown"
+        (click)="deletePicvid(picvid); $event.stopPropagation()"
+      >
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </mat-card>
+  </div>
 </div>
