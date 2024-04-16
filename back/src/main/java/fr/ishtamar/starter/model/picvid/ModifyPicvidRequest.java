@@ -17,6 +17,7 @@ public class ModifyPicvidRequest {
     private String name;
 
     private Date date;
+    private boolean isDateDeleted;
 
     @Size(max=63)
     private String takenLocation;

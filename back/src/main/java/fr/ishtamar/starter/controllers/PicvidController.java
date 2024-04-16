@@ -183,7 +183,7 @@ public class PicvidController {
     //TODO: OpenAPI
     @PutMapping("/picvid/{picvidId}")
     @Secured("ROLE_USER")
-    public String modifyPicvid(
+    public PicvidDto modifyPicvid(
             @RequestHeader(value="Authorization",required=false) String jwt,
             @PathVariable final Long id,
             @PathVariable final Long picvidId,
@@ -196,8 +196,7 @@ public class PicvidController {
         if (!Objects.equals(album,picvid.getAlbum())) {
             throw new GenericException("This picvid Id mismatches this album Id");
         } else if(Objects.equals(sender.getId(), album.getOwner().getId()) || album.getModerators().contains(sender)){
-            picvidService.modifyPicvid(picvid, request);
-            return "Picvid information have been modified with success";
+            return picvidMapper.toDto(picvidService.modifyPicvid(picvid, request));
         }else{
             throw new GenericException("Only the owner can modify pictures or videos to album");
         }

@@ -18,6 +18,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { PicvidService } from '../../services/picvid.service';
 
 @Component({
   selector: 'app-picvid-title',
@@ -52,7 +53,8 @@ export class PicvidTitleComponent implements OnInit {
   constructor(
     private _adapter: DateAdapter<any>,
     @Inject(MAT_DATE_LOCALE) private _locale: string,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private picvidService: PicvidService
   ) {}
 
   ngOnInit(): void {
@@ -90,6 +92,27 @@ export class PicvidTitleComponent implements OnInit {
   }
 
   submit(): void {
-    window.alert('WIP');
+    const formData = new FormData();
+    formData.append('name', this.form.get('name')!.value);
+    formData.append('description', this.form.get('description')!.value);
+    formData.append('takenLocation', this.form.get('takenLocation')!.value);
+
+    if (
+      this.form.get('date') &&
+      this.form.get('date')!.value != null &&
+      this.form.get('date')!.value != ''
+    ) {
+      formData.append('date', this.form.get('date')!.value.toDate());
+    } else {
+      formData.append('isDateDeleted', 'true');
+    }
+
+    this.picvidService
+      .modifyPicvid(this.picvid.album_id, this.picvid.id, formData)
+      .subscribe({
+        next: (resp) => {
+          this.picvid = resp;
+        },
+      });
   }
 }
