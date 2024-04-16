@@ -43,6 +43,7 @@ export class AlbumListComponent implements OnInit {
   public isModo: boolean = false;
   public isAdminPanelShown: boolean = false;
   public picvids: Picvid[] = [];
+  public uniqueYears: number[] = [];
 
   public paginator: CustomMatPaginator = {
     pageSize: 20,
@@ -67,10 +68,13 @@ export class AlbumListComponent implements OnInit {
       .getAllPicvidsByAlbumId(this.albumId)
       .pipe(take(1))
       .subscribe({
-        next: (resp) =>
-          (this.picvids = resp.sort((a, b) =>
+        next: (resp) => {
+          this.picvids = resp.sort((a, b) =>
             this.bestDate(a) > this.bestDate(b) ? -1 : 1
-          )),
+          );
+          this.getUniqueYears(resp);
+          console.log(this.uniqueYears);
+        },
       });
   }
 
@@ -100,6 +104,16 @@ export class AlbumListComponent implements OnInit {
           });
         },
       });
+  }
+
+  getUniqueYears(picvids: Picvid[]): void {
+    const uniqueYears: number[] = picvids.map((picvid) =>
+      new Date(this.bestDate(picvid)).getFullYear()
+    );
+    const uniqueNumbersSet = new Set(uniqueYears);
+    this.uniqueYears = Array.from(uniqueNumbersSet).sort((a, b) =>
+      a < b ? 1 : -1
+    );
   }
 
   bestDate(picvid: Picvid): Date {
