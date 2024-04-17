@@ -13,8 +13,6 @@ import { PicvidService } from '../../services/picvid.service';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FormsModule } from '@angular/forms';
 import { DialogService } from '../../../../utils/dialog.service';
-import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { CustomMatPaginator } from '../../../../interfaces/custom-mat-paginator.interface';
 import { AlbumTitleComponent } from '../album-title/album-title.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -30,7 +28,6 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatSlideToggleModule,
     FormsModule,
     RouterModule,
-    MatPaginatorModule,
     AlbumTitleComponent,
     MatCardModule,
     MatTabsModule,
@@ -46,12 +43,6 @@ export class AlbumListComponent implements OnInit {
   public isAdminPanelShown: boolean = false;
   public picvids: Picvid[] = [];
   public uniqueYears: number[] = [];
-
-  public paginator: CustomMatPaginator = {
-    pageSize: 20,
-    pageIndex: 0,
-    showFirstLastButtons: true,
-  };
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -109,7 +100,7 @@ export class AlbumListComponent implements OnInit {
 
   getUniqueYears(picvids: Picvid[]): void {
     const uniqueYears: number[] = picvids.map((picvid) =>
-      new Date(this.bestDate(picvid)).getFullYear()
+      this.bestDate(picvid).getFullYear()
     );
     const uniqueNumbersSet = new Set(uniqueYears);
     this.uniqueYears = Array.from(uniqueNumbersSet).sort((a, b) =>
@@ -119,11 +110,11 @@ export class AlbumListComponent implements OnInit {
 
   bestDate(picvid: Picvid): Date {
     if (picvid.dateTime) {
-      return picvid.dateTime;
+      return new Date(picvid.dateTime);
     } else if (picvid.dateTimeExif) {
-      return picvid.dateTimeExif;
+      return new Date(picvid.dateTimeExif);
     } else {
-      return picvid.createdAt;
+      return new Date(picvid.createdAt);
     }
   }
 
@@ -154,11 +145,6 @@ export class AlbumListComponent implements OnInit {
           }
         },
       });
-  }
-
-  handlePageEvent(e: PageEvent) {
-    this.paginator.pageSize = e.pageSize;
-    this.paginator.pageIndex = e.pageIndex;
   }
 
   back(): void {
