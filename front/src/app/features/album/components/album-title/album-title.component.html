@@ -5,6 +5,7 @@
     *ngIf="isAdminTriggered && isAdminOrOwner"
     (click)="deleteAlbum(); $event.stopPropagation()"
     matTooltip="Effacer l'album"
+    i18n-matTooltip="Delete album"
   >
     <mat-icon>cancel</mat-icon>
   </button>
@@ -29,6 +30,7 @@
           class="removePic"
           (click)="deletePic(); $event.stopPropagation()"
           matTooltip="Effacer la photo"
+          i18n-matTooltip="Delete picture"
         >
           <mat-icon>cancel</mat-icon>
         </button>
@@ -42,9 +44,9 @@
           (files)="filesDropped($event)"
         >
           <div class="text-wrapper">
-            <div class="centered">Glissez-déposez votre photo ici</div>
+            <div class="centered" i18n>Glissez-déposez votre photo ici</div>
             <h2>ou</h2>
-            <label for="uploadPicture">Choisissez-la</label>
+            <label for="uploadPicture" i18n>Choisissez-la</label>
           </div>
           <input
             type="file"
@@ -72,14 +74,14 @@
         {{ album.name }}
       </mat-card-title>
       <mat-form-field *ngIf="isAdminTriggered">
-        <mat-label>Nom de l'album</mat-label>
+        <mat-label i18n>Nom de l'album</mat-label>
         <input matInput formControlName="name" />
       </mat-form-field>
       <mat-card-subtitle>
-        <div class="date">
+        <div class="date" i18n>
           Créé le : {{ album.createdAt | date : "medium" }}
         </div>
-        <div class="date">
+        <div class="date" i18n>
           Modifié le : {{ album.modifiedAt | date : "medium" }}
         </div>
       </mat-card-subtitle>
@@ -88,21 +90,26 @@
         album.description
       }}</mat-card-content>
       <mat-form-field *ngIf="isAdminTriggered">
-        <mat-label>Description</mat-label>
+        <mat-label i18n>Description</mat-label>
         <textarea matInput formControlName="description"></textarea>
       </mat-form-field>
     </form>
   </div>
 
   <mat-card-actions *ngIf="isAdminTriggered">
-    <button mat-raised-button (click)="modifyAlbum()" [disabled]="form.invalid">
+    <button
+      mat-raised-button
+      (click)="modifyAlbum()"
+      [disabled]="form.invalid"
+      i18n
+    >
       Modifier
     </button>
     <div class>
-      <button mat-raised-button routerLink="picvid" id="newPicvid">
+      <button mat-raised-button routerLink="picvid" id="newPicvid" i18n>
         <mat-icon>add_circle</mat-icon> Photo / Vidéo
       </button>
-      <button mat-raised-button routerLink="picvids" id="newPicvids">
+      <button mat-raised-button routerLink="picvids" id="newPicvids" i18n>
         <mat-icon>add_circle</mat-icon> Multiple
       </button>
     </div>
@@ -117,7 +124,7 @@
       <form [formGroup]="form2" (submit)="addModo()">
         <mat-card class="addModo">
           <mat-form-field>
-            <mat-label>Ajouter un modérateur (par email)</mat-label>
+            <mat-label i18n>Ajouter un modérateur (par email)</mat-label>
             <input matInput formControlName="moderatorEmail" />
           </mat-form-field>
           <button

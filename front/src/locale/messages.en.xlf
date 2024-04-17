@@ -82,6 +82,116 @@
         <source> Vous n&apos;êtes abonné à aucun album </source>
         <target state="new"> No subscriptions yet </target>
       </trans-unit>
+      <trans-unit id="5036641628193411364" datatype="html">
+        <source> Annuler </source>
+        <target state="new"> Cancel </target>
+      </trans-unit>
+      <trans-unit id="4247263368529700262" datatype="html">
+        <source>Confirmer</source>
+        <target state="new">Confirm</target>
+      </trans-unit>
+      <trans-unit id="4625459039493049168" datatype="html">
+        <source>Nous contacter</source>
+        <target state="new">Contact us</target>
+      </trans-unit>
+      <trans-unit id="8198675854858900905" datatype="html">
+        <source>Ce site ne contient ni cookies, ni traqueurs</source>
+        <target state="new">No cookie, no tracker in this site</target>
+      </trans-unit>
+      <trans-unit id="7164540129836416689" datatype="html">
+        <source>Mentions légales</source>
+        <target state="new">Legal notice</target>
+      </trans-unit>
+      <trans-unit id="1447633978351469757" datatype="html">
+        <source>Mon texte</source>
+        <target state="new">My content</target>
+      </trans-unit>
+      <trans-unit id="1393999710307946373" datatype="html">
+        <source> Confirmer </source>
+        <target state="new"> Confirm </target>
+      </trans-unit>
+      <trans-unit id="5043933900720743682" datatype="html">
+        <source>Albums</source>
+        <target state="new">Albums</target>
+      </trans-unit>
+      <trans-unit id="3807699453257291879" datatype="html">
+        <source>Comments</source>
+        <target state="new">Comments</target>
+      </trans-unit>
+      <trans-unit id="1551734854354896284" datatype="html">
+        <source>Mon compte</source>
+        <target state="new">My account</target>
+      </trans-unit>
+      <trans-unit id="6446192435648820310" datatype="html">
+        <source>Déconnexion</source>
+        <target state="new">Logout</target>
+      </trans-unit>
+      <trans-unit id="278590554940342755" datatype="html">
+        <source>menu</source>
+        <target state="new">menu</target>
+      </trans-unit>
+      <trans-unit id="3365040193690659001" datatype="html">
+        <source>Ce site est en maintenance</source>
+        <target state="new">This site is under construction</target>
+      </trans-unit>
+      <trans-unit id="3439504210454057247" datatype="html">
+        <source>Rentrer en lieu sûr</source>
+        <target state="new">Go back to main page</target>
+      </trans-unit>
+      <trans-unit id="7844706011418789951" datatype="html">
+        <source>Administration</source>
+        <target state="new">Admin</target>
+      </trans-unit>
+      <trans-unit id="5273724069633268631" datatype="html">
+        <source>Effacer l&apos;album</source>
+        <target state="new">Delete album</target>
+        <note priority="1" from="description">Delete album</note>
+      </trans-unit>
+      <trans-unit id="1670213605394739098" datatype="html">
+        <source>Effacer la photo</source>
+        <target state="new">Delete</target>
+        <note priority="1" from="description">Delete picture</note>
+      </trans-unit>
+      <trans-unit id="8156519777617367564" datatype="html">
+        <source>Glissez-déposez votre photo ici</source>
+        <target state="new">Drag and drop picture here</target>
+      </trans-unit>
+      <trans-unit id="4838489356222651975" datatype="html">
+        <source>Choisissez-la</source>
+        <target state="new">Choose it</target>
+      </trans-unit>
+      <trans-unit id="6332620429697352157" datatype="html">
+        <source>Nom de l&apos;album</source>
+        <target state="new">Album name</target>
+      </trans-unit>
+      <trans-unit id="6642599054957246988" datatype="html">
+        <source> Créé le : <x id="INTERPOLATION" equiv-text="{{ album.createdAt | date : &quot;medium&quot; }}"/> </source>
+        <target state="new"> Created at : <x id="INTERPOLATION" equiv-text="{{ album.createdAt | date : &quot;medium&quot; }}"/> </target>
+      </trans-unit>
+      <trans-unit id="7322102827674488683" datatype="html">
+        <source> Modifié le : <x id="INTERPOLATION" equiv-text="{{ album.modifiedAt | date : &quot;medium&quot; }}"/> </source>
+        <target state="new"> Modified at : <x id="INTERPOLATION" equiv-text="{{ album.modifiedAt | date : &quot;medium&quot; }}"/> </target>
+      </trans-unit>
+      <trans-unit id="4902817035128594900" datatype="html">
+        <source>Description</source>
+        <target state="new">Description</target>
+      </trans-unit>
+      <trans-unit id="347898857666909766" datatype="html">
+        <source> Modifier </source>
+        <target state="new"> Modify </target>
+      </trans-unit>
+      <trans-unit id="6642914809324654807" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>add_circle<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Photo / Vidéo </source>
+        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>add_circle<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Picture / Video </target>
+      </trans-unit>
+      <trans-unit id="2711037082710181221" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>add_circle<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Multiple </source>
+        <target state="new"><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>add_circle<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Multiple </target>
+      </trans-unit>
+      <trans-unit id="7320097673447207673" datatype="html">
+        <source>Ajouter un modérateur (par email)</source>
+        <target state="new">Add a moderator (by email)</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
