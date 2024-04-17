@@ -14,7 +14,10 @@
       "sourceRoot": "src",
       "prefix": "app",
       "i18n": {
-        "sourceLocale": "fr-FR"
+        "sourceLocale": "fr-FR",
+        "locales": {
+          "en": "src/locale/messages.en.xlf"
+        }
       },
       "architect": {
         "build": {
@@ -31,9 +34,13 @@
               "@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "localize": true
           },
           "configurations": {
+            "en": {
+              "localize": ["en"]
+            },
             "production": {
               "budgets": [
                 {
@@ -68,6 +75,9 @@
             },
             "development": {
               "buildTarget": "DixsiteFront:build:development"
+            },
+            "en": {
+              "buildTarget": "DixsiteFront:build:development,en"
             }
           },
           "defaultConfiguration": "development"

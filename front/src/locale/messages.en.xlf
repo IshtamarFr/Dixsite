@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="fr-FR" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="7919452934138804929" datatype="html">
+        <source>Se connecter</source>
+        <target>Login</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/auth/components/home/home.component.html</context>
+          <context context-type="linenumber">4,5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4524516638244876783" datatype="html">
+        <source>S&apos;inscrire</source>
+        <target>Register</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/auth/components/home/home.component.html</context>
+          <context context-type="linenumber">5,6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9109167242486386668" datatype="html">
+        <source>Ce site est un projet en cours</source>
+        <target>This site is a work in progress</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/auth/components/home/home.component.html</context>
+          <context context-type="linenumber">11,12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2153880337029401775" datatype="html">
+        <source> Ce site est destiné à partager des photos et vidéos de nos animaux de compagnie </source>
+        <target>This website is to be used to share pet pictures</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/auth/components/home/home.component.html</context>
+          <context context-type="linenumber">13,15</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
