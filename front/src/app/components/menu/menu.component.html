@@ -1,7 +1,7 @@
 <!--List of all items to show-->
 <ng-template #menuTemplate>
-  <div routerLink="/main/albums" class="link admin">Albums</div>
-  <div routerLink="/main/comments" class="link admin">Comments</div>
+  <div routerLink="/main/albums" class="link admin" i18n>Albums</div>
+  <div routerLink="/main/comments" class="link admin" i18n>Comments</div>
   <div
     *ngIf="user?.roles?.includes('ADMIN')"
     routerLink="/ishta"
@@ -23,11 +23,11 @@
     <ng-container *ngTemplateOutlet="menuTemplate"></ng-container>
   </div>
   <div id="items" *ngIf="screenWidth > MIN_PC_SIZE; else mobileItems">
-    <span routerLink="/main/me" class="link">Mon compte</span>
-    <span (click)="logout()" class="link">Déconnexion</span>
+    <span routerLink="/main/me" class="link" i18n>Mon compte</span>
+    <span (click)="logout()" class="link" i18n>Déconnexion</span>
   </div>
   <ng-template #mobileItems>
-    <mat-icon (click)="snav.toggle()">menu</mat-icon>
+    <mat-icon (click)="snav.toggle()" i18n>menu</mat-icon>
   </ng-template>
 </div>
 <hr />

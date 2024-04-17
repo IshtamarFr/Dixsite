@@ -1,6 +1,6 @@
 <app-menu />
 <div *ngIf="user" class="top">
-  <p>Bienvenue, {{ user.name }}</p>
+  <p i18n>Bienvenue, {{ user.name }}</p>
   <button
     *ngIf="ownedAlbums.length < user.maxAlbums"
     mat-raised-button
@@ -12,6 +12,7 @@
   <div
     *ngIf="ownedAlbums.length >= user.maxAlbums"
     matTooltip="Pour plus d'albums, nous contacter"
+    i18n-matTooltip
   >
     <button disabled mat-raised-button>
       <mat-icon>not_interested</mat-icon> Quota
@@ -23,7 +24,7 @@
   <button mat-mini-fab (click)="toggleShow('owned')">
     <mat-icon>{{ ownedShow }}</mat-icon>
   </button>
-  <h1>Mes albums</h1>
+  <h1 i18n>Mes albums</h1>
 </div>
 <div class="myAlbums" *ngIf="ownedShow == 'remove'">
   <app-main-album-card
@@ -32,7 +33,7 @@
     [album]="album"
     [userId]="userId"
   />
-  <h2 *ngIf="ownedAlbums.length == 0" class="noAlbum">
+  <h2 *ngIf="ownedAlbums.length == 0" class="noAlbum" i18n>
     Vous n'avez pas encore d'albums
   </h2>
 </div>
@@ -43,7 +44,7 @@
     <button mat-mini-fab (click)="toggleShow('moderated')">
       <mat-icon>{{ moderatedShow }}</mat-icon>
     </button>
-    <h1>Mes albums à modérer</h1>
+    <h1 i18n>Mes albums à modérer</h1>
   </div>
   <div class="myAlbums" *ngIf="moderatedShow == 'remove'">
     <app-main-album-card
@@ -61,7 +62,7 @@
   <button mat-mini-fab (click)="toggleShow('subscribed')">
     <mat-icon>{{ subscribedShow }}</mat-icon>
   </button>
-  <h1>Mes abonnements</h1>
+  <h1 i18n>Mes abonnements</h1>
 </div>
 <div class="subscribedAlbums" *ngIf="subscribedShow == 'remove'">
   <app-main-album-card
@@ -71,7 +72,7 @@
     [userId]="userId"
     (unsubscribeEmitter)="onUnsubscribe(album.id)"
   />
-  <h2 *ngIf="subscribedAlbums.length == 0" class="noAlbum">
+  <h2 *ngIf="subscribedAlbums.length == 0" class="noAlbum" i18n>
     Vous n'êtes abonné à aucun album
   </h2>
 </div>

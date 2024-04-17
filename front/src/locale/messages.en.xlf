@@ -54,6 +54,34 @@
         <source> Mot de passe ou lien de validation oublié </source>
         <target state="new"> Forgot password or validation link </target>
       </trans-unit>
+      <trans-unit id="1692116466327905833" datatype="html">
+        <source>Bienvenue, <x id="INTERPOLATION" equiv-text="{{ user.name }}"/></source>
+        <target state="new">Welcome, <x id="INTERPOLATION" equiv-text="{{ user.name }}"/></target>
+      </trans-unit>
+      <trans-unit id="6090380883466906717" datatype="html">
+        <source>Pour plus d&apos;albums, nous contacter</source>
+        <target state="new">Contact us for more albums</target>
+      </trans-unit>
+      <trans-unit id="8405694346431912170" datatype="html">
+        <source>Mes albums</source>
+        <target state="new">My albums</target>
+      </trans-unit>
+      <trans-unit id="5630989291342470432" datatype="html">
+        <source> Vous n&apos;avez pas encore d&apos;albums </source>
+        <target state="new"> No albums yet </target>
+      </trans-unit>
+      <trans-unit id="6325222524136862192" datatype="html">
+        <source>Mes albums à modérer</source>
+        <target state="new">Albums I moderate</target>
+      </trans-unit>
+      <trans-unit id="2950252218520637782" datatype="html">
+        <source>Mes abonnements</source>
+        <target state="new">My subscriptions</target>
+      </trans-unit>
+      <trans-unit id="5580398153711897087" datatype="html">
+        <source> Vous n&apos;êtes abonné à aucun album </source>
+        <target state="new"> No subscriptions yet </target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

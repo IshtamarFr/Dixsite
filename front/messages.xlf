@@ -41,6 +41,27 @@
       <trans-unit id="5263909595696262145" datatype="html">
         <source> Se connecter </source>
       </trans-unit>
+      <trans-unit id="1692116466327905833" datatype="html">
+        <source>Bienvenue, <x id="INTERPOLATION" equiv-text="{{ user.name }}"/></source>
+      </trans-unit>
+      <trans-unit id="2950252218520637782" datatype="html">
+        <source>Mes abonnements</source>
+      </trans-unit>
+      <trans-unit id="5580398153711897087" datatype="html">
+        <source> Vous n&apos;êtes abonné à aucun album </source>
+      </trans-unit>
+      <trans-unit id="5630989291342470432" datatype="html">
+        <source> Vous n&apos;avez pas encore d&apos;albums </source>
+      </trans-unit>
+      <trans-unit id="6090380883466906717" datatype="html">
+        <source>Pour plus d&apos;albums, nous contacter</source>
+      </trans-unit>
+      <trans-unit id="6325222524136862192" datatype="html">
+        <source>Mes albums à modérer</source>
+      </trans-unit>
+      <trans-unit id="8405694346431912170" datatype="html">
+        <source>Mes albums</source>
+      </trans-unit>
     </body>
   </file>
 </xliff>

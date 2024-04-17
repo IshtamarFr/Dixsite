@@ -1,10 +1,10 @@
 <div class="confirm-dialog-container">
-  <h2 class="confirm-dialog-title">Confirmation</h2>
+  <h2 class="confirm-dialog-title" i18n>Confirmation</h2>
   <p class="confirm-dialog-message">{{ message }}</p>
   <div class="confirm-dialog-buttons">
-    <button mat-raised-button (click)="onCancel()" *ngIf="showCancel">
+    <button mat-raised-button (click)="onCancel()" *ngIf="showCancel" i18n>
       Annuler
     </button>
-    <button mat-raised-button (click)="onConfirm()">Confirmer</button>
+    <button mat-raised-button (click)="onConfirm()" i18n>Confirmer</button>
   </div>
 </div>

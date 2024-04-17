@@ -2,13 +2,18 @@
   <p class="input-dialog-message">{{ message }}</p>
   <form class="login-form" [formGroup]="form" (ngSubmit)="onConfirm()">
     <mat-form-field>
-      <input matInput placeholder="Mon texte" formControlName="content" />
+      <input
+        matInput
+        placeholder="Mon texte"
+        formControlName="content"
+        i18n-placeholder
+      />
     </mat-form-field>
     <div class="input-dialog-buttons">
-      <button mat-raised-button (click)="onCancel()" type="button">
+      <button mat-raised-button (click)="onCancel()" type="button" i18n>
         Annuler
       </button>
-      <button mat-raised-button type="submit" [disabled]="form.invalid">
+      <button mat-raised-button type="submit" [disabled]="form.invalid" i18n>
         Confirmer
       </button>
     </div>
