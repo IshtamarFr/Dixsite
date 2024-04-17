@@ -47,6 +47,7 @@
     "@cypress/schematic": "^2.5.1",
     "cypress": "^13.6.4",
     "jest-sonar-reporter": "^2.0.0",
+    "ng-extract-i18n-merge": "^2.11.2",
     "typescript": "~5.3.2"
   }
 }

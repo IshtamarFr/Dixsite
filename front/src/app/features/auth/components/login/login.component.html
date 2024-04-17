@@ -1,7 +1,7 @@
 <button mat-icon-button (click)="back()">
   <mat-icon>arrow_back</mat-icon>
 </button>
-<span class="title">Se connecter</span>
+<span class="title" i18n>Se connecter</span>
 <hr />
 <div class="login">
   <mat-card>
@@ -10,6 +10,7 @@
         <mat-form-field>
           <input
             matInput
+            i18n-placeholder
             placeholder="Adresse e-mail"
             formControlName="email"
           />
@@ -17,6 +18,7 @@
         <mat-form-field>
           <input
             matInput
+            i18n-placeholder
             [type]="hide ? 'password' : 'text'"
             placeholder="Mot de passe"
             formControlName="password"
@@ -24,6 +26,7 @@
           <button
             type="button"
             mat-icon-button
+            i18n-attr.aria-label
             matSuffix
             (click)="hide = !hide"
             [attr.aria-label]="'Masquer'"
@@ -34,6 +37,7 @@
         </mat-form-field>
         <button
           mat-raised-button
+          i18n
           color="primary"
           type="submit"
           [disabled]="form.invalid"
@@ -41,10 +45,10 @@
         >
           Se connecter
         </button>
-        <p *ngIf="onError" class="error">
+        <p *ngIf="onError" class="error" i18n>
           L'email ou le mot de passe est incorrect
         </p>
-        <div class="retrieve" (click)="forgotten()">
+        <div class="retrieve" (click)="forgotten()" i18n>
           Mot de passe ou lien de validation oublié
         </div>
       </mat-card-content>

@@ -1,7 +1,7 @@
 <button mat-icon-button (click)="back()">
   <mat-icon>arrow_back</mat-icon>
 </button>
-<span class="title">S'inscrire</span>
+<span class="title" i18n>S'inscrire</span>
 <hr />
 <div class="register">
   <div id="loading">
@@ -17,6 +17,7 @@
         <mat-form-field>
           <input
             matInput
+            i18n-placeholder
             placeholder="Nom d'utilisateur"
             formControlName="name"
           />
@@ -24,6 +25,7 @@
         <mat-form-field>
           <input
             matInput
+            i18n-placeholder
             placeholder="Adresse e-mail"
             formControlName="email"
           />
@@ -31,6 +33,7 @@
         <mat-form-field>
           <input
             matInput
+            i18n-placeholder
             [type]="hide ? 'password' : 'text'"
             placeholder="Mot de passe"
             formControlName="password"
@@ -38,6 +41,7 @@
           <button
             type="button"
             mat-icon-button
+            i18n-attr.aria-label
             matSuffix
             (click)="hide = !hide"
             [attr.aria-label]="'Masquer'"
@@ -49,6 +53,7 @@
         <mat-form-field>
           <input
             matInput
+            i18n-placeholder
             [type]="hide ? 'password' : 'text'"
             placeholder="Confirmation"
             formControlName="password2"
@@ -56,6 +61,7 @@
           <button
             type="button"
             mat-icon-button
+            i18n-attr.aria-label
             matSuffix
             (click)="hide = !hide"
             [attr.aria-label]="'Masquer'"
@@ -66,6 +72,7 @@
         </mat-form-field>
 
         <button
+          i18n
           mat-raised-button
           color="primary"
           type="submit"
@@ -74,7 +81,7 @@
         >
           S'inscrire
         </button>
-        <span *ngIf="onError" class="error">
+        <span *ngIf="onError" class="error" i18n>
           Cette adresse email et/ou ce nom d'utilisateur est invalide
         </span>
       </mat-card-content>
