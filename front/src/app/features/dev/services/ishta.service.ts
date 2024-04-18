@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class IshtaService {
-  private pathService = '/api/auth';
+  private pathService = 'api/auth';
 
   constructor(private httpClient: HttpClient) {}
 
