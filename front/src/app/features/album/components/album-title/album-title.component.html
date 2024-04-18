@@ -45,7 +45,7 @@
         >
           <div class="text-wrapper">
             <div class="centered" i18n>Glissez-déposez votre photo ici</div>
-            <h2>ou</h2>
+            <h2 i18n>ou</h2>
             <label for="uploadPicture" i18n>Choisissez-la</label>
           </div>
           <input
@@ -116,7 +116,7 @@
   </mat-card-actions>
 
   <mat-expansion-panel *ngIf="isAdminTriggered && isAdminOrOwner">
-    <mat-expansion-panel-header>
+    <mat-expansion-panel-header i18n>
       {{ album.moderator_ids.length }}
       {{ album.moderator_ids.length > 1 ? "modérateurs" : "modérateur" }}
     </mat-expansion-panel-header>

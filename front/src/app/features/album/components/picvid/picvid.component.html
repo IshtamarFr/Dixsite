@@ -8,7 +8,7 @@
   />
   <div class="picvidAdditional">
     <div>
-      <mat-slide-toggle *ngIf="isModo" [(ngModel)]="isAdminPanelShown"
+      <mat-slide-toggle *ngIf="isModo" [(ngModel)]="isAdminPanelShown" i18n
         >Administration</mat-slide-toggle
       >
       <app-picvid-title
@@ -21,13 +21,13 @@
           <button mat-icon-button (click)="back()">
             <mat-icon>arrow_back</mat-icon>
           </button>
-          <span class="title">Commentaires :</span>
+          <span class="title" i18n>Commentaires :</span>
         </div>
         <mat-card id="newMessage">
           <form [formGroup]="form" (ngSubmit)="submit()">
             <mat-card-content>
               <mat-form-field>
-                <mat-label>Nouveau commentaire</mat-label>
+                <mat-label i18n>Nouveau commentaire</mat-label>
                 <textarea matInput formControlName="content"></textarea>
               </mat-form-field>
               <button

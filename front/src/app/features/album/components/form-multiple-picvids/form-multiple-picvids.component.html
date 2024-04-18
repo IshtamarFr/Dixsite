@@ -9,7 +9,9 @@
 <button mat-icon-button (click)="back()">
   <mat-icon>arrow_back</mat-icon>
 </button>
-<span class="title">Ajouter plusieurs ressources en lot (photo / vidéo)</span>
+<span class="title" i18n
+  >Ajouter plusieurs ressources en lot (photo / vidéo)</span
+>
 <div
   *ngIf="!fileHandle?.length"
   appDragMultiple
@@ -17,9 +19,9 @@
   (files)="filesDropped($event)"
 >
   <div class="text-wrapper">
-    <div class="centered">Glissez-déposez vos photos et vidéos ici</div>
-    <h2>ou</h2>
-    <label for="uploadPicture">Choisissez-les</label>
+    <div class="centered" i18n>Glissez-déposez vos photos et vidéos ici</div>
+    <h2 i18n>ou</h2>
+    <label for="uploadPicture" i18n>Choisissez-les</label>
   </div>
   <input
     formControlName="picvid"
@@ -35,13 +37,16 @@
 <div *ngIf="fileHandle?.length">
   <button
     mat-raised-button
+    i18n
     [disabled]="!fileHandle.length"
     (click)="sendAllPicvids()"
     class="submit"
   >
     Ajouter tout
   </button>
-  <p *ngIf="onError" class="error">Au moins une ressource n'a pu être créée</p>
+  <p *ngIf="onError" class="error" i18n>
+    Au moins une ressource n'a pu être créée
+  </p>
   <h1>Fichiers sélectionnés:</h1>
   <div class="candidates">
     <mat-card *ngFor="let candidate of fileHandle">

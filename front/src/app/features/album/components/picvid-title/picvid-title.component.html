@@ -1,7 +1,7 @@
 <mat-card class="mainContainer" *ngIf="!isAdminTriggered">
   <mat-card-title>{{ picvid.name }}</mat-card-title>
   <mat-card-subtitle>
-    <span>Le {{ bestDate(picvid) | date : "short" }}</span>
+    <span i18n>Le {{ bestDate(picvid) | date : "short" }}</span>
     <span *ngIf="picvid.takenLocation"> , à {{ picvid.takenLocation }}</span>
   </mat-card-subtitle>
   <mat-card-content *ngIf="picvid.description">{{
@@ -12,21 +12,21 @@
 <mat-card class="mainContainer" *ngIf="isAdminTriggered">
   <form [formGroup]="form" (ngSubmit)="submit()">
     <mat-form-field>
-      <mat-label>Nommer la ressource</mat-label>
+      <mat-label i18n>Nommer la ressource</mat-label>
       <input matInput formControlName="name" />
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Description</mat-label>
+      <mat-label i18n>Description</mat-label>
       <textarea matInput formControlName="description"></textarea>
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Lieu</mat-label>
+      <mat-label i18n>Lieu</mat-label>
       <input matInput formControlName="takenLocation" />
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Date</mat-label>
+      <mat-label i18n>Date</mat-label>
       <input matInput formControlName="date" [matDatepicker]="picker" />
-      <mat-hint>jj/mm/aaaa</mat-hint>
+      <mat-hint i18n>jj/mm/aaaa</mat-hint>
       <mat-datepicker-toggle
         matIconSuffix
         [for]="picker"
@@ -37,10 +37,12 @@
     <mat-divider />
     <mat-card-content>
       <div class="dates">
-        <div>Créé le : {{ picvid.createdAt | date : "medium" }}</div>
+        <div i18n>Créé le : {{ picvid.createdAt | date : "medium" }}</div>
         <div
           *ngIf="picvid.dateTimeExif"
           matTooltip="date fournie par le fichier lui-même"
+          i18n
+          i18n-matTooltip
         >
           Date EXIF : {{ picvid.dateTimeExif | date : "medium" }}
         </div>
@@ -50,6 +52,7 @@
 
     <button
       mat-raised-button
+      i18n
       color="primary"
       type="submit"
       [disabled]="form.invalid || !form.dirty"

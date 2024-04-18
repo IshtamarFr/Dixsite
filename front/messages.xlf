@@ -145,6 +145,78 @@
       <trans-unit id="8198675854858900905" datatype="html">
         <source>Ce site ne contient ni cookies, ni traqueurs</source>
       </trans-unit>
+      <trans-unit id="1534155701917252037" datatype="html">
+        <source>ou</source>
+      </trans-unit>
+      <trans-unit id="521952543941236208" datatype="html">
+        <source>
+          <x id="INTERPOLATION" equiv-text="{{ album.moderator_ids.length }}"/>
+          <x id="INTERPOLATION_1" equiv-text="{{ album.moderator_ids.length &gt; 1 ? &quot;modérateurs&quot; : &quot;modérateur&quot; }}"/>
+        </source>
+      </trans-unit>
+      <trans-unit id="1050884217669722323" datatype="html">
+        <source> Créer </source>
+      </trans-unit>
+      <trans-unit id="1479259520978345896" datatype="html">
+        <source>Nommer la ressource</source>
+      </trans-unit>
+      <trans-unit id="1802354596515022072" datatype="html">
+        <source>jj/mm/aaaa</source>
+      </trans-unit>
+      <trans-unit id="1940888741147918338" datatype="html">
+        <source>Glissez-déposez vos photos et vidéos ici</source>
+      </trans-unit>
+      <trans-unit id="2108556737647446436" datatype="html">
+        <source>Commentaires :</source>
+      </trans-unit>
+      <trans-unit id="2165777066879413560" datatype="html">
+        <source>Nouveau commentaire</source>
+      </trans-unit>
+      <trans-unit id="3321239940962098188" datatype="html">
+        <source> Date EXIF : <x id="INTERPOLATION" equiv-text="{{ picvid.dateTimeExif | date : &quot;medium&quot; }}"/> </source>
+      </trans-unit>
+      <trans-unit id="3973931101896534797" datatype="html">
+        <source>Date</source>
+      </trans-unit>
+      <trans-unit id="3987473553080408452" datatype="html">
+        <source> Glissez-déposez votre photo ou vidéo ici </source>
+      </trans-unit>
+      <trans-unit id="4039913323950854516" datatype="html">
+        <source> La ressource n&apos;a pas pu être créée </source>
+      </trans-unit>
+      <trans-unit id="4108595476606342427" datatype="html">
+        <source>Choisissez-les</source>
+      </trans-unit>
+      <trans-unit id="4794636048296689953" datatype="html">
+        <source>Ajouter une ressource (photo / vidéo)</source>
+      </trans-unit>
+      <trans-unit id="5090589311314515293" datatype="html">
+        <source> Par <x id="INTERPOLATION" equiv-text="{{ comment.owner_name }}"/>, le <x id="INTERPOLATION_1" equiv-text="{{ comment.createdAt | date : &quot;medium&quot; }}"/> </source>
+      </trans-unit>
+      <trans-unit id="5621617416694492912" datatype="html">
+        <source>Créé le : <x id="INTERPOLATION" equiv-text="{{ picvid.createdAt | date : &quot;medium&quot; }}"/></source>
+      </trans-unit>
+      <trans-unit id="6381061756131336537" datatype="html">
+        <source>Ajouter plusieurs ressources en lot (photo / vidéo)</source>
+      </trans-unit>
+      <trans-unit id="7453420587260356300" datatype="html">
+        <source> Au moins une ressource n&apos;a pu être créée </source>
+      </trans-unit>
+      <trans-unit id="7852012851657315774" datatype="html">
+        <source>Le <x id="INTERPOLATION" equiv-text="{{ bestDate(picvid) | date : &quot;short&quot; }}"/></source>
+      </trans-unit>
+      <trans-unit id="8149656698520125397" datatype="html">
+        <source>date fournie par le fichier lui-même</source>
+      </trans-unit>
+      <trans-unit id="8296732980773778260" datatype="html">
+        <source>Nouvelle réponse</source>
+      </trans-unit>
+      <trans-unit id="8300975845221760912" datatype="html">
+        <source>Lieu</source>
+      </trans-unit>
+      <trans-unit id="888929349175400367" datatype="html">
+        <source> Ajouter tout </source>
+      </trans-unit>
     </body>
   </file>
 </xliff>

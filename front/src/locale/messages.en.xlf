@@ -166,7 +166,7 @@
       </trans-unit>
       <trans-unit id="6642599054957246988" datatype="html">
         <source> Créé le : <x id="INTERPOLATION" equiv-text="{{ album.createdAt | date : &quot;medium&quot; }}"/> </source>
-        <target state="new"> Created at : <x id="INTERPOLATION" equiv-text="{{ album.createdAt | date : &quot;medium&quot; }}"/> </target>
+        <target state="new"> Created on : <x id="INTERPOLATION" equiv-text="{{ album.createdAt | date : &quot;medium&quot; }}"/> </target>
       </trans-unit>
       <trans-unit id="7322102827674488683" datatype="html">
         <source> Modifié le : <x id="INTERPOLATION" equiv-text="{{ album.modifiedAt | date : &quot;medium&quot; }}"/> </source>
@@ -191,6 +191,104 @@
       <trans-unit id="7320097673447207673" datatype="html">
         <source>Ajouter un modérateur (par email)</source>
         <target state="new">Add a moderator (by email)</target>
+      </trans-unit>
+      <trans-unit id="1534155701917252037" datatype="html">
+        <source>ou</source>
+        <target state="new">or</target>
+      </trans-unit>
+      <trans-unit id="521952543941236208" datatype="html">
+        <source>
+          <x id="INTERPOLATION" equiv-text="{{ album.moderator_ids.length }}"/>
+          <x id="INTERPOLATION_1" equiv-text="{{ album.moderator_ids.length &gt; 1 ? &quot;modérateurs&quot; : &quot;modérateur&quot; }}"/>
+        </source>
+        <target state="new">
+          <x id="INTERPOLATION" equiv-text="{{ album.moderator_ids.length }}"/>
+          <x id="INTERPOLATION_1" equiv-text="{{ album.moderator_ids.length &gt; 1 ? &quot;moderators&quot; : &quot;moderator&quot; }}"/>
+        </target>
+      </trans-unit>
+      <trans-unit id="6381061756131336537" datatype="html">
+        <source>Ajouter plusieurs ressources en lot (photo / vidéo)</source>
+        <target state="new">Add resources in batch (pictures / videos)</target>
+      </trans-unit>
+      <trans-unit id="1940888741147918338" datatype="html">
+        <source>Glissez-déposez vos photos et vidéos ici</source>
+        <target state="new">Drag and drop pictures and videos here</target>
+      </trans-unit>
+      <trans-unit id="4108595476606342427" datatype="html">
+        <source>Choisissez-les</source>
+        <target state="new">Choose them</target>
+      </trans-unit>
+      <trans-unit id="888929349175400367" datatype="html">
+        <source> Ajouter tout </source>
+        <target state="new"> Add all </target>
+      </trans-unit>
+      <trans-unit id="7453420587260356300" datatype="html">
+        <source> Au moins une ressource n&apos;a pu être créée </source>
+        <target state="new"> One or more resource creation have failed </target>
+      </trans-unit>
+      <trans-unit id="4794636048296689953" datatype="html">
+        <source>Ajouter une ressource (photo / vidéo)</source>
+        <target state="new">Add a new resource (picture / video)</target>
+      </trans-unit>
+      <trans-unit id="3987473553080408452" datatype="html">
+        <source> Glissez-déposez votre photo ou vidéo ici </source>
+        <target state="new"> Drag and drop your picture/video here </target>
+      </trans-unit>
+      <trans-unit id="1479259520978345896" datatype="html">
+        <source>Nommer la ressource</source>
+        <target state="new">Name the resource</target>
+      </trans-unit>
+      <trans-unit id="8300975845221760912" datatype="html">
+        <source>Lieu</source>
+        <target state="new">Location</target>
+      </trans-unit>
+      <trans-unit id="3973931101896534797" datatype="html">
+        <source>Date</source>
+        <target state="new">Date</target>
+      </trans-unit>
+      <trans-unit id="1802354596515022072" datatype="html">
+        <source>jj/mm/aaaa</source>
+        <target state="new">mm/dd/aaaa</target>
+      </trans-unit>
+      <trans-unit id="1050884217669722323" datatype="html">
+        <source> Créer </source>
+        <target state="new"> Create </target>
+      </trans-unit>
+      <trans-unit id="4039913323950854516" datatype="html">
+        <source> La ressource n&apos;a pas pu être créée </source>
+        <target state="new"> Resource creation has failed </target>
+      </trans-unit>
+      <trans-unit id="5090589311314515293" datatype="html">
+        <source> Par <x id="INTERPOLATION" equiv-text="{{ comment.owner_name }}"/>, le <x id="INTERPOLATION_1" equiv-text="{{ comment.createdAt | date : &quot;medium&quot; }}"/> </source>
+        <target state="new"> By <x id="INTERPOLATION" equiv-text="{{ comment.owner_name }}"/>, <x id="INTERPOLATION_1" equiv-text="{{ comment.createdAt | date : &quot;medium&quot; }}"/> </target>
+      </trans-unit>
+      <trans-unit id="8296732980773778260" datatype="html">
+        <source>Nouvelle réponse</source>
+        <target state="new">New answer</target>
+      </trans-unit>
+      <trans-unit id="7852012851657315774" datatype="html">
+        <source>Le <x id="INTERPOLATION" equiv-text="{{ bestDate(picvid) | date : &quot;short&quot; }}"/></source>
+        <target state="new"><x id="INTERPOLATION" equiv-text="{{ bestDate(picvid) | date : &quot;short&quot; }}"/></target>
+      </trans-unit>
+      <trans-unit id="5621617416694492912" datatype="html">
+        <source>Créé le : <x id="INTERPOLATION" equiv-text="{{ picvid.createdAt | date : &quot;medium&quot; }}"/></source>
+        <target state="new">Created on : <x id="INTERPOLATION" equiv-text="{{ picvid.createdAt | date : &quot;medium&quot; }}"/></target>
+      </trans-unit>
+      <trans-unit id="8149656698520125397" datatype="html">
+        <source>date fournie par le fichier lui-même</source>
+        <target state="new">date extracted from file</target>
+      </trans-unit>
+      <trans-unit id="3321239940962098188" datatype="html">
+        <source> Date EXIF : <x id="INTERPOLATION" equiv-text="{{ picvid.dateTimeExif | date : &quot;medium&quot; }}"/> </source>
+        <target state="new"> EXIF date : <x id="INTERPOLATION" equiv-text="{{ picvid.dateTimeExif | date : &quot;medium&quot; }}"/> </target>
+      </trans-unit>
+      <trans-unit id="2108556737647446436" datatype="html">
+        <source>Commentaires :</source>
+        <target state="new">Comments :</target>
+      </trans-unit>
+      <trans-unit id="2165777066879413560" datatype="html">
+        <source>Nouveau commentaire</source>
+        <target state="new">Add new comment</target>
       </trans-unit>
     </body>
   </file>

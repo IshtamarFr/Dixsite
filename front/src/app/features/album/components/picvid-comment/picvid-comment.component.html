@@ -1,5 +1,5 @@
 <mat-card class="comment" [ngClass]="{ me: comment.owner_id == myId }">
-  <mat-card-subtitle>
+  <mat-card-subtitle i18n>
     Par {{ comment.owner_name }}, le
     {{ comment.createdAt | date : "medium" }}
   </mat-card-subtitle>
@@ -8,7 +8,7 @@
   </mat-card-content>
 
   <mat-expansion-panel>
-    <mat-expansion-panel-header collapsedHeight="35px">
+    <mat-expansion-panel-header collapsedHeight="35px" i18n>
       {{ comment.subcomments!.length }}
       {{ comment.subcomments!.length > 1 ? "réponses" : "réponse" }}
     </mat-expansion-panel-header>
@@ -17,7 +17,7 @@
         <form [formGroup]="form" (ngSubmit)="submit()">
           <mat-card-content>
             <mat-form-field>
-              <mat-label>Nouvelle réponse</mat-label>
+              <mat-label i18n>Nouvelle réponse</mat-label>
               <textarea matInput formControlName="content"></textarea>
             </mat-form-field>
             <button
@@ -37,7 +37,7 @@
           class="comment"
           [ngClass]="{ me: subcomment.owner_id == myId }"
         >
-          <mat-card-subtitle>
+          <mat-card-subtitle i18n>
             Par {{ subcomment.owner_name }}, le
             {{ subcomment.createdAt | date : "medium" }}
           </mat-card-subtitle>
