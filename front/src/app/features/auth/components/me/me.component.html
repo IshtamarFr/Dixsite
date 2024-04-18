@@ -1,7 +1,7 @@
 <button mat-icon-button (click)="back()" data-cy="back">
   <mat-icon>arrow_back</mat-icon>
 </button>
-<span class="title">Mon compte</span>
+<span class="title" i18n>Mon compte</span>
 <hr />
 <div class="me">
   <mat-card>
@@ -12,6 +12,7 @@
             matInput
             placeholder="Nom d'utilisateur"
             formControlName="name"
+            i18n-placeholder
           />
         </mat-form-field>
         <mat-form-field>
@@ -19,6 +20,7 @@
             matInput
             placeholder="Adresse e-mail"
             formControlName="email"
+            i18n-placeholder
           />
         </mat-form-field>
         <mat-form-field>
@@ -27,6 +29,7 @@
             [type]="hide ? 'password' : 'text'"
             placeholder="Ancient mot de passe"
             formControlName="oldPassword"
+            i18n-placeholder
           />
           <button
             type="button"
@@ -35,6 +38,7 @@
             (click)="hide2 = !hide2"
             [attr.aria-label]="'Masquer'"
             [attr.aria-pressed]="hide2"
+            i18n-attr.aria-label
           >
             <mat-icon>{{ hide2 ? "visibility_off" : "visibility" }}</mat-icon>
           </button>
@@ -45,6 +49,7 @@
             [type]="hide ? 'password' : 'text'"
             placeholder="Mot de passe"
             formControlName="password"
+            i18n-placeholder
           />
           <button
             type="button"
@@ -53,6 +58,7 @@
             (click)="hide = !hide"
             [attr.aria-label]="'Masquer'"
             [attr.aria-pressed]="hide"
+            i18n-attr.aria-label
           >
             <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
           </button>
@@ -63,6 +69,7 @@
             [type]="hide ? 'password' : 'text'"
             placeholder="Confirmation"
             formControlName="password2"
+            i18n-placeholder
           />
           <button
             type="button"
@@ -71,6 +78,7 @@
             (click)="hide = !hide"
             [attr.aria-label]="'Masquer'"
             [attr.aria-pressed]="hide"
+            i18n-attr.aria-label
           >
             <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
           </button>
@@ -82,14 +90,15 @@
           type="submit"
           [disabled]="form.invalid"
           data-cy="submit"
+          i18n
         >
           Sauvegarder
         </button>
-        <span *ngIf="onError" class="error"
+        <span *ngIf="onError" class="error" i18n
           >Cette adresse email et/ou ce nom d'utilisateur est invalide, ou le
           mot de passe est erroné</span
         >
-        <div (click)="logout()" class="link">Se déconnecter</div>
+        <div (click)="logout()" class="link" i18n>Se déconnecter</div>
       </mat-card-content>
     </form>
   </mat-card>

@@ -2,7 +2,7 @@
 <button mat-icon-button (click)="back()">
   <mat-icon>arrow_back</mat-icon>
 </button>
-<span class="title">Nouvel album</span>
+<span class="title" i18n>Nouvel album</span>
 
 <mat-card *ngIf="fileHandle" class="candidate">
   <img [src]="fileHandle.url" />
@@ -19,9 +19,9 @@
     (files)="filesDropped($event)"
   >
     <div class="text-wrapper">
-      <div class="centered">Glissez-déposez votre photo (facultatif)</div>
-      <h2>ou</h2>
-      <label for="uploadPicture">Choisissez-la</label>
+      <div class="centered" i18n>Glissez-déposez votre photo (facultatif)</div>
+      <h2 i18n>ou</h2>
+      <label for="uploadPicture" i18n>Choisissez-la</label>
     </div>
     <input
       type="file"
@@ -34,15 +34,16 @@
   <mat-card-content>
     <form [formGroup]="form" (ngSubmit)="submit()">
       <mat-form-field>
-        <mat-label>Nom de l'album</mat-label>
+        <mat-label i18n>Nom de l'album</mat-label>
         <input matInput formControlName="name" />
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Description</mat-label>
+        <mat-label i18n>Description</mat-label>
         <textarea matInput formControlName="description"></textarea>
       </mat-form-field>
       <button
         mat-raised-button
+        i18n
         color="primary"
         type="submit"
         [disabled]="form.invalid"
@@ -50,7 +51,7 @@
       >
         Créer
       </button>
-      <p *ngIf="onError" class="error">L'album n'a pas pu être créé</p>
+      <p *ngIf="onError" class="error" i18n>L'album n'a pas pu être créé</p>
     </form>
   </mat-card-content>
 </mat-card>

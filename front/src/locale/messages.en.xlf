@@ -170,7 +170,7 @@
       </trans-unit>
       <trans-unit id="7322102827674488683" datatype="html">
         <source> Modifié le : <x id="INTERPOLATION" equiv-text="{{ album.modifiedAt | date : &quot;medium&quot; }}"/> </source>
-        <target state="new"> Modified at : <x id="INTERPOLATION" equiv-text="{{ album.modifiedAt | date : &quot;medium&quot; }}"/> </target>
+        <target state="new"> Modified on : <x id="INTERPOLATION" equiv-text="{{ album.modifiedAt | date : &quot;medium&quot; }}"/> </target>
       </trans-unit>
       <trans-unit id="4902817035128594900" datatype="html">
         <source>Description</source>
@@ -268,7 +268,9 @@
       </trans-unit>
       <trans-unit id="7852012851657315774" datatype="html">
         <source>Le <x id="INTERPOLATION" equiv-text="{{ bestDate(picvid) | date : &quot;short&quot; }}"/></source>
-        <target state="new"><x id="INTERPOLATION" equiv-text="{{ bestDate(picvid) | date : &quot;short&quot; }}"/></target>
+        <target state="new">
+          <x id="INTERPOLATION" equiv-text="{{ bestDate(picvid) | date : &quot;short&quot; }}"/>
+        </target>
       </trans-unit>
       <trans-unit id="5621617416694492912" datatype="html">
         <source>Créé le : <x id="INTERPOLATION" equiv-text="{{ picvid.createdAt | date : &quot;medium&quot; }}"/></source>
@@ -289,6 +291,90 @@
       <trans-unit id="2165777066879413560" datatype="html">
         <source>Nouveau commentaire</source>
         <target state="new">Add new comment</target>
+      </trans-unit>
+      <trans-unit id="7549073271252207179" datatype="html">
+        <source>Ancient mot de passe</source>
+        <target state="new">Old password</target>
+      </trans-unit>
+      <trans-unit id="5823419314778478638" datatype="html">
+        <source> Sauvegarder </source>
+        <target state="new"> Save </target>
+      </trans-unit>
+      <trans-unit id="4519542930788784713" datatype="html">
+        <source>Cette adresse email et/ou ce nom d&apos;utilisateur est invalide, ou le mot de passe est erroné</source>
+        <target state="new">Invalid email address or username, or wrong password</target>
+      </trans-unit>
+      <trans-unit id="6497544826155835104" datatype="html">
+        <source>Se déconnecter</source>
+        <target state="new">Logout</target>
+      </trans-unit>
+      <trans-unit id="2125300065646128390" datatype="html">
+        <source>Test connexion Internet (Appel Externe) : <x id="INTERPOLATION" equiv-text="{{ testInternet }}"/></source>
+        <target state="new">Internet connection test (External call) : <x id="INTERPOLATION" equiv-text="{{ testInternet }}"/></target>
+      </trans-unit>
+      <trans-unit id="285766528131418837" datatype="html">
+        <source>Test connexion BackEnd (Appel Welcome) : <x id="INTERPOLATION" equiv-text="{{ testWelcome }}"/></source>
+        <target state="new">BackEnd call test (Welcome API call) : <x id="INTERPOLATION" equiv-text="{{ testWelcome }}"/></target>
+      </trans-unit>
+      <trans-unit id="1687241648212384771" datatype="html">
+        <source> Ecran (h x l) : <x id="INTERPOLATION" equiv-text="{{ screenHeight }}"/> x <x id="INTERPOLATION_1" equiv-text="{{ screenWidth }}"/> (screenClass : <x id="INTERPOLATION_2" equiv-text="{{ screenClass(screenWidth) }}"/>) </source>
+        <target state="new"> Screen (h x w) : <x id="INTERPOLATION" equiv-text="{{ screenHeight }}"/> x <x id="INTERPOLATION_1" equiv-text="{{ screenWidth }}"/> (screenClass : <x id="INTERPOLATION_2" equiv-text="{{ screenClass(screenWidth) }}"/>) </target>
+      </trans-unit>
+      <trans-unit id="6439010713363909878" datatype="html">
+        <source>Afficher le loading</source>
+        <target state="new">Show loading</target>
+      </trans-unit>
+      <trans-unit id="5037743681617410736" datatype="html">
+        <source>Afficher une inputbox de test</source>
+        <target state="new">Show test inputbox</target>
+      </trans-unit>
+      <trans-unit id="6392173895240372238" datatype="html">
+        <source>Albums :</source>
+        <target state="new">Albums:</target>
+      </trans-unit>
+      <trans-unit id="8569778219619787555" datatype="html">
+        <source>Mes commentaires</source>
+        <target state="new">My comments</target>
+      </trans-unit>
+      <trans-unit id="1370889996936697359" datatype="html">
+        <source>Mes réponses</source>
+        <target state="new">My answers</target>
+      </trans-unit>
+      <trans-unit id="245035862935629343" datatype="html">
+        <source>Sur mes albums</source>
+        <target state="new">About my albums</target>
+      </trans-unit>
+      <trans-unit id="2652065779947634819" datatype="html">
+        <source>Nouvel album</source>
+        <target state="new">New album</target>
+      </trans-unit>
+      <trans-unit id="7808772356740736909" datatype="html">
+        <source>Glissez-déposez votre photo (facultatif)</source>
+        <target state="new">Drag and drop picture here (optional)</target>
+      </trans-unit>
+      <trans-unit id="5707031041752702683" datatype="html">
+        <source>L&apos;album n&apos;a pas pu être créé</source>
+        <target state="new">Album creation failed</target>
+      </trans-unit>
+      <trans-unit id="5502756445471167659" datatype="html">
+        <source>le <x id="INTERPOLATION" equiv-text="{{ album.modifiedAt | date : &quot;medium&quot; }}"/></source>
+        <target state="new"><x id="INTERPOLATION" equiv-text="{{ album.modifiedAt | date : &quot;medium&quot; }}"/></target>
+      </trans-unit>
+      <trans-unit id="2772988143166510474" datatype="html">
+        <source>modéré</source>
+        <target state="new">moderated</target>
+      </trans-unit>
+      <trans-unit id="1612835324315844797" datatype="html">
+        <source> se désinscrire </source>
+        <target state="new"> unsubscribe </target>
+      </trans-unit>
+      <trans-unit id="5670132828230966558" datatype="html">
+        <source> ne plus modérer </source>
+        <target state="new"> stop moderating </target>
+      </trans-unit>
+      <trans-unit id="8197493886950684582" datatype="html">
+        <source> Le <x id="INTERPOLATION" equiv-text="{{ comment.createdAt | date : &quot;short&quot; }}"/> </source>
+        <target state="new"><x id="INTERPOLATION" equiv-text="{{ comment.createdAt | date : &quot;short&quot; }}"/> </target>
       </trans-unit>
     </body>
   </file>

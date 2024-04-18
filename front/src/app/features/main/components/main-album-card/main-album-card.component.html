@@ -13,7 +13,7 @@
     <mat-card-content>
       <mat-card-title>{{ album.name }}</mat-card-title>
       <div class="dateAuthor">
-        <div>le {{ album.modifiedAt | date : "medium" }}</div>
+        <div i18n>le {{ album.modifiedAt | date : "medium" }}</div>
         <div>{{ album.owner_name }}</div>
       </div>
       <div class="roomForButton">{{ album.description }}</div>
@@ -27,6 +27,7 @@
       ></mat-slide-toggle>
       <a
         *ngIf="album.status === 'MODERATED' && context == 'owner'"
+        i18n
         class="moderated"
         [href]="'mailto:' + CONTACT_EMAIL"
         (click)="$event.stopPropagation()"
@@ -35,6 +36,7 @@
       >
       <button
         *ngIf="context == 'subscribed'"
+        i18n
         mat-raised-button
         (click)="onUnsubscribe(album); $event.stopPropagation()"
         class="unsubscribe"
@@ -43,6 +45,7 @@
       </button>
       <button
         *ngIf="context == 'moderated'"
+        i18n
         mat-raised-button
         (click)="onUnmoderate(album); $event.stopPropagation()"
         class="unsubscribe"

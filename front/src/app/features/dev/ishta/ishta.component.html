@@ -1,12 +1,12 @@
-<p>Test connexion Internet (Appel Externe) : {{ testInternet }}</p>
-<p>Test connexion BackEnd (Appel Welcome) : {{ testWelcome }}</p>
-<p>
+<p i18n>Test connexion Internet (Appel Externe) : {{ testInternet }}</p>
+<p i18n>Test connexion BackEnd (Appel Welcome) : {{ testWelcome }}</p>
+<p i18n>
   Ecran (h x l) : {{ screenHeight }} x {{ screenWidth }} (screenClass :
   {{ screenClass(screenWidth) }})
 </p>
-<button (click)="hideLoading = !hideLoading">Afficher le loading</button>
+<button (click)="hideLoading = !hideLoading" i18n>Afficher le loading</button>
 <br /><br />
-<button (click)="testInputDialog()">Afficher une inputbox de test</button>
+<button (click)="testInputDialog()" i18n>Afficher une inputbox de test</button>
 <div id="loading">
   <img
     id="loading"
