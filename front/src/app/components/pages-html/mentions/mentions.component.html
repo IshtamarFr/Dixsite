@@ -3,7 +3,7 @@
 </button>
 <hr />
 
-<div class="mentions">
+<div class="mentions" *ngIf="!english">
   <h2 id="who">Qui sommes-nous ?</h2>
   <p>
     Ishtamar.fr appartient à l'association Ishtamar Informatique et Education,
@@ -119,5 +119,120 @@
     En particulier, toute ressource ne correspondant pas à un animal de
     compagnie, ou qui viole manifestement les lois et réglementations en
     vigueur, sera modérée dans les plus brefs délais.
+  </p>
+</div>
+
+<button mat-icon-button (click)="back()">
+  <mat-icon>arrow_back</mat-icon>
+</button>
+<hr />
+
+<div class="mentions" *ngIf="english">
+  <h2 id="who">Who are we?</h2>
+  <p>
+    Ishtamar.fr belongs to the Ishtamar Computer Science and Education
+    Association, which promotes learning computer science in an eco-responsible
+    way.
+  </p>
+  <p>
+    Our goal is therefore to use the least powerful and least polluting machines
+    possible and to optimize code and server resources.
+  </p>
+  <p>
+    In addition, we promote learning computer science through these services, by
+    raising awareness among users and institutions about the ecological impact
+    of the machines used, too often oversized.
+  </p>
+  <p>
+    The Ishtamar.fr server is based in France, and is subject to French and
+    European laws and regulations.
+  </p>
+
+  <h2 id="rgpd">GDPR</h2>
+  <p>
+    The <a href="https://gdpr.eu/what-is-gdpr/">GDPR</a>, General Data
+    Protection Regulation, is a set of texts aimed at protecting the rights of
+    European citizens.
+  </p>
+  <p>
+    The ishtamar.fr site does not contain any cookies or trackers, so your
+    visits are not tracked. However, some services are only accessible to
+    registered users.
+  </p>
+  <p>When you register, ishtamar.fr collects some personal data:</p>
+  <ul>
+    <li>Your username</li>
+    <li>Your email address</li>
+    <li>Your IP address</li>
+    <li>The dates and times of registration and validation</li>
+  </ul>
+  <p>During subsequent visits, ishtamar.fr also collects:</p>
+  <ul>
+    <li>
+      The dates, times and IP addresses of the different connections and uses
+    </li>
+    <li>User contributions (messages, photos, comments, etc.)</li>
+  </ul>
+  <p>
+    In accordance with the regulations, you have a right of access and
+    rectification to your personal data. You can exercise this right by
+    <a [href]="'mailto:' + CONTACT_EMAIL">contacting us</a>.
+  </p>
+  <p>
+    This personal data is neither sold nor shared with third parties, with the
+    exception of administrative or judicial requisitions in accordance with
+    applicable laws.
+  </p>
+  <p>
+    This personal data is only collected for the purpose of ensuring the proper
+    functioning of the service, and for internal statistical purposes.
+  </p>
+  <p>
+    Ishtamar.fr does not use cookies or trackers. Therefore, no GDPR banner is
+    present on this site.
+  </p>
+
+  <h2 id="licence">License</h2>
+  <p>
+    This application is solely intended for sharing photos and videos of our
+    pets.
+  </p>
+  <p>
+    This application is provided as is, and free of charge, without any warranty
+    of good functioning of any kind. Ishtamar.fr cannot be held responsible for
+    any loss of data, any service interruption, or any damage whatsoever.
+  </p>
+  <p>The free service provided by Ishtamar.fr is not guaranteed over time.</p>
+  <p>
+    By default, each user can create a single album, with a maximum size of
+    500MB. This limitation can be modified at the discretion of Ishtamar.fr by
+    <a [href]="'mailto:' + CONTACT_EMAIL">contacting us</a>.
+  </p>
+  <p>
+    Ishtamar.fr undertakes to return to their owner their various photos and
+    videos, in the simplest form to implement by Ishtamar.fr, on simple request,
+    after verification of the identity of the applicant, and if this operation
+    is materially and legally possible.
+  </p>
+
+  <h2 id="responsabilite">Responsibilities</h2>
+  <p>
+    Ishtamar.fr is not responsible for the content posted by the different
+    members. The content (photos, videos, comments) does not reflect the ideas
+    and opinions of Ishtamar.fr.
+  </p>
+  <p>
+    The content (photos, videos, comments) remains the property and
+    responsibility of the person who posts it.
+  </p>
+  <p>
+    Ishtamar.fr reserves the right, at any time and without prior notice, to
+    moderate content, at its own discretion, at the request of a third party or
+    at the request of the competent authorities.
+  </p>
+  <p>
+    In particular, any resource that does not correspond to a pet, or that
+    manifestly violates the laws and regulations in force, will be moderated as
+    soon as possible.
   </p>
 </div>
