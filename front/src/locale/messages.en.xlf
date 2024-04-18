@@ -258,10 +258,6 @@
         <source> La ressource n&apos;a pas pu être créée </source>
         <target state="new"> Resource creation has failed </target>
       </trans-unit>
-      <trans-unit id="5090589311314515293" datatype="html">
-        <source> Par <x id="INTERPOLATION" equiv-text="{{ comment.owner_name }}"/>, le <x id="INTERPOLATION_1" equiv-text="{{ comment.createdAt | date : &quot;medium&quot; }}"/> </source>
-        <target state="new"> By <x id="INTERPOLATION" equiv-text="{{ comment.owner_name }}"/>, <x id="INTERPOLATION_1" equiv-text="{{ comment.createdAt | date : &quot;medium&quot; }}"/> </target>
-      </trans-unit>
       <trans-unit id="8296732980773778260" datatype="html">
         <source>Nouvelle réponse</source>
         <target state="new">New answer</target>
@@ -358,7 +354,9 @@
       </trans-unit>
       <trans-unit id="5502756445471167659" datatype="html">
         <source>le <x id="INTERPOLATION" equiv-text="{{ album.modifiedAt | date : &quot;medium&quot; }}"/></source>
-        <target state="new"><x id="INTERPOLATION" equiv-text="{{ album.modifiedAt | date : &quot;medium&quot; }}"/></target>
+        <target state="new">
+          <x id="INTERPOLATION" equiv-text="{{ album.modifiedAt | date : &quot;medium&quot; }}"/>
+        </target>
       </trans-unit>
       <trans-unit id="2772988143166510474" datatype="html">
         <source>modéré</source>
@@ -374,7 +372,17 @@
       </trans-unit>
       <trans-unit id="8197493886950684582" datatype="html">
         <source> Le <x id="INTERPOLATION" equiv-text="{{ comment.createdAt | date : &quot;short&quot; }}"/> </source>
-        <target state="new"><x id="INTERPOLATION" equiv-text="{{ comment.createdAt | date : &quot;short&quot; }}"/> </target>
+        <target state="new">
+          <x id="INTERPOLATION" equiv-text="{{ comment.createdAt | date : &quot;short&quot; }}"/>
+        </target>
+      </trans-unit>
+      <trans-unit id="5090589311314515293" datatype="html">
+        <source> Par <x id="INTERPOLATION" equiv-text="{{ comment.owner_name }}"/>, le <x id="INTERPOLATION_1" equiv-text="{{ comment.createdAt | date : &quot;medium&quot; }}"/> </source>
+        <target state="new"> By <x id="INTERPOLATION" equiv-text="{{ comment.owner_name }}"/>, le <x id="INTERPOLATION_1" equiv-text="{{ comment.createdAt | date : &quot;medium&quot; }}"/> </target>
+      </trans-unit>
+      <trans-unit id="6709445118218768083" datatype="html">
+        <source>par <x id="INTERPOLATION" equiv-text="{{ album.owner_name }}"/></source>
+        <target state="new">by <x id="INTERPOLATION" equiv-text="{{ album.owner_name }}"/></target>
       </trans-unit>
     </body>
   </file>

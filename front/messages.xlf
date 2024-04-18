@@ -190,9 +190,6 @@
       <trans-unit id="4794636048296689953" datatype="html">
         <source>Ajouter une ressource (photo / vidéo)</source>
       </trans-unit>
-      <trans-unit id="5090589311314515293" datatype="html">
-        <source> Par <x id="INTERPOLATION" equiv-text="{{ comment.owner_name }}"/>, le <x id="INTERPOLATION_1" equiv-text="{{ comment.createdAt | date : &quot;medium&quot; }}"/> </source>
-      </trans-unit>
       <trans-unit id="5621617416694492912" datatype="html">
         <source>Créé le : <x id="INTERPOLATION" equiv-text="{{ picvid.createdAt | date : &quot;medium&quot; }}"/></source>
       </trans-unit>
@@ -279,6 +276,12 @@
       </trans-unit>
       <trans-unit id="8569778219619787555" datatype="html">
         <source>Mes commentaires</source>
+      </trans-unit>
+      <trans-unit id="5090589311314515293" datatype="html">
+        <source> Par <x id="INTERPOLATION" equiv-text="{{ comment.owner_name }}"/>, le <x id="INTERPOLATION_1" equiv-text="{{ comment.createdAt | date : &quot;medium&quot; }}"/> </source>
+      </trans-unit>
+      <trans-unit id="6709445118218768083" datatype="html">
+        <source>par <x id="INTERPOLATION" equiv-text="{{ album.owner_name }}"/></source>
       </trans-unit>
     </body>
   </file>

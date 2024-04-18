@@ -16,7 +16,6 @@ export class MentionsComponent implements OnInit {
   public english: boolean = false;
 
   ngOnInit(): void {
-    console.log(window.location.href);
     this.english = window.location.href.includes('/en/');
   }
 
