@@ -7,7 +7,7 @@
   <div class="content">
     <div>
       <mat-card-subtitle i18n>
-        Le {{ comment.createdAt | date : "short" }}
+        Le {{ comment.createdAt | date : dateFormat }}
       </mat-card-subtitle>
       <mat-card-content>
         {{ comment.content }}
@@ -16,7 +16,7 @@
     <mat-card-actions
       ><div *ngIf="!comment.mother_id" class="answers" i18n>
         {{ comment.subcomments!.length }}
-        {{ comment.subcomments!.length > 1 ? "réponses" : "réponse" }}
+        réponse{{ comment.subcomments!.length > 1 ? "s" : "" }}
       </div>
     </mat-card-actions>
   </div>

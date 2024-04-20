@@ -56,6 +56,8 @@ export class AlbumTitleComponent implements OnInit {
   public form2!: FormGroup;
   public isHomePictureEmpty: boolean = false;
 
+  dateFormat: string = 'dd/MM/yyyy HH:mm';
+
   constructor(
     private albumService: AlbumService,
     private sanitizer: DomSanitizer,
@@ -66,6 +68,9 @@ export class AlbumTitleComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    if (window.location.href.includes('/en/'))
+      this.dateFormat = 'MM/dd/yyyy h:mm a';
+
     this.form = this.fb.group({
       name: [
         this.album.name,

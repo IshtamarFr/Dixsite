@@ -43,6 +43,8 @@ export class AlbumsComponent implements OnInit {
     showFirstLastButtons: true,
   };
 
+  dateFormat: string = 'dd/MM/yyyy HH:mm';
+
   constructor(
     private albumService: AlbumService,
     private sessionService: SessionService,
@@ -50,17 +52,12 @@ export class AlbumsComponent implements OnInit {
     private router: Router
   ) {}
 
-  min(a: number, b: number): number {
-    return Math.min(a, b);
-  }
-
-  getImageURL(imageId: string): string {
-    return this.albumService.getImageURL(imageId);
-  }
-
   ngOnInit(): void {
     this.user = this.sessionService.user;
     if (this.user) this.userId = this.user.id;
+    if (window.location.href.includes('/en/'))
+      this.dateFormat = 'MM/dd/yyyy h:mm a';
+
     this.albumService
       .list(this.userId)
       .pipe(take(1))
@@ -83,6 +80,14 @@ export class AlbumsComponent implements OnInit {
           this.albums = resp;
         },
       });
+  }
+
+  min(a: number, b: number): number {
+    return Math.min(a, b);
+  }
+
+  getImageURL(imageId: string): string {
+    return this.albumService.getImageURL(imageId);
   }
 
   onUnsubscribe(album: Album): void {

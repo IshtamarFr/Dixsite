@@ -27,7 +27,7 @@
             (click)="goToPicvid(picvid)"
           >
             <mat-card-subtitle>{{
-              bestDate(picvid) | date : "short"
+              bestDate(picvid) | date : dateFormat
             }}</mat-card-subtitle>
             <img
               [src]="getImageURL(picvid.fileLocation)"

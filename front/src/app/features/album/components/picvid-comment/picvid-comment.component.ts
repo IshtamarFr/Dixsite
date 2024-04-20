@@ -45,6 +45,8 @@ export class PicvidCommentComponent implements OnInit {
   public myId?: number;
   public subcomments: Comment[] = [];
 
+  public dateFormat = 'dd/MM/yyyy HH:mm';
+
   public form = this.fb.group({
     content: ['', [Validators.required, Validators.maxLength(255)]],
   });
@@ -56,6 +58,9 @@ export class PicvidCommentComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    if (window.location.href.includes('/en/'))
+      this.dateFormat = 'MM/dd/yyyy h:mm a';
+
     this.myId = this.sessionService.user?.id;
     if (this.comment.subcomments) this.subcomments = this.comment.subcomments;
   }

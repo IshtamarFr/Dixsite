@@ -1,7 +1,7 @@
 <mat-card class="mainContainer" *ngIf="!isAdminTriggered">
   <mat-card-title>{{ picvid.name }}</mat-card-title>
   <mat-card-subtitle>
-    <span i18n>Le {{ bestDate(picvid) | date : "short" }}</span>
+    <span i18n>Le {{ bestDate(picvid) | date : dateFormat }}</span>
     <span *ngIf="picvid.takenLocation"> , à {{ picvid.takenLocation }}</span>
   </mat-card-subtitle>
   <mat-card-content *ngIf="picvid.description">{{
@@ -37,14 +37,14 @@
     <mat-divider />
     <mat-card-content>
       <div class="dates">
-        <div i18n>Créé le : {{ picvid.createdAt | date : "medium" }}</div>
+        <div i18n>Créé le : {{ picvid.createdAt | date : dateFormat }}</div>
         <div
           *ngIf="picvid.dateTimeExif"
           matTooltip="date fournie par le fichier lui-même"
           i18n
           i18n-matTooltip
         >
-          Date EXIF : {{ picvid.dateTimeExif | date : "medium" }}
+          Date EXIF : {{ picvid.dateTimeExif | date : dateFormat }}
         </div>
       </div>
     </mat-card-content>

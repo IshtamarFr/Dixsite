@@ -1,7 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
 import { Comment } from '../../../album/interfaces/comment.interface';
 import { MatCardModule } from '@angular/material/card';
 import { PicvidService } from '../../../album/services/picvid.service';
@@ -11,7 +9,7 @@ import { take } from 'rxjs';
 @Component({
   selector: 'app-mycomment',
   standalone: true,
-  imports: [CommonModule, MatCardModule, RouterModule],
+  imports: [CommonModule, MatCardModule],
   templateUrl: './mycomment.component.html',
   styleUrl: './mycomment.component.scss',
 })
@@ -19,13 +17,14 @@ export class MycommentComponent implements OnInit {
   @Input() comment!: Comment;
   picvid?: Picvid;
 
-  constructor(
-    private httpClient: HttpClient,
-    private router: Router,
-    private picvidService: PicvidService
-  ) {}
+  dateFormat: string = 'dd/MM/yyyy HH:mm';
+
+  constructor(private picvidService: PicvidService) {}
 
   ngOnInit(): void {
+    if (window.location.href.includes('/en/'))
+      this.dateFormat = 'MM/dd/yyyy h:mm a';
+
     this.picvidService
       .getPicvidById(this.comment.album_id, this.comment.picvid_id)
       .pipe(take(1))

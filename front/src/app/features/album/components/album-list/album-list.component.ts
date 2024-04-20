@@ -44,6 +44,8 @@ export class AlbumListComponent implements OnInit {
   public picvids: Picvid[] = [];
   public uniqueYears: number[] = [];
 
+  dateFormat: string = 'dd/MM/yyyy HH:mm';
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private albumService: AlbumService,
@@ -55,6 +57,9 @@ export class AlbumListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    if (window.location.href.includes('/en/'))
+      this.dateFormat = 'MM/dd/yyyy h:mm a';
+
     this.albumId = this.activatedRoute.snapshot.params['albumId'];
     this.initAllPicvids();
     this.picvidService

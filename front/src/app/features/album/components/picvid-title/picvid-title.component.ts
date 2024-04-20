@@ -50,6 +50,8 @@ export class PicvidTitleComponent implements OnInit {
 
   public form!: FormGroup;
 
+  dateFormat: string = 'dd/MM/yyyy HH:mm';
+
   constructor(
     private _adapter: DateAdapter<any>,
     @Inject(MAT_DATE_LOCALE) private _locale: string,
@@ -58,8 +60,14 @@ export class PicvidTitleComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this._locale = 'fr';
-    this._adapter.setLocale(this._locale);
+    if (window.location.href.includes('/en/')) {
+      this.dateFormat = 'MM/dd/yyyy h:mm a';
+      this._locale = 'en';
+      this._adapter.setLocale(this._locale);
+    } else {
+      this._locale = 'fr';
+      this._adapter.setLocale(this._locale);
+    }
     this.reinitForm();
   }
 

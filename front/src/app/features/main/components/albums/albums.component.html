@@ -36,8 +36,10 @@
     />
     <mat-card-title>{{ album.name }}</mat-card-title>
     <div>
-      <div i18n>par {{ album.owner_name }}</div>
-      <div>{{ album.modifiedAt | date : "short" }}</div>
+      <div i18n>
+        par <strong>{{ album.owner_name }}</strong>
+      </div>
+      <div>{{ album.modifiedAt | date : dateFormat }}</div>
     </div>
     <button
       mat-mini-fab
