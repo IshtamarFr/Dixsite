@@ -122,7 +122,7 @@
         <source>Déconnexion</source>
       </trans-unit>
       <trans-unit id="6642599054957246988" datatype="html">
-        <source> Créé le : <x id="INTERPOLATION" equiv-text="{{ album.createdAt | date : &quot;medium&quot; }}"/> </source>
+        <source> Créé le : <x id="INTERPOLATION" equiv-text="{{ album.createdAt | date : dateFormat }}"/> </source>
       </trans-unit>
       <trans-unit id="6642914809324654807" datatype="html">
         <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>add_circle<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Photo / Vidéo </source>
@@ -134,7 +134,7 @@
         <source>Ajouter un modérateur (par email)</source>
       </trans-unit>
       <trans-unit id="7322102827674488683" datatype="html">
-        <source> Modifié le : <x id="INTERPOLATION" equiv-text="{{ album.modifiedAt | date : &quot;medium&quot; }}"/> </source>
+        <source> Modifié le : <x id="INTERPOLATION" equiv-text="{{ album.modifiedAt | date : dateFormat }}"/> </source>
       </trans-unit>
       <trans-unit id="7844706011418789951" datatype="html">
         <source>Administration</source>
@@ -275,7 +275,7 @@
         <source>Mes commentaires</source>
       </trans-unit>
       <trans-unit id="5090589311314515293" datatype="html">
-        <source> Par <x id="INTERPOLATION" equiv-text="{{ comment.owner_name }}"/>, le <x id="INTERPOLATION_1" equiv-text="{{ comment.createdAt | date : &quot;medium&quot; }}"/> </source>
+        <source> Par <x id="INTERPOLATION" equiv-text="{{ comment.owner_name }}"/>, le <x id="INTERPOLATION_1" equiv-text="{{ comment.createdAt | date : dateFormat }}"/> </source>
       </trans-unit>
       <trans-unit id="4689509906015578880" datatype="html">
         <source> <x id="INTERPOLATION" equiv-text="{{ comment.subcomments!.length }}"/> réponse<x id="INTERPOLATION_1" equiv-text="{{ comment.subcomments!.length &gt; 1 ? &quot;s&quot; : &quot;&quot; }}"/> </source>

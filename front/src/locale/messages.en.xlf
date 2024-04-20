@@ -164,14 +164,6 @@
         <source>Nom de l&apos;album</source>
         <target state="new">Album name</target>
       </trans-unit>
-      <trans-unit id="6642599054957246988" datatype="html">
-        <source> Créé le : <x id="INTERPOLATION" equiv-text="{{ album.createdAt | date : &quot;medium&quot; }}"/> </source>
-        <target state="new"> Created on : <x id="INTERPOLATION" equiv-text="{{ album.createdAt | date : &quot;medium&quot; }}"/> </target>
-      </trans-unit>
-      <trans-unit id="7322102827674488683" datatype="html">
-        <source> Modifié le : <x id="INTERPOLATION" equiv-text="{{ album.modifiedAt | date : &quot;medium&quot; }}"/> </source>
-        <target state="new"> Modified on : <x id="INTERPOLATION" equiv-text="{{ album.modifiedAt | date : &quot;medium&quot; }}"/> </target>
-      </trans-unit>
       <trans-unit id="4902817035128594900" datatype="html">
         <source>Description</source>
         <target state="new">Description</target>
@@ -340,10 +332,6 @@
         <source> ne plus modérer </source>
         <target state="new"> stop moderating </target>
       </trans-unit>
-      <trans-unit id="5090589311314515293" datatype="html">
-        <source> Par <x id="INTERPOLATION" equiv-text="{{ comment.owner_name }}"/>, le <x id="INTERPOLATION_1" equiv-text="{{ comment.createdAt | date : &quot;medium&quot; }}"/> </source>
-        <target state="new"> By <x id="INTERPOLATION" equiv-text="{{ comment.owner_name }}"/>, le <x id="INTERPOLATION_1" equiv-text="{{ comment.createdAt | date : &quot;medium&quot; }}"/> </target>
-      </trans-unit>
       <trans-unit id="7549011733155990745" datatype="html">
         <source> <x id="INTERPOLATION" equiv-text="{{ album.moderator_ids.length }}"/> modérateur<x id="INTERPOLATION_1" equiv-text="{{ album.moderator_ids.length &gt; 1 ? &quot;s&quot; : &quot;&quot; }}"/> </source>
         <target state="new"> <x id="INTERPOLATION" equiv-text="{{ album.moderator_ids.length }}"/> moderator<x id="INTERPOLATION_1" equiv-text="{{ album.moderator_ids.length &gt; 1 ? &quot;s&quot; : &quot;&quot; }}"/> </target>
@@ -351,10 +339,6 @@
       <trans-unit id="4689509906015578880" datatype="html">
         <source> <x id="INTERPOLATION" equiv-text="{{ comment.subcomments!.length }}"/> réponse<x id="INTERPOLATION_1" equiv-text="{{ comment.subcomments!.length &gt; 1 ? &quot;s&quot; : &quot;&quot; }}"/> </source>
         <target state="new"> <x id="INTERPOLATION" equiv-text="{{ comment.subcomments!.length }}"/> answer<x id="INTERPOLATION_1" equiv-text="{{ comment.subcomments!.length &gt; 1 ? &quot;s&quot; : &quot;&quot; }}"/> </target>
-      </trans-unit>
-      <trans-unit id="7852012851657315774" datatype="html">
-        <source>Le <x id="INTERPOLATION" equiv-text="{{ bestDate(picvid) | date : dateFormat }}"/></source>
-        <target state="new"><x id="INTERPOLATION" equiv-text="{{ bestDate(picvid) | date : dateFormat }}"/></target>
       </trans-unit>
       <trans-unit id="5621617416694492912" datatype="html">
         <source>Créé le : <x id="INTERPOLATION" equiv-text="{{ picvid.createdAt | date : dateFormat }}"/></source>
@@ -367,6 +351,22 @@
       <trans-unit id="8135258507504288012" datatype="html">
         <source> par <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/><x id="INTERPOLATION" equiv-text="{{ album.owner_name }}"/><x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/></source>
         <target state="new"> by <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/><x id="INTERPOLATION" equiv-text="{{ album.owner_name }}"/><x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/></target>
+      </trans-unit>
+      <trans-unit id="6642599054957246988" datatype="html">
+        <source> Créé le : <x id="INTERPOLATION" equiv-text="{{ album.createdAt | date : dateFormat }}"/> </source>
+        <target state="new"> Created on: <x id="INTERPOLATION" equiv-text="{{ album.createdAt | date : dateFormat }}"/> </target>
+      </trans-unit>
+      <trans-unit id="7322102827674488683" datatype="html">
+        <source> Modifié le : <x id="INTERPOLATION" equiv-text="{{ album.modifiedAt | date : dateFormat }}"/> </source>
+        <target state="new"> Modified on: <x id="INTERPOLATION" equiv-text="{{ album.modifiedAt | date : dateFormat }}"/> </target>
+      </trans-unit>
+      <trans-unit id="5090589311314515293" datatype="html">
+        <source> Par <x id="INTERPOLATION" equiv-text="{{ comment.owner_name }}"/>, le <x id="INTERPOLATION_1" equiv-text="{{ comment.createdAt | date : dateFormat }}"/> </source>
+        <target state="new"> By <x id="INTERPOLATION" equiv-text="{{ comment.owner_name }}"/>, le <x id="INTERPOLATION_1" equiv-text="{{ comment.createdAt | date : dateFormat }}"/> </target>
+      </trans-unit>
+      <trans-unit id="7852012851657315774" datatype="html">
+        <source>Le <x id="INTERPOLATION" equiv-text="{{ bestDate(picvid) | date : dateFormat }}"/></source>
+        <target state="new"><x id="INTERPOLATION" equiv-text="{{ bestDate(picvid) | date : dateFormat }}"/></target>
       </trans-unit>
       <trans-unit id="5502756445471167659" datatype="html">
         <source>le <x id="INTERPOLATION" equiv-text="{{ album.modifiedAt | date : dateFormat }}"/></source>

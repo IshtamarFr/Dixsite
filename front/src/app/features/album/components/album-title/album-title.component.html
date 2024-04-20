@@ -79,10 +79,10 @@
       </mat-form-field>
       <mat-card-subtitle>
         <div class="date" i18n>
-          Créé le : {{ album.createdAt | date : "medium" }}
+          Créé le : {{ album.createdAt | date : dateFormat }}
         </div>
         <div class="date" i18n>
-          Modifié le : {{ album.modifiedAt | date : "medium" }}
+          Modifié le : {{ album.modifiedAt | date : dateFormat }}
         </div>
       </mat-card-subtitle>
       <mat-divider />

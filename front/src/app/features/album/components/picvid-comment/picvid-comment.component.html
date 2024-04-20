@@ -1,7 +1,7 @@
 <mat-card class="comment" [ngClass]="{ me: comment.owner_id == myId }">
   <mat-card-subtitle i18n>
     Par {{ comment.owner_name }}, le
-    {{ comment.createdAt | date : "medium" }}
+    {{ comment.createdAt | date : dateFormat }}
   </mat-card-subtitle>
   <mat-card-content>
     {{ comment.content }}
@@ -39,7 +39,7 @@
         >
           <mat-card-subtitle i18n>
             Par {{ subcomment.owner_name }}, le
-            {{ subcomment.createdAt | date : "medium" }}
+            {{ subcomment.createdAt | date : dateFormat }}
           </mat-card-subtitle>
           <mat-card-content>
             {{ subcomment.content }}
