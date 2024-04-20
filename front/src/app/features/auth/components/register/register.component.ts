@@ -98,7 +98,7 @@ export class RegisterComponent {
         this.hideLoading = true;
         this.dialogService
           .openConfirmDialog(
-            'Veuillez valider votre inscription en cliquant sur le lien envoyé par mail',
+            $localize`Veuillez valider votre inscription en cliquant sur le lien envoyé par mail`,
             false
           )
           .subscribe({

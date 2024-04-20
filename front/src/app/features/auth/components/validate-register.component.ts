@@ -48,7 +48,7 @@ export class ValidateRegisterComponent implements OnInit {
             this.router.navigate(['/']).then(() => {
               this.dialogService
                 .openConfirmDialog(
-                  'La validation a échoué. Veuillez nous contacter si nécessaire.',
+                  $localize`La validation a échoué. Veuillez nous contacter si nécessaire.`,
                   false
                 )
                 .subscribe();

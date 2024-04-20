@@ -84,7 +84,7 @@ export class LoginComponent {
 
   public forgotten(): void {
     this.dialogService
-      .openInputDialog('Veuillez entrer votre adresse email')
+      .openInputDialog($localize`Veuillez entrer votre adresse email`)
       .subscribe({
         next: (response) => {
           if (response != undefined) {
@@ -96,7 +96,9 @@ export class LoginComponent {
                 .subscribe(() => {
                   this.dialogService
                     .openConfirmDialog(
-                      "Un email vient d'être envoyé à l'adresse " + response,
+                      $localize`Un email vient d'être envoyé à l'adresse` +
+                        ' ' +
+                        response,
                       false
                     )
                     .subscribe();

@@ -60,7 +60,7 @@ export class IshtaComponent implements OnInit, OnDestroy {
 
   testInputDialog(): void {
     this.dialogService
-      .openInputDialog('Souhaitez-vous écrire quelque chose ?')
+      .openInputDialog($localize`Souhaitez-vous écrire quelque chose ?`)
       .subscribe({
         next: (result) => {
           window.alert(result);

@@ -135,7 +135,10 @@ export class AlbumListComponent implements OnInit {
 
   deletePicvid(picvid: Picvid): void {
     this.dialogService
-      .openConfirmDialog('Voulez-vous vraiment supprimer cet élément ?', true)
+      .openConfirmDialog(
+        $localize`Voulez-vous vraiment supprimer cet élément ?`,
+        true
+      )
       .subscribe({
         next: (confirmed) => {
           if (confirmed) {

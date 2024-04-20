@@ -283,6 +283,30 @@
       <trans-unit id="8135258507504288012" datatype="html">
         <source> par <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/><x id="INTERPOLATION" equiv-text="{{ album.owner_name }}"/><x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/></source>
       </trans-unit>
+      <trans-unit id="1049610863735528054" datatype="html">
+        <source>Veuillez entrer votre adresse email</source>
+      </trans-unit>
+      <trans-unit id="3408559177112692876" datatype="html">
+        <source>Un email vient d&apos;être envoyé à l&apos;adresse</source>
+      </trans-unit>
+      <trans-unit id="349505340908525429" datatype="html">
+        <source>Etes-vous sûr de vouloir cesser de modérer cet album ?</source>
+      </trans-unit>
+      <trans-unit id="5022237251730162460" datatype="html">
+        <source>Voulez-vous vraiment supprimer cet élément ?</source>
+      </trans-unit>
+      <trans-unit id="547933502439530311" datatype="html">
+        <source>La validation a échoué. Veuillez nous contacter si nécessaire.</source>
+      </trans-unit>
+      <trans-unit id="7412819038165386674" datatype="html">
+        <source>Veuillez valider votre inscription en cliquant sur le lien envoyé par mail</source>
+      </trans-unit>
+      <trans-unit id="80073592358775567" datatype="html">
+        <source>Tapez &apos;Supprimer&apos; pour effacer définitivement cet album</source>
+      </trans-unit>
+      <trans-unit id="8968064290553413874" datatype="html">
+        <source>Souhaitez-vous écrire quelque chose ?</source>
+      </trans-unit>
     </body>
   </file>
 </xliff>

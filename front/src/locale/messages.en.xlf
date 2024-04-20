@@ -40,7 +40,7 @@
       </trans-unit>
       <trans-unit id="1234709746630139322" datatype="html">
         <source>Confirmation</source>
-        <target source="new">Confirm password</target>
+        <target source="new">Confirm</target>
       </trans-unit>
       <trans-unit id="5263909595696262145" datatype="html">
         <source> Se connecter </source>
@@ -230,7 +230,7 @@
       </trans-unit>
       <trans-unit id="1802354596515022072" datatype="html">
         <source>jj/mm/aaaa</source>
-        <target state="new">mm/dd/aaaa</target>
+        <target state="new">mm/dd/yyyy</target>
       </trans-unit>
       <trans-unit id="1050884217669722323" datatype="html">
         <source> Créer </source>
@@ -362,19 +362,57 @@
       </trans-unit>
       <trans-unit id="5090589311314515293" datatype="html">
         <source> Par <x id="INTERPOLATION" equiv-text="{{ comment.owner_name }}"/>, le <x id="INTERPOLATION_1" equiv-text="{{ comment.createdAt | date : dateFormat }}"/> </source>
-        <target state="new"> By <x id="INTERPOLATION" equiv-text="{{ comment.owner_name }}"/>, le <x id="INTERPOLATION_1" equiv-text="{{ comment.createdAt | date : dateFormat }}"/> </target>
+        <target state="new"> By <x id="INTERPOLATION" equiv-text="{{ comment.owner_name }}"/>, <x id="INTERPOLATION_1" equiv-text="{{ comment.createdAt | date : dateFormat }}"/> </target>
       </trans-unit>
       <trans-unit id="7852012851657315774" datatype="html">
         <source>Le <x id="INTERPOLATION" equiv-text="{{ bestDate(picvid) | date : dateFormat }}"/></source>
-        <target state="new"><x id="INTERPOLATION" equiv-text="{{ bestDate(picvid) | date : dateFormat }}"/></target>
+        <target state="new">
+          <x id="INTERPOLATION" equiv-text="{{ bestDate(picvid) | date : dateFormat }}"/>
+        </target>
       </trans-unit>
       <trans-unit id="5502756445471167659" datatype="html">
         <source>le <x id="INTERPOLATION" equiv-text="{{ album.modifiedAt | date : dateFormat }}"/></source>
-        <target state="new"><x id="INTERPOLATION" equiv-text="{{ album.modifiedAt | date : dateFormat }}"/></target>
+        <target state="new">
+          <x id="INTERPOLATION" equiv-text="{{ album.modifiedAt | date : dateFormat }}"/>
+        </target>
       </trans-unit>
       <trans-unit id="8197493886950684582" datatype="html">
         <source> Le <x id="INTERPOLATION" equiv-text="{{ comment.createdAt | date : dateFormat }}"/> </source>
-        <target state="new"><x id="INTERPOLATION" equiv-text="{{ comment.createdAt | date : dateFormat }}"/> </target>
+        <target state="new">
+          <x id="INTERPOLATION" equiv-text="{{ comment.createdAt | date : dateFormat }}"/>
+        </target>
+      </trans-unit>
+      <trans-unit id="5022237251730162460" datatype="html">
+        <source>Voulez-vous vraiment supprimer cet élément ?</source>
+        <target state="new">Do you really want to delete this ?</target>
+      </trans-unit>
+      <trans-unit id="80073592358775567" datatype="html">
+        <source>Tapez &apos;Supprimer&apos; pour effacer définitivement cet album</source>
+        <target state="new">Type &apos;Supprimer&apos; to permanently delete this album</target>
+      </trans-unit>
+      <trans-unit id="1049610863735528054" datatype="html">
+        <source>Veuillez entrer votre adresse email</source>
+        <target state="new">Please input your email address</target>
+      </trans-unit>
+      <trans-unit id="3408559177112692876" datatype="html">
+        <source>Un email vient d&apos;être envoyé à l&apos;adresse</source>
+        <target state="new">Email sent to</target>
+      </trans-unit>
+      <trans-unit id="7412819038165386674" datatype="html">
+        <source>Veuillez valider votre inscription en cliquant sur le lien envoyé par mail</source>
+        <target state="new">Please perform account validation by clicking on the link provided in the email</target>
+      </trans-unit>
+      <trans-unit id="547933502439530311" datatype="html">
+        <source>La validation a échoué. Veuillez nous contacter si nécessaire.</source>
+        <target state="new">Validation has failed. Please contact us for assistance.</target>
+      </trans-unit>
+      <trans-unit id="8968064290553413874" datatype="html">
+        <source>Souhaitez-vous écrire quelque chose ?</source>
+        <target state="new">Wanna type something ? ?</target>
+      </trans-unit>
+      <trans-unit id="349505340908525429" datatype="html">
+        <source>Etes-vous sûr de vouloir cesser de modérer cet album ?</source>
+        <target state="new">Do you confirm you want to stop moderating this album ?</target>
       </trans-unit>
     </body>
   </file>

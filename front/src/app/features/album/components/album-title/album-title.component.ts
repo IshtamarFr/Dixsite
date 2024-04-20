@@ -106,7 +106,7 @@ export class AlbumTitleComponent implements OnInit {
   deleteAlbum(): void {
     this.dialogService
       .openInputDialog(
-        "Tapez 'Supprimer' pour effacer définitivement cet album"
+        $localize`Tapez 'Supprimer' pour effacer définitivement cet album`
       )
       .subscribe({
         next: (resp) => {

@@ -85,7 +85,7 @@ export class MainAlbumCardComponent implements OnInit {
   onUnmoderate(album: Album): void {
     this.dialogService
       .openConfirmDialog(
-        'Etes-vous sûr de vouloir cesser de modérer cet album ?',
+        $localize`Etes-vous sûr de vouloir cesser de modérer cet album ?`,
         true
       )
       .pipe(take(1))
