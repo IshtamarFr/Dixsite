@@ -10,7 +10,7 @@
   <mat-expansion-panel>
     <mat-expansion-panel-header collapsedHeight="35px" i18n>
       {{ comment.subcomments!.length }}
-      {{ comment.subcomments!.length > 1 ? "réponses" : "réponse" }}
+      réponse{{ comment.subcomments!.length > 1 ? "s" : "" }}
     </mat-expansion-panel-header>
     <ng-template matExpansionPanelContent>
       <mat-card id="newMessage">

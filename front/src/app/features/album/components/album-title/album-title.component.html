@@ -118,7 +118,7 @@
   <mat-expansion-panel *ngIf="isAdminTriggered && isAdminOrOwner">
     <mat-expansion-panel-header i18n>
       {{ album.moderator_ids.length }}
-      {{ album.moderator_ids.length > 1 ? "modérateurs" : "modérateur" }}
+      modérateur{{ album.moderator_ids.length > 1 ? "s" : "" }}
     </mat-expansion-panel-header>
     <ng-template matExpansionPanelContent>
       <form [formGroup]="form2" (submit)="addModo()">

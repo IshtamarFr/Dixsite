@@ -148,11 +148,8 @@
       <trans-unit id="1534155701917252037" datatype="html">
         <source>ou</source>
       </trans-unit>
-      <trans-unit id="521952543941236208" datatype="html">
-        <source>
-          <x id="INTERPOLATION" equiv-text="{{ album.moderator_ids.length }}"/>
-          <x id="INTERPOLATION_1" equiv-text="{{ album.moderator_ids.length &gt; 1 ? &quot;modérateurs&quot; : &quot;modérateur&quot; }}"/>
-        </source>
+      <trans-unit id="7549011733155990745" datatype="html">
+        <source> <x id="INTERPOLATION" equiv-text="{{ album.moderator_ids.length }}"/> modérateur<x id="INTERPOLATION_1" equiv-text="{{ album.moderator_ids.length &gt; 1 ? &quot;s&quot; : &quot;&quot; }}"/> </source>
       </trans-unit>
       <trans-unit id="1050884217669722323" datatype="html">
         <source> Créer </source>
@@ -173,7 +170,7 @@
         <source>Nouveau commentaire</source>
       </trans-unit>
       <trans-unit id="3321239940962098188" datatype="html">
-        <source> Date EXIF : <x id="INTERPOLATION" equiv-text="{{ picvid.dateTimeExif | date : &quot;medium&quot; }}"/> </source>
+        <source> Date EXIF : <x id="INTERPOLATION" equiv-text="{{ picvid.dateTimeExif | date : dateFormat }}"/> </source>
       </trans-unit>
       <trans-unit id="3973931101896534797" datatype="html">
         <source>Date</source>
@@ -191,7 +188,7 @@
         <source>Ajouter une ressource (photo / vidéo)</source>
       </trans-unit>
       <trans-unit id="5621617416694492912" datatype="html">
-        <source>Créé le : <x id="INTERPOLATION" equiv-text="{{ picvid.createdAt | date : &quot;medium&quot; }}"/></source>
+        <source>Créé le : <x id="INTERPOLATION" equiv-text="{{ picvid.createdAt | date : dateFormat }}"/></source>
       </trans-unit>
       <trans-unit id="6381061756131336537" datatype="html">
         <source>Ajouter plusieurs ressources en lot (photo / vidéo)</source>
@@ -200,7 +197,7 @@
         <source> Au moins une ressource n&apos;a pu être créée </source>
       </trans-unit>
       <trans-unit id="7852012851657315774" datatype="html">
-        <source>Le <x id="INTERPOLATION" equiv-text="{{ bestDate(picvid) | date : &quot;short&quot; }}"/></source>
+        <source>Le <x id="INTERPOLATION" equiv-text="{{ bestDate(picvid) | date : dateFormat }}"/></source>
       </trans-unit>
       <trans-unit id="8149656698520125397" datatype="html">
         <source>date fournie par le fichier lui-même</source>
@@ -245,7 +242,7 @@
         <source>Afficher une inputbox de test</source>
       </trans-unit>
       <trans-unit id="5502756445471167659" datatype="html">
-        <source>le <x id="INTERPOLATION" equiv-text="{{ album.modifiedAt | date : &quot;medium&quot; }}"/></source>
+        <source>le <x id="INTERPOLATION" equiv-text="{{ album.modifiedAt | date : dateFormat }}"/></source>
       </trans-unit>
       <trans-unit id="5670132828230966558" datatype="html">
         <source> ne plus modérer </source>
@@ -272,7 +269,7 @@
         <source>Glissez-déposez votre photo (facultatif)</source>
       </trans-unit>
       <trans-unit id="8197493886950684582" datatype="html">
-        <source> Le <x id="INTERPOLATION" equiv-text="{{ comment.createdAt | date : &quot;short&quot; }}"/> </source>
+        <source> Le <x id="INTERPOLATION" equiv-text="{{ comment.createdAt | date : dateFormat }}"/> </source>
       </trans-unit>
       <trans-unit id="8569778219619787555" datatype="html">
         <source>Mes commentaires</source>
@@ -280,8 +277,11 @@
       <trans-unit id="5090589311314515293" datatype="html">
         <source> Par <x id="INTERPOLATION" equiv-text="{{ comment.owner_name }}"/>, le <x id="INTERPOLATION_1" equiv-text="{{ comment.createdAt | date : &quot;medium&quot; }}"/> </source>
       </trans-unit>
-      <trans-unit id="6709445118218768083" datatype="html">
-        <source>par <x id="INTERPOLATION" equiv-text="{{ album.owner_name }}"/></source>
+      <trans-unit id="4689509906015578880" datatype="html">
+        <source> <x id="INTERPOLATION" equiv-text="{{ comment.subcomments!.length }}"/> réponse<x id="INTERPOLATION_1" equiv-text="{{ comment.subcomments!.length &gt; 1 ? &quot;s&quot; : &quot;&quot; }}"/> </source>
+      </trans-unit>
+      <trans-unit id="8135258507504288012" datatype="html">
+        <source> par <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/><x id="INTERPOLATION" equiv-text="{{ album.owner_name }}"/><x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/></source>
       </trans-unit>
     </body>
   </file>
