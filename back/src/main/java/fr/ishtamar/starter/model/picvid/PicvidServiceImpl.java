@@ -1,19 +1,18 @@
 package fr.ishtamar.starter.model.picvid;
 
 import fr.ishtamar.starter.exceptionhandler.GenericException;
+import fr.ishtamar.starter.filetransfer.FileUploadService;
 import fr.ishtamar.starter.model.album.Album;
 import fr.ishtamar.starter.exceptionhandler.EntityNotFoundException;
 import fr.ishtamar.starter.filetransfer.FileUploadResponse;
-import fr.ishtamar.starter.filetransfer.FileUploadService;
+import fr.ishtamar.starter.filetransfer.FileUploadServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -25,9 +24,9 @@ public class PicvidServiceImpl implements PicvidService {
     private final PicvidRepository repository;
     private final FileUploadService fileUploadService;
 
-    public PicvidServiceImpl(PicvidRepository repository, FileUploadService fileUploadService) {
+    public PicvidServiceImpl(PicvidRepository repository, FileUploadServiceImpl fileUploadServiceImpl) {
         this.repository = repository;
-        this.fileUploadService=fileUploadService;
+        this.fileUploadService = fileUploadServiceImpl;
     }
 
     @Override

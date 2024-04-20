@@ -1,6 +1,7 @@
 package fr.ishtamar.starter.controllers;
 
 import fr.ishtamar.starter.filetransfer.FileUploadService;
+import fr.ishtamar.starter.filetransfer.FileUploadServiceImpl;
 import fr.ishtamar.starter.model.album.AlbumRepository;
 import fr.ishtamar.starter.model.picvid.PicvidRepository;
 import io.swagger.v3.oas.annotations.Operation;
@@ -33,11 +34,11 @@ public class AdminController {
     public AdminController(
             PicvidRepository picvidRepository,
             AlbumRepository albumRepository,
-            FileUploadService fileUploadService
+            FileUploadServiceImpl fileUploadServiceImpl
     ){
         this.picvidRepository=picvidRepository;
         this.albumRepository=albumRepository;
-        this.fileUploadService=fileUploadService;
+        this.fileUploadService = fileUploadServiceImpl;
     }
 
     @Operation(hidden=true)

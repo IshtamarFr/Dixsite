@@ -3,7 +3,7 @@ package fr.ishtamar.starter.unit.service;
 import fr.ishtamar.starter.exceptionhandler.GenericException;
 import fr.ishtamar.starter.model.album.Album;
 import fr.ishtamar.starter.filetransfer.FileUploadResponse;
-import fr.ishtamar.starter.filetransfer.FileUploadService;
+import fr.ishtamar.starter.filetransfer.FileUploadServiceImpl;
 import fr.ishtamar.starter.model.picvid.CreatePicvidRequest;
 import fr.ishtamar.starter.model.picvid.Picvid;
 import fr.ishtamar.starter.model.picvid.PicvidRepository;
@@ -40,7 +40,7 @@ public class PicvidServiceImplTest {
     @MockBean
     PicvidRepository picvidRepository;
     @MockBean
-    FileUploadService fileUploadService;
+    FileUploadServiceImpl fileUploadServiceImpl;
 
     @Value("${fr.ishtamar.starter.files-upload}")
     private String filesUpload;
@@ -150,7 +150,7 @@ public class PicvidServiceImplTest {
                     .modifiedAt(now)
                     .build();
 
-            when(fileUploadService.saveFile(picvid)).thenReturn(mockFileUploadResponse);
+            when(fileUploadServiceImpl.saveFile(picvid)).thenReturn(mockFileUploadResponse);
             when(LocalDateTime.now()).thenReturn(now);
 
             //When
@@ -191,7 +191,7 @@ public class PicvidServiceImplTest {
                     .modifiedAt(now)
                     .build();
 
-            when(fileUploadService.saveFile(picvid)).thenReturn(mockFileUploadResponse);
+            when(fileUploadServiceImpl.saveFile(picvid)).thenReturn(mockFileUploadResponse);
             when(LocalDateTime.now()).thenReturn(now);
 
             //When

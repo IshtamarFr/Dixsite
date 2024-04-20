@@ -1,7 +1,7 @@
 package fr.ishtamar.starter.integration.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import fr.ishtamar.starter.filetransfer.FileUploadService;
+import fr.ishtamar.starter.filetransfer.FileUploadServiceImpl;
 import fr.ishtamar.starter.model.album.*;
 import fr.ishtamar.starter.security.JwtService;
 import fr.ishtamar.starter.model.user.UserInfo;
@@ -42,7 +42,7 @@ class AlbumControllerIT {
     @Autowired
     AlbumService albumService;
     @MockBean
-    FileUploadService fileUploadService;
+    FileUploadServiceImpl fileUploadServiceImpl;
 
     final ObjectMapper mapper=new ObjectMapper();
 

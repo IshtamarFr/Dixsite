@@ -1,6 +1,6 @@
 package fr.ishtamar.starter.unit.service;
 
-import fr.ishtamar.starter.filetransfer.FileUploadService;
+import fr.ishtamar.starter.filetransfer.FileUploadServiceImpl;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.*;
@@ -17,9 +17,9 @@ import java.io.FileInputStream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-class FileUploadServiceTest {
+class FileUploadServiceImplTest {
     @Autowired
-    private FileUploadService fileUploadService;
+    private FileUploadServiceImpl fileUploadServiceImpl;
 
     @Value("${fr.ishtamar.starter.files-upload}")
     private String filesUpload;
@@ -58,7 +58,7 @@ class FileUploadServiceTest {
                 file.getName(), "image/png", IOUtils.toByteArray(input));
 
         //When
-        fileUploadService.saveFile(multipartFile);
+        fileUploadServiceImpl.saveFile(multipartFile);
 
         //Then
         assertThat(countFiles()).isEqualTo(2);
@@ -77,7 +77,7 @@ class FileUploadServiceTest {
         assertThat(this.countFiles()).isEqualTo(4);
 
         //When
-        fileUploadService.deletePicvidFromFS("abcdef.jpg");
+        fileUploadServiceImpl.deletePicvidFromFS("abcdef.jpg");
 
         //Then
         assertThat(this.countFiles()).isEqualTo(2);

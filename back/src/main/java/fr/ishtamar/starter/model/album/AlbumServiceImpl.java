@@ -3,6 +3,7 @@ package fr.ishtamar.starter.model.album;
 import fr.ishtamar.starter.exceptionhandler.EntityNotFoundException;
 import fr.ishtamar.starter.exceptionhandler.GenericException;
 import fr.ishtamar.starter.filetransfer.FileUploadService;
+import fr.ishtamar.starter.filetransfer.FileUploadServiceImpl;
 import fr.ishtamar.starter.model.user.UserInfo;
 import fr.ishtamar.starter.model.user.UserInfoService;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,11 +26,11 @@ public class AlbumServiceImpl implements AlbumService {
 
     public AlbumServiceImpl(
             AlbumRepository repository,
-            FileUploadService fileUploadService,
+            FileUploadServiceImpl fileUploadServiceImpl,
             UserInfoService userService)
     {
         this.repository = repository;
-        this.fileUploadService = fileUploadService;
+        this.fileUploadService = fileUploadServiceImpl;
         this.userService=userService;
     }
 
