@@ -6,6 +6,7 @@ import { MainAlbumCardComponent } from './main-album-card.component';
 import { Album } from '../../interfaces/album.interface';
 import { AlbumService } from '../../../album/services/album.service';
 import { of } from 'rxjs';
+import '@angular/localize/init';
 
 describe('MainAlbumCardComponent', () => {
   let component: MainAlbumCardComponent;

@@ -4,6 +4,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AlbumListComponent } from '../album-list/album-list.component';
 import { FormPicvidComponent } from './form-picvid.component';
 import { RouterModule } from '@angular/router';
+import '@angular/localize/init';
 
 describe('FormPicvidComponent', () => {
   let component: FormPicvidComponent;

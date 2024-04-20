@@ -7,6 +7,7 @@ import { AuthService } from '../../services/auth.service';
 import { of, throwError } from 'rxjs';
 import { User } from '../../../../interfaces/user.interface';
 import { AuthSuccess } from '../../interfaces/auth-success.interface';
+import '@angular/localize/init';
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;

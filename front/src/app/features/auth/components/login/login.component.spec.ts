@@ -6,6 +6,7 @@ import { AuthService } from '../../services/auth.service';
 import { of } from 'rxjs';
 import { AuthSuccess } from '../../interfaces/auth-success.interface';
 import { User } from '../../../../interfaces/user.interface';
+import '@angular/localize/init';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;

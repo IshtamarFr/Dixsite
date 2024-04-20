@@ -5,6 +5,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Router, RouterModule } from '@angular/router';
 import { AlbumService } from '../../../album/services/album.service';
 import { User } from '../../../../interfaces/user.interface';
+import '@angular/localize/init';
 
 describe('MainComponent', () => {
   let component: MainComponent;
