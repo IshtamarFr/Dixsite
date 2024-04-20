@@ -66,8 +66,14 @@ export class FormPicvidComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this._locale = 'fr';
-    this._adapter.setLocale(this._locale);
+    if (!window.location.href.includes('/en/')) {
+      this._locale = 'fr';
+      this._adapter.setLocale(this._locale);
+    } else {
+      this._locale = 'en';
+      this._adapter.setLocale(this._locale);
+    }
+
     this.albumId = this.activatedRoute.snapshot.params['albumId'];
 
     this.form = this.fb.group({

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Album } from '../../interfaces/album.interface';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
@@ -27,18 +27,25 @@ import { DialogService } from '../../../../utils/dialog.service';
   templateUrl: './main-album-card.component.html',
   styleUrl: './main-album-card.component.scss',
 })
-export class MainAlbumCardComponent {
+export class MainAlbumCardComponent implements OnInit {
   @Input() album!: Album;
   @Input() userId!: number;
   @Input() context!: string;
   @Output() unsubscribeEmitter = new EventEmitter<number>();
   CONTACT_EMAIL = AppSettings.CONTACT_EMAIL;
 
+  dateFormat: string = 'dd/MM/yyyy HH:mm';
+
   public constructor(
     private router: Router,
     private albumService: AlbumService,
     private dialogService: DialogService
   ) {}
+
+  ngOnInit(): void {
+    if (window.location.href.includes('/en/'))
+      this.dateFormat = 'MM/dd/yyyy h:mm a';
+  }
 
   getImageURL(imageId: string): string {
     return this.albumService.getImageURL(imageId);
