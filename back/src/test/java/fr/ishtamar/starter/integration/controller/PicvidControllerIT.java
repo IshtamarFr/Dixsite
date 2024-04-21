@@ -18,7 +18,6 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.ResourceUtils;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -148,10 +147,8 @@ class PicvidControllerIT {
         Long id=albumRepository.save(initialAlbum).getId();
         repository.save(initialPicvid);
 
-        File file=new File("src/test/resources/dixee.jpg");
-        FileInputStream input = new FileInputStream(file);
         MockMultipartFile multipartFile = new MockMultipartFile("picvid",
-                "dixee.jpg", "image/jpg", IOUtils.toByteArray(input));
+                "dixee.jpg", "image/jpg", "IloveThisPicture".getBytes());
 
         //When
         mockMvc.perform(multipart("/album/"+id+"/picvid")
@@ -175,10 +172,8 @@ class PicvidControllerIT {
         Long id=albumRepository.save(initialAlbum).getId();
         repository.save(initialPicvid);
 
-        File file=new File("src/test/resources/dixee.jpg");
-        FileInputStream input = new FileInputStream(file);
         MockMultipartFile multipartFile = new MockMultipartFile("picvid",
-                "dixee.jpg", "image/jpg", IOUtils.toByteArray(input));
+                "dixee.jpg", "image/jpg", "LalalalalalaItou".getBytes());
 
         //When
         mockMvc.perform(multipart("/album/"+id+"/picvids")
@@ -315,6 +310,30 @@ class PicvidControllerIT {
 
         //When
         mockMvc.perform(delete("/album/"+id+"/picvid/"+picvidId)
+                        .header("Authorization","Bearer "+jwt))
+
+                //Then
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @WithMockUser(roles="USER")
+    @DisplayName("When I try to upload a correct movie to my album, it works")
+    void testCreateNewPicvidVideo() throws Exception {
+        //Given
+        userInfoRepository.save(initialUser);
+        String jwt= jwtService.generateToken(initialUser.getEmail());
+        Long id=albumRepository.save(initialAlbum).getId();
+        repository.save(initialPicvid);
+
+        MockMultipartFile multipartFile = new MockMultipartFile("picvid",
+                "dixee.mp4", "video/mp4", "superbeVideo".getBytes());
+
+        //When
+        mockMvc.perform(multipart("/album/"+id+"/picvid")
+                        .file(multipartFile)
+                        .param("name","Dixee chérie")
+                        .param("description","Dixee a gagné le concours de beauté !")
                         .header("Authorization","Bearer "+jwt))
 
                 //Then
