@@ -123,12 +123,12 @@ class PicvidControllerIT {
 
         File file=new File("src/test/resources/dixee.jpg");
         FileInputStream input = new FileInputStream(file);
-        MultipartFile multipartFile = new MockMultipartFile("fileItem",
-                file.getName(), "image/png", IOUtils.toByteArray(input));
+        MockMultipartFile multipartFile = new MockMultipartFile("picvid",
+                "dixee.jpg", "image/jpg", IOUtils.toByteArray(input));
 
         //When
         mockMvc.perform(multipart("/album/"+id+"/picvid")
-                .file("picvid",multipartFile.getBytes())
+                .file(multipartFile)
                 .param("name","Dixee chérie")
                 .param("description","Dixee a gagné le concours de beauté !")
                 .header("Authorization","Bearer "+jwt))
@@ -150,12 +150,12 @@ class PicvidControllerIT {
 
         File file=new File("src/test/resources/dixee.jpg");
         FileInputStream input = new FileInputStream(file);
-        MultipartFile multipartFile = new MockMultipartFile("fileItem",
-                file.getName(), "image/png", IOUtils.toByteArray(input));
+        MockMultipartFile multipartFile = new MockMultipartFile("picvid",
+                "dixee.jpg", "image/jpg", IOUtils.toByteArray(input));
 
         //When
         mockMvc.perform(multipart("/album/"+id+"/picvid")
-                        .file("picvid",multipartFile.getBytes())
+                        .file(multipartFile)
                         .param("name","Dixee chérie")
                         .param("description","Dixee a gagné le concours de beauté !")
                         .header("Authorization","Bearer "+jwt))
@@ -177,13 +177,13 @@ class PicvidControllerIT {
 
         File file=new File("src/test/resources/dixee.jpg");
         FileInputStream input = new FileInputStream(file);
-        MultipartFile multipartFile = new MockMultipartFile("fileItem",
-                file.getName(), "image/png", IOUtils.toByteArray(input));
+        MockMultipartFile multipartFile = new MockMultipartFile("picvid",
+                "dixee.jpg", "image/jpg", IOUtils.toByteArray(input));
 
         //When
         mockMvc.perform(multipart("/album/"+id+"/picvids")
-                        .file("picvid", multipartFile.getBytes())
-                        .file("picvid", multipartFile.getBytes())
+                        .file(multipartFile)
+                        .file(multipartFile)
                         .header("Authorization","Bearer "+jwt))
 
                 //Then

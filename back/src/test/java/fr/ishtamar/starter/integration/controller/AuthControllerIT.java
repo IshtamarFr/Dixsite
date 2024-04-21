@@ -111,6 +111,7 @@ class AuthControllerIT {
         //When
         mockMvc.perform(post("/auth/register")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .param("language","fr")
                         .content(mapper.writeValueAsString(mockRequest)))
 
                 //Then
