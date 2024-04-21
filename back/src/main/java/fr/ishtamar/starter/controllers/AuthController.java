@@ -71,7 +71,10 @@ public class AuthController {
             @ApiResponse(responseCode="400", description = "User already exists")
     })
     @PostMapping("/register")
-    public String addNewUser(@Valid @RequestBody CreateUserRequest request) throws ConstraintViolationException {
+    public String addNewUser(
+            @Valid @RequestBody CreateUserRequest request,
+            @RequestParam String language
+    ) throws ConstraintViolationException {
         String token= RandomStringUtils.randomAlphanumeric(15);
 
         UserInfo userInfo=UserInfo.builder()
@@ -83,7 +86,7 @@ public class AuthController {
                 .build();
 
         Long id=service.createUser(userInfo).getId();
-        emailSender.sendValidationLink(request.getEmail(),id,token);
+        emailSender.sendValidationLink(request.getEmail(),id,token,language);
         return "New user successfully created. Waiting for account to be validated";
     }
 
@@ -176,7 +179,8 @@ public class AuthController {
     })
     @PostMapping("/forgotten")
     public String forgottenPassword(
-            @RequestParam final String email
+            @RequestParam final String email,
+            @RequestParam final String language
     ) throws EntityNotFoundException, GenericException {
         UserInfo user=service.getUserByUsername(email);
 
@@ -185,14 +189,14 @@ public class AuthController {
             String token= RandomStringUtils.randomAlphanumeric(10);
             user.setToken(token);
             service.modifyUser(user);
-            emailSender.sendTemporaryPassword(user.getEmail(),token);
+            emailSender.sendTemporaryPassword(user.getEmail(),token,language);
             return "A temporary password has been sent if this address exists";
         }else {
             //User account is not validated, we can serve a new validation link
             String token= RandomStringUtils.randomAlphanumeric(15);
             user.setToken(token);
             service.modifyUser(user);
-            emailSender.sendValidationLink(user.getEmail(),user.getId(),token);
+            emailSender.sendValidationLink(user.getEmail(),user.getId(),token,language);
             return "A new link for validation has been sent";
         }
     }

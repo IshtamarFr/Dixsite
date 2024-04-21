@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component, NgZone } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -35,10 +35,16 @@ import { DialogService } from '../../../../utils/dialog.service';
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
   public hide = true;
   public onError = false;
   public hideLoading = true;
+
+  public language: string = 'en';
+
+  ngOnInit(): void {
+    if (window.location.href.includes('/fr-FR/')) this.language = 'fr';
+  }
 
   checkPasswords: ValidatorFn = (
     group: AbstractControl
@@ -93,7 +99,7 @@ export class RegisterComponent {
     let temp = this.form.value;
     delete temp.password2;
     const registerRequest = temp as RegisterRequest;
-    this.authService.register(registerRequest).subscribe({
+    this.authService.register(registerRequest, this.language).subscribe({
       next: () => {
         this.hideLoading = true;
         this.dialogService

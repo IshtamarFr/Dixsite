@@ -14,11 +14,14 @@ export class AuthService {
 
   constructor(private httpClient: HttpClient) {}
 
-  public register(registerRequest: RegisterRequest): Observable<string> {
+  public register(
+    registerRequest: RegisterRequest,
+    language: string
+  ): Observable<string> {
     return this.httpClient.post(
       `${this.pathService}/register`,
       registerRequest,
-      { responseType: 'text' }
+      { params: { language }, responseType: 'text' }
     );
   }
 
@@ -46,9 +49,9 @@ export class AuthService {
     return this.httpClient.get<User>(`${this.pathService}/me`);
   }
 
-  public forgotten(email: string): Observable<string> {
+  public forgotten(email: string, language: string): Observable<string> {
     return this.httpClient.post(`${this.pathService}/forgotten`, null, {
-      params: { email },
+      params: { email, language },
       responseType: 'text',
     });
   }

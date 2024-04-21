@@ -37,11 +37,11 @@ describe('AuthService', () => {
     //Given
 
     //When
-    service.register(registerRequest).subscribe();
+    service.register(registerRequest, 'fr').subscribe();
 
     //Then
     const req = httpTestingController.expectOne(
-      service['pathService'] + '/register'
+      service['pathService'] + '/register?language=fr'
     );
     expect(req.request.method).toEqual('POST');
     httpTestingController.verify();

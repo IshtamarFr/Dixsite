@@ -1,4 +1,4 @@
-import { Component, NgZone } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { NgIf } from '@angular/common';
 import {
@@ -37,9 +37,15 @@ import { take } from 'rxjs';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   public hide = true;
   public onError = false;
+
+  public language: string = 'en';
+
+  ngOnInit(): void {
+    if (window.location.href.includes('/fr-FR/')) this.language = 'fr';
+  }
 
   public form = this.fb.group({
     email: [
@@ -91,7 +97,7 @@ export class LoginComponent {
             if (this.utilityService.isEmail(response)) {
               //User has input a potentially valid email address
               this.authService
-                .forgotten(response)
+                .forgotten(response, this.language)
                 .pipe(take(1))
                 .subscribe(() => {
                   this.dialogService

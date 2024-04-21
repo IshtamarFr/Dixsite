@@ -37,20 +37,48 @@ public class EmailService {
 
 
 
-    public void sendValidationLink(String to,Long id,String token){
+    public void sendValidationLink(String to,Long id,String token, String language){
+        if (language.equals("fr")) sendValidationLinkFr(to,id,token); else sendValidationLinkEn(to,id,token);
+    }
+
+    private void sendValidationLinkFr(String to,Long id,String token){
         sendSimpleMessage(to, "Inscription : Dixsite",
                 "Bienvenue sur le Dixsite. Pour valider votre inscription, merci de cliquer sur ce lien : "
                         + BASE_URL+ "/#/validate?id=" + id + "&token=" + token
         );
     }
 
-    public void sendTemporaryPassword(String to,String token){
+    private void sendValidationLinkEn(String to,Long id,String token){
+        sendSimpleMessage(to, "Inscription: Dixsite",
+                "Welcome to Dixsite. To validate your registration, please click on this link: "
+                        + BASE_URL+ "/#/validate?id=" + id + "&token=" + token
+        );
+    }
+
+    public void sendTemporaryPassword(String to,String token, String language){
+        if (language.equals("fr")) sendTemporaryPasswordFr(to,token); else sendTemporaryPasswordEn(to,token);
+    }
+
+    private void sendTemporaryPasswordFr(String to,String token){
         try {
             userInfoService.getUserByUsername(to); //required to see if this user exists before trying to send en email
             sendSimpleMessage(to, "Mot de passe oublié : Dixsite",
-                    "Bonjour, voici un mot de passe temporaire pour vous connecter sur le Dixsite "
+                    "Bonjour, voici un mot de passe temporaire pour vous connecter sur le Dixsite : "
                             + BASE_URL + " : " + token
                             + "\n\nAttention, il n'est valable que pour une seule connexion. Pensez à modifier votre mot de passe."
+            );
+        }catch(Error e){
+            log.info("someone required temp password for {} but they don't exist", to);
+        }
+    }
+
+    private void sendTemporaryPasswordEn(String to,String token){
+        try {
+            userInfoService.getUserByUsername(to); //required to see if this user exists before trying to send en email
+            sendSimpleMessage(to, "Forgotten password: Dixsite",
+                    "Hello, here is a temporary password to log in to Dixsite: "
+                            + BASE_URL + " : " + token
+                            + "\n\nWarning, this is only valid for one login. Please consider changing your password."
             );
         }catch(Error e){
             log.info("someone required temp password for {} but they don't exist", to);
