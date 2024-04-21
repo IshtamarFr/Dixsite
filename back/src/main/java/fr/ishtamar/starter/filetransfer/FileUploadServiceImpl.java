@@ -5,6 +5,7 @@ import com.drew.metadata.Directory;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.exif.ExifIFD0Directory;
 import com.drew.metadata.exif.ExifSubIFDDirectory;
+import fr.ishtamar.starter.exceptionhandler.GenericException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -24,6 +25,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -36,6 +38,26 @@ public class FileUploadServiceImpl implements FileUploadService {
 	private int croppedSize;
 
 	public FileUploadResponse saveFile(MultipartFile multipartFile) throws Exception {
+		String filename = multipartFile.getOriginalFilename();
+		String extension = Objects.requireNonNull(filename).substring(filename.lastIndexOf(".") + 1);
+
+		if (extension.equalsIgnoreCase("jpg")
+				|| extension.equalsIgnoreCase("jpeg")
+				|| extension.equalsIgnoreCase("png")
+				|| extension.equalsIgnoreCase("gif")
+		) {
+			return saveImage(multipartFile);
+		} else if (extension.equalsIgnoreCase("mp4")
+				|| extension.equalsIgnoreCase("avi")
+				|| extension.equalsIgnoreCase("mov")
+		) {
+			throw new GenericException("Implementing videos is a WIP");
+		} else {
+			throw new GenericException("This file is neither a picture nor a video");
+		}
+	}
+
+	private FileUploadResponse saveImage(MultipartFile multipartFile) throws Exception {
 		FileUploadResponse response=new FileUploadResponse();
 		Optional<Date> dateExif= getExif(multipartFile.getInputStream());
         dateExif.ifPresent(response::setDateTimeExif);
@@ -114,6 +136,26 @@ public class FileUploadServiceImpl implements FileUploadService {
 		} catch (IOException ioe) {
 			throw new IOException("Could not save file", ioe);
 		}
+	}
+
+	private FileUploadResponse saveVideo(MultipartFile multipartFile) throws Exception {
+		//Prepare folder and fileCode
+		String filename = multipartFile.getOriginalFilename();
+		String extension = Objects.requireNonNull(filename).substring(filename.lastIndexOf("."));
+
+		String fileCode = RandomStringUtils.randomAlphanumeric(15);
+		Path uploadPath = Paths.get(filesUpload);
+
+		if (!Files.exists(uploadPath)) {
+			Files.createDirectories(uploadPath);
+		}
+
+		Path filePath = uploadPath.resolve(fileCode + extension);
+		Files.copy(multipartFile.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+		return FileUploadResponse.builder()
+				.fileCodeExt(fileCode + extension)
+				.build();
 	}
 
 	public void deletePicvidFromFS(String fileCode) {
