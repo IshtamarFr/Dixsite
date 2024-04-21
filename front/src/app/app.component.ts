@@ -7,11 +7,13 @@ import { SessionService } from './services/session.service';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import { FooterComponent } from './components/footer/footer.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, FooterComponent],
+  imports: [RouterOutlet, FooterComponent, MatButtonModule, MatIconModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
@@ -61,5 +63,9 @@ export class AppComponent implements OnInit, AfterContentInit {
         });
       },
     });
+  }
+
+  scrollToTop(): void {
+    document.getElementById('topPage')?.scrollIntoView({ behavior: 'smooth' });
   }
 }
