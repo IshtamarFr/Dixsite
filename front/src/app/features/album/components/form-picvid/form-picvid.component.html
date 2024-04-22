@@ -5,7 +5,17 @@
 <span class="title" i18n>Ajouter une ressource (photo / vidéo)</span>
 
 <mat-card *ngIf="fileHandle" class="candidate">
-  <img [src]="fileHandle.url" />
+  <img
+    [src]="fileHandle.url"
+    *ngIf="fileHandle.file.type.startsWith('image')"
+  />
+  <video
+    controls
+    [src]="fileHandle.url"
+    *ngIf="fileHandle.file.type.startsWith('video')"
+  >
+    {{ fileHandle.file.name }}
+  </video>
   <button mat-mini-fab class="remove" (click)="removeCandidate()">
     <mat-icon>cancel</mat-icon>
   </button>
@@ -30,7 +40,7 @@
         <input
           formControlName="picvid"
           type="file"
-          accept="image/png, image/gif, image/jpeg"
+          accept="image/png, image/gif, image/jpeg, video/mp4, video/x-msvideo"
           id="uploadPicture"
           (change)="onFileSelected($event)"
           style="display: none"

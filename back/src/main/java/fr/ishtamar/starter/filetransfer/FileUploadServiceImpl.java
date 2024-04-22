@@ -51,7 +51,7 @@ public class FileUploadServiceImpl implements FileUploadService {
 				|| extension.equalsIgnoreCase("avi")
 				|| extension.equalsIgnoreCase("mov")
 		) {
-			throw new GenericException("Implementing videos is a WIP");
+			return saveVideo(multipartFile);
 		} else {
 			throw new GenericException("This file is neither a picture nor a video");
 		}
