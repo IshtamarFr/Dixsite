@@ -2,10 +2,19 @@
 
 <div [class]="screenClass(screenWidth)" *ngIf="picvid">
   <img
+    *ngIf="!isPicvidVid(picvid)"
     class="picvidRessource"
     [src]="showImage(picvid.fileLocation)"
     [alt]="'picvid' + picvidId"
   />
+  <video
+    controls
+    class="picvidRessource"
+    [src]="showImage(picvid.fileLocation)"
+    *ngIf="isPicvidVid(picvid)"
+  >
+    {{ picvid.fileLocation }}
+  </video>
   <div class="picvidAdditional">
     <div>
       <mat-slide-toggle *ngIf="isModo" [(ngModel)]="isAdminPanelShown" i18n

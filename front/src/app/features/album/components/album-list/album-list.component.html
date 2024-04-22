@@ -30,8 +30,14 @@
               bestDate(picvid) | date : dateFormat
             }}</mat-card-subtitle>
             <img
+              *ngIf="!isPicvidVid(picvid)"
               [src]="getImageURL(picvid.fileLocation)"
               alt="specific album picture"
+            />
+            <img
+              *ngIf="isPicvidVid(picvid)"
+              src="../../../../../assets/movie.png"
+              alt="generic album movie"
             />
             <mat-card-title>{{ picvid.name }}</mat-card-title>
             <button

@@ -73,4 +73,19 @@ export class PicvidService {
       request
     );
   }
+
+  public isPicvidPic(name: string): boolean {
+    const correct: string[] = ['jpg', 'jpeg', 'png', 'gif'];
+    return correct.includes(this.getPicvidExtension(name));
+  }
+
+  public isPicvidVid(name: string): boolean {
+    const correct: string[] = ['mp4', 'avi', 'mov'];
+    return correct.includes(this.getPicvidExtension(name));
+  }
+
+  getPicvidExtension(name: string): string {
+    const parts: string[] = name.split('.');
+    return parts[parts.length - 1];
+  }
 }

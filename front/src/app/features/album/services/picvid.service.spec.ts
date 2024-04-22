@@ -21,4 +21,11 @@ describe('CommentService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+  it('when I send a file, it should send correct file extension', () => {
+    //Given
+
+    //When-Then
+    expect(service.getPicvidExtension('truc.machin.bidule')).toBe('bidule');
+  });
 });

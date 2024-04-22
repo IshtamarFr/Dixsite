@@ -172,6 +172,10 @@ export class PicvidComponent implements OnInit, OnDestroy {
       });
   }
 
+  isPicvidVid(picvid: Picvid): boolean {
+    return this.picvidService.isPicvidVid(picvid.fileLocation);
+  }
+
   back(): void {
     window.history.back();
   }
