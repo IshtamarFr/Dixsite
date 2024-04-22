@@ -26,7 +26,7 @@
   <input
     formControlName="picvid"
     type="file"
-    accept="image/png, image/gif, image/jpeg"
+    accept="image/png, image/gif, image/jpeg, video/mp4, video/x-msvideo"
     id="uploadPicture"
     (change)="onFileSelected($event)"
     multiple
@@ -50,7 +50,17 @@
   <h1>Fichiers sélectionnés:</h1>
   <div class="candidates">
     <mat-card *ngFor="let candidate of fileHandle">
-      <img [src]="candidate.url" />
+      <img
+        [src]="candidate.url"
+        *ngIf="candidate.file.type.startsWith('image')"
+      />
+      <video
+        controls
+        [src]="candidate.url"
+        *ngIf="candidate.file.type.startsWith('video')"
+      >
+        {{ candidate.file.name }}
+      </video>
       <button mat-mini-fab class="remove" (click)="removeCandidate(candidate)">
         <mat-icon>cancel</mat-icon>
       </button>

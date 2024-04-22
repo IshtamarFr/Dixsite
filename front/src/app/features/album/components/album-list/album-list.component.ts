@@ -148,6 +148,7 @@ export class AlbumListComponent implements OnInit {
               .subscribe({
                 next: (_) => {
                   this.picvids = this.picvids.filter((x) => x.id !== picvid.id);
+                  this.getUniqueYears(this.picvids);
                 },
               });
           }
