@@ -73,4 +73,35 @@ public class CommentServiceImpl implements CommentService{
                 .sorted(Comparator.comparing(Comment::getCreatedAt).reversed())
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public Comment moderateComment(Comment comment, String action) throws GenericException {
+        switch (action) {
+            case "moderate" -> {
+                if (comment.getStatus().equals("ONLINE")) {
+                    comment.setStatus("MODERATED");
+                    return repository.save(comment);
+                } else {
+                    throw new GenericException("Comment is already moderated");
+                }
+            }
+            case "unmoderate" -> {
+                if (comment.getStatus().equals("MODERATED")) {
+                    comment.setStatus("ONLINE");
+                    return repository.save(comment);
+                } else {
+                    throw new GenericException("Comment is already online or is moderated by Admin");
+                }
+            }
+            case "supermoderate" -> {
+                comment.setStatus("ADMIN");
+                return repository.save(comment);
+            }
+            case "unsupermoderate" -> {
+                comment.setStatus("ONLINE");
+                return repository.save(comment);
+            }
+            default -> throw new GenericException("This action is not registered as valid action");
+        }
+    }
 }

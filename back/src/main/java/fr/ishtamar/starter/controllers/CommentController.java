@@ -83,6 +83,32 @@ public class CommentController {
         }
     }
 
+    @PutMapping("/album/{albumId}/picvid/{picvidId}/comment/{commentId}")
+    @Secured({"ROLE_USER","ROLE_ADMIN"})
+    public CommentDto moderatePicvid(
+            @PathVariable final Long picvidId,
+            @PathVariable final Long albumId,
+            @PathVariable final Long commentId,
+            @RequestHeader(value="Authorization",required=false) String jwt,
+            @RequestParam String action
+    ) throws EntityNotFoundException, BadCredentialsException, GenericException {
+        UserInfo sender=userInfoService.getUserByUsername(jwtService.extractUsername(jwt.substring(7)));
+        Picvid picvid=picvidService.getPicvidById(picvidId);
+        Comment comment=commentService.getCommentById(commentId);
+
+        if (sender.getRoles().contains("ROLE_ADMIN")) {
+            return commentMapper.toDto(commentService.moderateComment(comment,action));
+        } else if (Objects.equals(picvid.getAlbum().getId(), albumId)
+                && Objects.equals(comment.getPicvid().getId(), picvidId)
+                && (Objects.equals(sender, picvid.getAlbum().getOwner())
+                    || picvid.getAlbum().getModerators().contains(sender))
+        ) {
+            return commentMapper.toDto(commentService.moderateComment(comment,action));
+        } else {
+            throw new GenericException("Invalid request");
+        }
+    }
+
     @Operation(summary = "gets all comments about self (comments, answers, owned albums)",responses={
             @ApiResponse(responseCode="200", description = "All comments are served"),
             @ApiResponse(responseCode="400", description = "User is illegitimate"),

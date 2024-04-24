@@ -19,4 +19,5 @@ public interface CommentService {
             Picvid picvid,
             String status
     ) throws EntityNotFoundException, GenericException;
+    Comment moderateComment(Comment comment,String action) throws GenericException;
 }
