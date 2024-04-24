@@ -34,6 +34,19 @@ export class CommentService {
     );
   }
 
+  public changeStatus(
+    albumId: number,
+    picvidId: number,
+    commentId: number,
+    action: string
+  ): Observable<Comment> {
+    return this.httpClient.put<Comment>(
+      `${this.pathService}/${albumId}/picvid/${picvidId}/comment/${commentId}`,
+      null,
+      { params: { action } }
+    );
+  }
+
   public getAllCommentsByUserId(id: number): Observable<MyCommentsResponse> {
     return this.httpClient.get<MyCommentsResponse>(`api/user/${id}/comments`);
   }

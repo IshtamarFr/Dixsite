@@ -17,6 +17,7 @@ import { take } from 'rxjs';
 import { CreateCommentRequest } from '../../interfaces/create-comment-request.interface';
 import { CommentService } from '../../services/comment.service';
 import { MatInputModule } from '@angular/material/input';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-picvid-comment',
@@ -31,6 +32,7 @@ import { MatInputModule } from '@angular/material/input';
     FormsModule,
     ReactiveFormsModule,
     MatInputModule,
+    MatSlideToggleModule,
   ],
   templateUrl: './picvid-comment.component.html',
   styleUrl: './picvid-comment.component.scss',
@@ -79,6 +81,33 @@ export class PicvidCommentComponent implements OnInit {
         next: (_) => {
           this.form.get('content')?.reset();
           this.commentEvent.emit(this.comment.id);
+        },
+      });
+  }
+
+  changeStatus(comment: Comment): void {
+    const action = comment.status == 'ONLINE' ? 'moderate' : 'unmoderate';
+    this.commentService
+      .changeStatus(this.albumId, this.picvidId, this.comment.id, action)
+      .pipe(take(1))
+      .subscribe({
+        next: (resp) => {
+          this.comment = resp;
+        },
+      });
+  }
+
+  changeSubStatus(comment: Comment): void {
+    const action = comment.status == 'ONLINE' ? 'moderate' : 'unmoderate';
+    this.commentService
+      .changeStatus(this.albumId, this.picvidId, comment.id, action)
+      .pipe(take(1))
+      .subscribe({
+        next: (resp) => {
+          const index = this.subcomments?.findIndex((x) => x.id === resp.id);
+          if (index !== -1) {
+            this.subcomments[index] = resp;
+          }
         },
       });
   }
