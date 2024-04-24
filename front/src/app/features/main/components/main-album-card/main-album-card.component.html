@@ -1,4 +1,8 @@
-<mat-card class="albumCard" (click)="openAlbum(album)">
+<mat-card
+  class="albumCard"
+  (click)="openAlbum(album)"
+  [ngClass]="{ moderated: album.status == 'MODERATED' }"
+>
   <img
     *ngIf="!album.homePicture"
     src="../../../../../assets/logo.png"

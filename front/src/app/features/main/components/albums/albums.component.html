@@ -23,6 +23,7 @@
           : (paginator.pageIndex + 1) * paginator.pageSize
     "
     (click)="openAlbum(album)"
+    [ngClass]="{ moderated: album.status == 'MODERATED' }"
   >
     <img
       *ngIf="!album.homePicture"
