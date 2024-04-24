@@ -29,9 +29,7 @@ import static fr.ishtamar.starter.security.SecurityConfig.passwordEncoder;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.hasSize;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
@@ -66,6 +64,13 @@ public class CommentControllerIT {
             .roles("ROLE_USER")
             .build();
 
+    final UserInfo initialAdmin=UserInfo.builder()
+            .name("Me")
+            .email("admin@test.com")
+            .password(passwordEncoder().encode("654321"))
+            .roles("ROLE_ADMIN")
+            .build();
+
     final Album initialAlbum=Album.builder()
             .name("Dixee")
             .owner(initialUser)
@@ -88,7 +93,7 @@ public class CommentControllerIT {
             .picvid(initialPicvid)
             .owner(initialUser)
             .createdAt(LocalDateTime.now())
-            .status("ENABLED")
+            .status("ONLINE")
             .build();
 
     final Comment initialComment2=Comment.builder()
@@ -96,7 +101,7 @@ public class CommentControllerIT {
             .picvid(initialPicvid)
             .owner(initialUser2)
             .createdAt(LocalDateTime.now())
-            .status("ENABLED")
+            .status("ONLINE")
             .build();
 
     final Comment initialAnswer=Comment.builder()
@@ -105,7 +110,7 @@ public class CommentControllerIT {
             .owner(initialUser)
             .mother(initialComment2)
             .createdAt(LocalDateTime.now())
-            .status("ENABLED")
+            .status("ONLINE")
             .build();
 
     @BeforeEach
@@ -224,5 +229,160 @@ public class CommentControllerIT {
                         .andExpect(status().isBadRequest());
 
         assertThat(repository.findAll().size()).isEqualTo(2);
+    }
+
+    @Test
+    @DisplayName("When owner tries to moderate a comment, it works")
+    @WithMockUser(roles="USER")
+    void testModerateOwner() throws Exception {
+        //Given
+        userInfoRepository.save(initialUser);
+        userInfoRepository.save(initialUser2);
+        Long albumId=albumRepository.save(initialAlbum).getId();
+        Long picvidId=picvidRepository.save(initialPicvid).getId();
+        Long commentId=repository.save(initialComment2).getId();
+
+        String jwt=jwtService.generateToken(initialUser.getEmail());
+
+        //When
+        mockMvc.perform(put("/album/"+albumId+"/picvid/"+picvidId+"/comment/"+commentId)
+                        .header("Authorization","Bearer "+jwt)
+                        .param("action","moderate"))
+
+                //Then
+                .andExpect(status().isOk());
+
+        assertThat(repository.findById(commentId).get().getStatus()).isEqualTo("MODERATED");
+    }
+
+    @Test
+    @DisplayName("When user tries to moderate a comment, it is bad request")
+    @WithMockUser(roles="USER")
+    void testModerateUser() throws Exception {
+        //Given
+        userInfoRepository.save(initialUser);
+        userInfoRepository.save(initialUser2);
+        Long albumId=albumRepository.save(initialAlbum).getId();
+        Long picvidId=picvidRepository.save(initialPicvid).getId();
+        Long commentId=repository.save(initialComment2).getId();
+
+        String jwt=jwtService.generateToken(initialUser2.getEmail());
+
+        //When
+        mockMvc.perform(put("/album/"+albumId+"/picvid/"+picvidId+"/comment/"+commentId)
+                        .header("Authorization","Bearer "+jwt)
+                        .param("action","moderate"))
+
+                //Then
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @DisplayName("When owner tries to unmoderate a comment, it works")
+    @WithMockUser(roles="USER")
+    void testUnmoderateOwner() throws Exception {
+        //Given
+        userInfoRepository.save(initialUser);
+        userInfoRepository.save(initialUser2);
+        Long albumId=albumRepository.save(initialAlbum).getId();
+        Long picvidId=picvidRepository.save(initialPicvid).getId();
+
+        initialComment2.setStatus("MODERATED");
+
+        Long commentId=repository.save(initialComment2).getId();
+
+        String jwt=jwtService.generateToken(initialUser.getEmail());
+
+        //When
+        mockMvc.perform(put("/album/"+albumId+"/picvid/"+picvidId+"/comment/"+commentId)
+                        .header("Authorization","Bearer "+jwt)
+                        .param("action","unmoderate"))
+
+                //Then
+                .andExpect(status().isOk());
+
+        assertThat(repository.findById(commentId).get().getStatus()).isEqualTo("ONLINE");
+    }
+
+    @Test
+    @DisplayName("When owner tries to unmoderate a superadmined comment, it is bad request")
+    @WithMockUser(roles="ADMIN")
+    void testUnmoderateOwnerAdmin() throws Exception {
+        //Given
+        userInfoRepository.save(initialUser);
+        userInfoRepository.save(initialUser2);
+        Long albumId=albumRepository.save(initialAlbum).getId();
+        Long picvidId=picvidRepository.save(initialPicvid).getId();
+
+        initialComment2.setStatus("ADMIN");
+
+        Long commentId=repository.save(initialComment2).getId();
+
+        String jwt=jwtService.generateToken(initialUser.getEmail());
+
+        //When
+        mockMvc.perform(put("/album/"+albumId+"/picvid/"+picvidId+"/comment/"+commentId)
+                        .header("Authorization","Bearer "+jwt)
+                        .param("action","unmoderate"))
+
+                //Then
+                .andExpect(status().isBadRequest());
+
+        assertThat(repository.findById(commentId).get().getStatus()).isEqualTo("ADMIN");
+    }
+
+    @Test
+    @DisplayName("When owner tries to moderate a supermoderated comment, it is bad request")
+    @WithMockUser(roles="USER")
+    void testModerateOwnerAdmin() throws Exception {
+        //Given
+        userInfoRepository.save(initialUser);
+        userInfoRepository.save(initialUser2);
+        Long albumId=albumRepository.save(initialAlbum).getId();
+        Long picvidId=picvidRepository.save(initialPicvid).getId();
+
+        initialComment2.setStatus("ADMIN");
+
+        Long commentId=repository.save(initialComment2).getId();
+
+        String jwt=jwtService.generateToken(initialUser.getEmail());
+
+        //When
+        mockMvc.perform(put("/album/"+albumId+"/picvid/"+picvidId+"/comment/"+commentId)
+                        .header("Authorization","Bearer "+jwt)
+                        .param("action","moderate"))
+
+                //Then
+                .andExpect(status().isBadRequest());
+
+        assertThat(repository.findById(commentId).get().getStatus()).isEqualTo("ADMIN");
+    }
+
+    @Test
+    @DisplayName("When admin tries to supermoderate a moderate comment, it is bad request")
+    @WithMockUser(roles="USER")
+    void testSuperModerateAdmin() throws Exception {
+        //Given
+        userInfoRepository.save(initialUser);
+        userInfoRepository.save(initialUser2);
+        userInfoRepository.save(initialAdmin);
+        Long albumId=albumRepository.save(initialAlbum).getId();
+        Long picvidId=picvidRepository.save(initialPicvid).getId();
+
+        initialComment2.setStatus("MODERATED");
+
+        Long commentId=repository.save(initialComment2).getId();
+
+        String jwt=jwtService.generateToken(initialAdmin.getEmail());
+
+        //When
+        mockMvc.perform(put("/album/"+albumId+"/picvid/"+picvidId+"/comment/"+commentId)
+                        .header("Authorization","Bearer "+jwt)
+                        .param("action","supermoderate"))
+
+                //Then
+                .andExpect(status().isOk());
+
+        assertThat(repository.findById(commentId).get().getStatus()).isEqualTo("ADMIN");
     }
 }
