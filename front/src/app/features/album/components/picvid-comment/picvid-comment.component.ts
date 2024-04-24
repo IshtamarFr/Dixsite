@@ -39,6 +39,7 @@ export class PicvidCommentComponent implements OnInit {
   @Input() comment!: Comment;
   @Input() albumId!: number;
   @Input() picvidId!: number;
+  @Input() isModerating: boolean = false;
 
   @Output() commentEvent = new EventEmitter<number>();
 

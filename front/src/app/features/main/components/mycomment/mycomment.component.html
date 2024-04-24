@@ -1,4 +1,7 @@
-<mat-card class="mainContainer">
+<mat-card
+  class="mainContainer"
+  [ngClass]="{ moderated: comment.status != 'ONLINE' }"
+>
   <img
     *ngIf="picvid"
     [src]="getImageURL(picvid.fileLocation)"

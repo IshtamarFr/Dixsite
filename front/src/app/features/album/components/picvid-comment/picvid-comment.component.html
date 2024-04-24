@@ -1,10 +1,22 @@
-<mat-card class="comment" [ngClass]="{ me: comment.owner_id == myId }">
+<mat-card
+  class="comment"
+  [ngClass]="{
+    me: comment.owner_id == myId,
+    moderated: comment.status != 'ONLINE'
+  }"
+>
   <mat-card-subtitle i18n>
     Par {{ comment.owner_name }}, le
     {{ comment.createdAt | date : dateFormat }}
   </mat-card-subtitle>
   <mat-card-content>
-    {{ comment.content }}
+    <span *ngIf="comment.status == 'MODERATED'" i18n class="italic"
+      >Commentaire modéré</span
+    >
+    <span *ngIf="comment.status == 'ADMIN'" i18n class="'italic"
+      >Commentaire modéré par le site</span
+    >
+    <span *ngIf="comment.status == 'ONLINE'">{{ comment.content }}</span>
   </mat-card-content>
 
   <mat-expansion-panel>
@@ -42,7 +54,15 @@
             {{ subcomment.createdAt | date : dateFormat }}
           </mat-card-subtitle>
           <mat-card-content>
-            {{ subcomment.content }}
+            <span *ngIf="subcomment.status == 'MODERATED'" i18n class="'italic"
+              >Commentaire modéré</span
+            >
+            <span *ngIf="subcomment.status == 'ADMIN'" i18n class="'italic"
+              >Commentaire modéré par le site</span
+            >
+            <span *ngIf="subcomment.status == 'ONLINE'">{{
+              subcomment.content
+            }}</span>
           </mat-card-content>
         </mat-card>
       </div>
