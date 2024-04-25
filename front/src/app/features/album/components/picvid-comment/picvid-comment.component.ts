@@ -18,6 +18,7 @@ import { CreateCommentRequest } from '../../interfaces/create-comment-request.in
 import { CommentService } from '../../services/comment.service';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { AppSettings } from '../../../../utils/app-settings';
 
 @Component({
   selector: 'app-picvid-comment',
@@ -44,6 +45,7 @@ export class PicvidCommentComponent implements OnInit {
   @Input() isModerating: boolean = false;
 
   @Output() commentEvent = new EventEmitter<number>();
+  CONTACT_EMAIL = AppSettings.CONTACT_EMAIL;
 
   public myId?: number;
   public subcomments: Comment[] = [];

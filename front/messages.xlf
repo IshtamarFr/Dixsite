@@ -307,6 +307,12 @@
       <trans-unit id="8968064290553413874" datatype="html">
         <source>Souhaitez-vous écrire quelque chose ?</source>
       </trans-unit>
+      <trans-unit id="5242574714321952642" datatype="html">
+        <source>Commentaire modéré </source>
+      </trans-unit>
+      <trans-unit id="5411720453408413586" datatype="html">
+        <source>Commentaire modéré par le site </source>
+      </trans-unit>
     </body>
   </file>
 </xliff>

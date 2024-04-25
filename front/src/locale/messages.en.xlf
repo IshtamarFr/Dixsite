@@ -414,6 +414,14 @@
         <source>Etes-vous sûr de vouloir cesser de modérer cet album ?</source>
         <target state="new">Do you confirm you want to stop moderating this album ?</target>
       </trans-unit>
+      <trans-unit id="5242574714321952642" datatype="html">
+        <source>Commentaire modéré </source>
+        <target state="new">Moderated </target>
+      </trans-unit>
+      <trans-unit id="5411720453408413586" datatype="html">
+        <source>Commentaire modéré par le site </source>
+        <target state="new">Moderated by website </target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

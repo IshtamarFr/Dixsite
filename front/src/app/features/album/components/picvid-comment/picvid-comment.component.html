@@ -13,7 +13,7 @@
     <span *ngIf="comment.status == 'MODERATED'" i18n class="italic"
       >Commentaire modéré
     </span>
-    <span *ngIf="comment.status == 'ADMIN'" i18n class="'italic"
+    <span *ngIf="comment.status == 'ADMIN'" i18n class="italic"
       >Commentaire modéré par le site
     </span>
     <span *ngIf="comment.status == 'ONLINE' || isModerating">{{
@@ -24,7 +24,17 @@
     <mat-slide-toggle
       [ngModel]="comment.status === 'ONLINE'"
       (click)="changeStatus(comment)"
+      *ngIf="comment.status != 'ADMIN'"
     />
+    <a
+      *ngIf="comment.status === 'ADMIN'"
+      i18n
+      class="moderated"
+      [href]="'mailto:' + CONTACT_EMAIL"
+      (click)="$event.stopPropagation()"
+      matTooltip="commentaire modéré : nous contacter"
+      >modéré</a
+    >
   </mat-card-actions>
 
   <mat-expansion-panel>
@@ -68,7 +78,7 @@
             <span *ngIf="subcomment.status == 'MODERATED'" i18n class="'italic"
               >Commentaire modéré
             </span>
-            <span *ngIf="subcomment.status == 'ADMIN'" i18n class="'italic"
+            <span *ngIf="subcomment.status == 'ADMIN'" i18n class="italic"
               >Commentaire modéré par le site
             </span>
             <span *ngIf="subcomment.status == 'ONLINE' || isModerating">{{
@@ -79,7 +89,17 @@
             <mat-slide-toggle
               [ngModel]="subcomment.status === 'ONLINE'"
               (click)="changeSubStatus(subcomment)"
+              *ngIf="subcomment.status != 'ADMIN'"
             />
+            <a
+              *ngIf="subcomment.status === 'ADMIN'"
+              i18n
+              class="moderated"
+              [href]="'mailto:' + CONTACT_EMAIL"
+              (click)="$event.stopPropagation()"
+              matTooltip="commentaire modéré : nous contacter"
+              >modéré</a
+            >
           </mat-card-actions>
         </mat-card>
       </div>
