@@ -2,8 +2,8 @@ package fr.ishtamar.starter.controllers;
 
 import fr.ishtamar.starter.filetransfer.FileUploadService;
 import fr.ishtamar.starter.filetransfer.FileUploadServiceImpl;
-import fr.ishtamar.starter.model.album.AlbumRepository;
-import fr.ishtamar.starter.model.picvid.PicvidRepository;
+import fr.ishtamar.dixsite.model.album.AlbumRepository;
+import fr.ishtamar.dixsite.model.picvid.PicvidRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

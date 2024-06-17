@@ -1,6 +1,6 @@
 package fr.ishtamar.starter.model.user;
 
-import fr.ishtamar.starter.model.album.Album;
+import fr.ishtamar.dixsite.model.album.Album;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;

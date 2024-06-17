@@ -3,7 +3,7 @@
     <option name="envFilePaths">
       <option value="$PROJECT_DIR$/.env" />
     </option>
-    <option name="MAIN_CLASS_NAME" value="fr.ishtamar.starter.DixsiteBackApplication" />
+    <option name="MAIN_CLASS_NAME" value="fr.ishtamar.DixsiteBackApplication" />
     <module name="dixsiteBack" />
     <extension name="coverage">
       <pattern>
