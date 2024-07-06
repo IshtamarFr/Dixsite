@@ -38,12 +38,8 @@ class UserControllerIT {
             .build();
 
     @BeforeEach
-    void init() {
-        repository.deleteAll();
-    }
-
     @AfterEach
-    void clean() {
+    void init() {
         repository.deleteAll();
     }
 

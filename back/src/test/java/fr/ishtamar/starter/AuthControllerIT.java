@@ -1,6 +1,7 @@
 package fr.ishtamar.starter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.ishtamar.TestContent;
 import fr.ishtamar.starter.model.user.UserInfo;
 import fr.ishtamar.starter.exceptionhandler.EntityNotFoundException;
 import fr.ishtamar.starter.model.auth.AuthRequest;
@@ -42,24 +43,10 @@ class AuthControllerIT {
     EmailService emailSender;
 
     final ObjectMapper mapper=new ObjectMapper();
-    final UserInfo initialUser=UserInfo.builder()
-            .name("Ishta")
-            .email("test@test.com")
-            .password(passwordEncoder().encode("123456"))
-            .roles("ROLE_USER")
-            .build();
-
-    final UserInfo initialUser2=UserInfo.builder()
-            .name("Pal")
-            .email("test17@test.com")
-            .password(passwordEncoder().encode("654321"))
-            .roles("ROLE_USER")
-            .build();
 
     @BeforeEach
     void init() {
         repository.deleteAll();
-        repository.save(initialUser);
     }
 
     @AfterEach
@@ -71,6 +58,8 @@ class AuthControllerIT {
     @DisplayName("When I get to welcome endpoint, I get an answer")
     public void testWelcomeIsOk() throws Exception {
         //Given
+        TestContent testContent=new TestContent();
+        repository.save(testContent.initialUser);
 
         //When
         mockMvc.perform(get("/auth/welcome"))
@@ -84,6 +73,8 @@ class AuthControllerIT {
     @DisplayName("When I try to add an user with existing email, I get a bad request")
     void testRegisterEmailIsAlreadyUsed() throws Exception {
         //Given
+        TestContent testContent=new TestContent();
+        repository.save(testContent.initialUser);
         CreateUserRequest mockUser=CreateUserRequest.builder()
                 .name("Ishta")
                 .email("test@test.com")
@@ -102,6 +93,8 @@ class AuthControllerIT {
     @DisplayName("When I try to add an user, all is fine and user is found")
     void testRegisterUser() throws Exception {
         //Given
+        TestContent testContent=new TestContent();
+        repository.save(testContent.initialUser);
         CreateUserRequest mockRequest=CreateUserRequest.builder()
                 .name("HardToDestroyReptile")
                 .email("test682@test.com")
@@ -123,6 +116,8 @@ class AuthControllerIT {
     @DisplayName("When I try to login as a valid user, I get a valid answer and a token")
     void testLogin() throws Exception {
         //Given
+        TestContent testContent=new TestContent();
+        repository.save(testContent.initialUser);
         AuthRequest mockRequest=AuthRequest.builder()
                 .email("test@test.com")
                 .password("123456")
@@ -141,6 +136,8 @@ class AuthControllerIT {
     @DisplayName("When I try to login as an invalid user, I get a bad request")
     void testLoginAsInvalidUser() throws Exception {
         //Given
+        TestContent testContent=new TestContent();
+        repository.save(testContent.initialUser);
         AuthRequest mockRequest=AuthRequest.builder()
                 .email("test@test.com")
                 .password("1234567")
@@ -159,6 +156,8 @@ class AuthControllerIT {
     @DisplayName("When I try to login as an inexistant user, I get a bad request")
     void testLoginAsInexistantUser() throws Exception {
         //Given
+        TestContent testContent=new TestContent();
+        repository.save(testContent.initialUser);
         AuthRequest mockRequest=AuthRequest.builder()
                 .email("test258@test.com")
                 .password("123456")
@@ -177,7 +176,9 @@ class AuthControllerIT {
     @DisplayName("When I try to get my data as valid authentified user, all is OK and password is obfuscated")
     void testMeIsOK() throws Exception {
         //Given
-        String jwt=jwtService.generateToken(initialUser.getEmail());
+        TestContent testContent=new TestContent();
+        repository.save(testContent.initialUser);
+        String jwt=jwtService.generateToken(testContent.initialUser.getEmail());
 
         //When
         mockMvc.perform(get("/auth/me")
@@ -194,6 +195,8 @@ class AuthControllerIT {
     @DisplayName("When I try to get my data as unauthentified, it is forbidden")
     void testMeAsUnauthentifiedIsForbidden() throws Exception {
         //Given
+        TestContent testContent=new TestContent();
+        repository.save(testContent.initialUser);
 
         //When
         mockMvc.perform(get("/auth/me"))
@@ -207,6 +210,8 @@ class AuthControllerIT {
     @DisplayName("When I try to get my data as invalid user, it is forbidden")
     void testMeAsInvalidUserIsForbidden() throws EntityNotFoundException {
         //Given
+        TestContent testContent=new TestContent();
+        repository.save(testContent.initialUser);
         String jwt=jwtService.generateToken("fake@hacker.com");
 
         //When-Then
@@ -219,6 +224,8 @@ class AuthControllerIT {
     @DisplayName("When I try to update my data with valid infos, it is OK and a token is generated")
     void testPutMeIsOKWithAllData() throws Exception {
         //Given
+        TestContent testContent=new TestContent();
+        repository.save(testContent.initialUser);
         String jwt=jwtService.generateToken("test@test.com");
         ModifyUserRequest mockRequest=ModifyUserRequest.builder()
                 .name("Ishta")
@@ -245,7 +252,9 @@ class AuthControllerIT {
     @DisplayName("When I try to update my data with valid but already taken infos, it returns BadCredentialsException")
     void testPutMeEmailIsAlreadyTakenAndMissingData() throws Exception {
         //Given
-        repository.save(initialUser2);
+        TestContent testContent=new TestContent();
+        repository.save(testContent.initialUser);
+        repository.save(testContent.initialUser2);
         String jwt=jwtService.generateToken("test@test.com");
         ModifyUserRequest mockRequest=ModifyUserRequest.builder()
                 .email("test17@test.com")
@@ -270,6 +279,8 @@ class AuthControllerIT {
     @DisplayName("When I try to update my data with invalid oldPassword, it is BadCredentialsException")
     void testPutMeWithIncorrectOldPassword() throws Exception {
         //Given
+        TestContent testContent=new TestContent();
+        repository.save(testContent.initialUser);
         String jwt=jwtService.generateToken("test@test.com");
         ModifyUserRequest mockRequest=ModifyUserRequest.builder()
                 .name("Ishta")
