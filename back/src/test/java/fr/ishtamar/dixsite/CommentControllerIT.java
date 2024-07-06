@@ -57,15 +57,15 @@ public class CommentControllerIT {
     @WithMockUser(roles="USER")
     void testGetAllCommentsForValidPicvid() throws Exception {
         //Given
-        TestContent testContent=new TestContent();
+        TestContent tc=new TestContent();
 
-        userInfoRepository.save(testContent.initialUser);
-        userInfoRepository.save(testContent.initialUser2);
-        Long albumId=albumRepository.save(testContent.initialAlbum).getId();
-        Long picvidId=picvidRepository.save(testContent.initialPicvid).getId();
+        userInfoRepository.save(tc.initialUser);
+        userInfoRepository.save(tc.initialUser2);
+        Long albumId=albumRepository.save(tc.initialAlbum).getId();
+        Long picvidId=picvidRepository.save(tc.initialPicvid).getId();
 
-        repository.save(testContent.initialComment1);
-        repository.save(testContent.initialComment2);
+        repository.save(tc.initialComment1);
+        repository.save(tc.initialComment2);
 
         //When
         mockMvc.perform(get("/album/"+albumId+"/picvid/"+picvidId+"/comment"))
@@ -83,13 +83,13 @@ public class CommentControllerIT {
     @WithMockUser(roles="USER")
     void testAddCommentForValidPicvid() throws Exception {
         //Given
-        TestContent testContent=new TestContent();
+        TestContent tc=new TestContent();
 
-        userInfoRepository.save(testContent.initialUser);
-        Long albumId=albumRepository.save(testContent.initialAlbum).getId();
-        Long picvidId=picvidRepository.save(testContent.initialPicvid).getId();
+        userInfoRepository.save(tc.initialUser);
+        Long albumId=albumRepository.save(tc.initialAlbum).getId();
+        Long picvidId=picvidRepository.save(tc.initialPicvid).getId();
 
-        String jwt=jwtService.generateToken(testContent.initialUser.getEmail());
+        String jwt=jwtService.generateToken(tc.initialUser.getEmail());
 
         CreateCommentRequest mockRequest=CreateCommentRequest.builder()
                 .content("Trop belle photo !!!!")
@@ -111,14 +111,14 @@ public class CommentControllerIT {
     @WithMockUser(roles="USER")
     void testAddAnswerToNonAnswer() throws Exception {
         //Given
-        TestContent testContent=new TestContent();
+        TestContent tc=new TestContent();
 
-        userInfoRepository.save(testContent.initialUser);
-        Long albumId=albumRepository.save(testContent.initialAlbum).getId();
-        Long picvidId=picvidRepository.save(testContent.initialPicvid).getId();
-        Long motherId=repository.save(testContent.initialComment1).getId();
+        userInfoRepository.save(tc.initialUser);
+        Long albumId=albumRepository.save(tc.initialAlbum).getId();
+        Long picvidId=picvidRepository.save(tc.initialPicvid).getId();
+        Long motherId=repository.save(tc.initialComment1).getId();
 
-        String jwt=jwtService.generateToken(testContent.initialUser.getEmail());
+        String jwt=jwtService.generateToken(tc.initialUser.getEmail());
 
         CreateCommentRequest mockRequest=CreateCommentRequest.builder()
                 .content("Trop belle photo !!!!")
@@ -141,16 +141,16 @@ public class CommentControllerIT {
     @WithMockUser(roles="USER")
     void testAddAnswerToAnswer() throws Exception {
         //Given
-        TestContent testContent=new TestContent();
+        TestContent tc=new TestContent();
 
-        userInfoRepository.save(testContent.initialUser);
-        userInfoRepository.save(testContent.initialUser2);
-        Long albumId=albumRepository.save(testContent.initialAlbum).getId();
-        Long picvidId=picvidRepository.save(testContent.initialPicvid).getId();
-        repository.save(testContent.initialComment2);
-        Long answerId=repository.save(testContent.initialAnswer).getId();
+        userInfoRepository.save(tc.initialUser);
+        userInfoRepository.save(tc.initialUser2);
+        Long albumId=albumRepository.save(tc.initialAlbum).getId();
+        Long picvidId=picvidRepository.save(tc.initialPicvid).getId();
+        repository.save(tc.initialComment2);
+        Long answerId=repository.save(tc.initialAnswer).getId();
 
-        String jwt=jwtService.generateToken(testContent.initialUser.getEmail());
+        String jwt=jwtService.generateToken(tc.initialUser.getEmail());
 
         CreateCommentRequest mockRequest=CreateCommentRequest.builder()
                 .content("Trop belle photo !!!!")
@@ -174,15 +174,15 @@ public class CommentControllerIT {
     @WithMockUser(roles="USER")
     void testModerateOwner() throws Exception {
         //Given
-        TestContent testContent=new TestContent();
+        TestContent tc=new TestContent();
 
-        userInfoRepository.save(testContent.initialUser);
-        userInfoRepository.save(testContent.initialUser2);
-        Long albumId=albumRepository.save(testContent.initialAlbum).getId();
-        Long picvidId=picvidRepository.save(testContent.initialPicvid).getId();
-        Long commentId=repository.save(testContent.initialComment2).getId();
+        userInfoRepository.save(tc.initialUser);
+        userInfoRepository.save(tc.initialUser2);
+        Long albumId=albumRepository.save(tc.initialAlbum).getId();
+        Long picvidId=picvidRepository.save(tc.initialPicvid).getId();
+        Long commentId=repository.save(tc.initialComment2).getId();
 
-        String jwt=jwtService.generateToken(testContent.initialUser.getEmail());
+        String jwt=jwtService.generateToken(tc.initialUser.getEmail());
 
         //When
         mockMvc.perform(put("/album/"+albumId+"/picvid/"+picvidId+"/comment/"+commentId)
@@ -200,15 +200,15 @@ public class CommentControllerIT {
     @WithMockUser(roles="USER")
     void testModerateUser() throws Exception {
         //Given
-        TestContent testContent=new TestContent();
+        TestContent tc=new TestContent();
 
-        userInfoRepository.save(testContent.initialUser);
-        userInfoRepository.save(testContent.initialUser2);
-        Long albumId=albumRepository.save(testContent.initialAlbum).getId();
-        Long picvidId=picvidRepository.save(testContent.initialPicvid).getId();
-        Long commentId=repository.save(testContent.initialComment2).getId();
+        userInfoRepository.save(tc.initialUser);
+        userInfoRepository.save(tc.initialUser2);
+        Long albumId=albumRepository.save(tc.initialAlbum).getId();
+        Long picvidId=picvidRepository.save(tc.initialPicvid).getId();
+        Long commentId=repository.save(tc.initialComment2).getId();
 
-        String jwt=jwtService.generateToken(testContent.initialUser2.getEmail());
+        String jwt=jwtService.generateToken(tc.initialUser2.getEmail());
 
         //When
         mockMvc.perform(put("/album/"+albumId+"/picvid/"+picvidId+"/comment/"+commentId)
@@ -224,18 +224,18 @@ public class CommentControllerIT {
     @WithMockUser(roles="USER")
     void testUnmoderateOwner() throws Exception {
         //Given
-        TestContent testContent=new TestContent();
+        TestContent tc=new TestContent();
 
-        userInfoRepository.save(testContent.initialUser);
-        userInfoRepository.save(testContent.initialUser2);
-        Long albumId=albumRepository.save(testContent.initialAlbum).getId();
-        Long picvidId=picvidRepository.save(testContent.initialPicvid).getId();
+        userInfoRepository.save(tc.initialUser);
+        userInfoRepository.save(tc.initialUser2);
+        Long albumId=albumRepository.save(tc.initialAlbum).getId();
+        Long picvidId=picvidRepository.save(tc.initialPicvid).getId();
 
-        testContent.initialComment2.setStatus("MODERATED");
+        tc.initialComment2.setStatus("MODERATED");
 
-        Long commentId=repository.save(testContent.initialComment2).getId();
+        Long commentId=repository.save(tc.initialComment2).getId();
 
-        String jwt=jwtService.generateToken(testContent.initialUser.getEmail());
+        String jwt=jwtService.generateToken(tc.initialUser.getEmail());
 
         //When
         mockMvc.perform(put("/album/"+albumId+"/picvid/"+picvidId+"/comment/"+commentId)
@@ -253,18 +253,18 @@ public class CommentControllerIT {
     @WithMockUser(roles="ADMIN")
     void testUnmoderateOwnerAdmin() throws Exception {
         //Given
-        TestContent testContent=new TestContent();
+        TestContent tc=new TestContent();
 
-        userInfoRepository.save(testContent.initialUser);
-        userInfoRepository.save(testContent.initialUser2);
-        Long albumId=albumRepository.save(testContent.initialAlbum).getId();
-        Long picvidId=picvidRepository.save(testContent.initialPicvid).getId();
+        userInfoRepository.save(tc.initialUser);
+        userInfoRepository.save(tc.initialUser2);
+        Long albumId=albumRepository.save(tc.initialAlbum).getId();
+        Long picvidId=picvidRepository.save(tc.initialPicvid).getId();
 
-        testContent.initialComment2.setStatus("ADMIN");
+        tc.initialComment2.setStatus("ADMIN");
 
-        Long commentId=repository.save(testContent.initialComment2).getId();
+        Long commentId=repository.save(tc.initialComment2).getId();
 
-        String jwt=jwtService.generateToken(testContent.initialUser.getEmail());
+        String jwt=jwtService.generateToken(tc.initialUser.getEmail());
 
         //When
         mockMvc.perform(put("/album/"+albumId+"/picvid/"+picvidId+"/comment/"+commentId)
@@ -282,18 +282,18 @@ public class CommentControllerIT {
     @WithMockUser(roles="USER")
     void testModerateOwnerAdmin() throws Exception {
         //Given
-        TestContent testContent=new TestContent();
+        TestContent tc=new TestContent();
 
-        userInfoRepository.save(testContent.initialUser);
-        userInfoRepository.save(testContent.initialUser2);
-        Long albumId=albumRepository.save(testContent.initialAlbum).getId();
-        Long picvidId=picvidRepository.save(testContent.initialPicvid).getId();
+        userInfoRepository.save(tc.initialUser);
+        userInfoRepository.save(tc.initialUser2);
+        Long albumId=albumRepository.save(tc.initialAlbum).getId();
+        Long picvidId=picvidRepository.save(tc.initialPicvid).getId();
 
-        testContent.initialComment2.setStatus("ADMIN");
+        tc.initialComment2.setStatus("ADMIN");
 
-        Long commentId=repository.save(testContent.initialComment2).getId();
+        Long commentId=repository.save(tc.initialComment2).getId();
 
-        String jwt=jwtService.generateToken(testContent.initialUser.getEmail());
+        String jwt=jwtService.generateToken(tc.initialUser.getEmail());
 
         //When
         mockMvc.perform(put("/album/"+albumId+"/picvid/"+picvidId+"/comment/"+commentId)
@@ -311,19 +311,19 @@ public class CommentControllerIT {
     @WithMockUser(roles="USER")
     void testSuperModerateAdmin() throws Exception {
         //Given
-        TestContent testContent=new TestContent();
+        TestContent tc=new TestContent();
 
-        userInfoRepository.save(testContent.initialUser);
-        userInfoRepository.save(testContent.initialUser2);
-        userInfoRepository.save(testContent.initialAdmin);
-        Long albumId=albumRepository.save(testContent.initialAlbum).getId();
-        Long picvidId=picvidRepository.save(testContent.initialPicvid).getId();
+        userInfoRepository.save(tc.initialUser);
+        userInfoRepository.save(tc.initialUser2);
+        userInfoRepository.save(tc.initialAdmin);
+        Long albumId=albumRepository.save(tc.initialAlbum).getId();
+        Long picvidId=picvidRepository.save(tc.initialPicvid).getId();
 
-        testContent.initialComment2.setStatus("MODERATED");
+        tc.initialComment2.setStatus("MODERATED");
 
-        Long commentId=repository.save(testContent.initialComment2).getId();
+        Long commentId=repository.save(tc.initialComment2).getId();
 
-        String jwt=jwtService.generateToken(testContent.initialAdmin.getEmail());
+        String jwt=jwtService.generateToken(tc.initialAdmin.getEmail());
 
         //When
         mockMvc.perform(put("/album/"+albumId+"/picvid/"+picvidId+"/comment/"+commentId)

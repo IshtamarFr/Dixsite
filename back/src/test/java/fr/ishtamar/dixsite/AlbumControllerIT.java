@@ -1,17 +1,20 @@
 package fr.ishtamar.dixsite;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.ishtamar.TestContent;
 import fr.ishtamar.dixsite.model.album.Album;
 import fr.ishtamar.dixsite.model.album.AlbumRepository;
 import fr.ishtamar.dixsite.model.album.AlbumService;
 import fr.ishtamar.dixsite.model.album.AlbumStatusChangeRequest;
 import fr.ishtamar.starter.filetransfer.FileUploadServiceImpl;
-import fr.ishtamar.starter.security.JwtService;
-import fr.ishtamar.starter.model.user.UserInfo;
 import fr.ishtamar.starter.model.user.UserInfoRepository;
+import fr.ishtamar.starter.security.JwtService;
 import org.hamcrest.Matchers;
 import org.hibernate.Hibernate;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,16 +23,15 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
-import static fr.ishtamar.starter.security.SecurityConfig.passwordEncoder;
+import static fr.ishtamar.dixsite.PicvidServiceImplTest.initialAlbum;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -49,59 +51,7 @@ class AlbumControllerIT {
 
     final ObjectMapper mapper=new ObjectMapper();
 
-    final UserInfo initialUser=UserInfo.builder()
-            .name("Ishta")
-            .email("test@test.com")
-            .password(passwordEncoder().encode("123456"))
-            .roles("ROLE_USER")
-            .maxAlbums(10)
-            .build();
-
-    final UserInfo initialUser2=UserInfo.builder()
-            .name("Pal")
-            .email("test17@test.com")
-            .password(passwordEncoder().encode("654321"))
-            .roles("ROLE_USER")
-            .maxAlbums(10)
-            .build();
-
-    final UserInfo initialAdmin=UserInfo.builder()
-            .name("Ed")
-            .email("adm@test.com")
-            .password(passwordEncoder().encode("Aa123456"))
-            .roles("ROLE_ADMIN")
-            .maxAlbums(10)
-            .build();
-
-    final Album initialAlbum=Album.builder()
-            .name("Dixee")
-            .owner(initialUser)
-            .description("La plus belle")
-            .status("ONLINE")
-            .createdAt(LocalDateTime.now())
-            .modifiedAt(LocalDateTime.now())
-            .moderators(List.of())
-            .build();
-
-    final Album initialAlbum2=Album.builder()
-            .name("Ozie")
-            .owner(initialUser2)
-            .description("On ne l'aime pas")
-            .status("ONLINE")
-            .createdAt(LocalDateTime.now())
-            .modifiedAt(LocalDateTime.now())
-            .subscribers(new ArrayList<>())
-            .build();
-
-    final Album initialAlbum3=Album.builder()
-            .name("Freud")
-            .owner(initialUser)
-            .description("R.I.P")
-            .status("ONLINE")
-            .createdAt(LocalDateTime.now())
-            .modifiedAt(LocalDateTime.now())
-            .build();
-
+    @BeforeEach
     @AfterEach
     void clean() {
         repository.deleteAll();
@@ -113,11 +63,12 @@ class AlbumControllerIT {
     @WithMockUser(roles="USER")
     void testGetAllAlbumsForUser() throws Exception {
         //Given
-        Long id=userInfoRepository.save(initialUser).getId();
-        userInfoRepository.save(initialUser2);
-        repository.save(initialAlbum);
-        repository.save(initialAlbum2);
-        repository.save(initialAlbum3);
+        TestContent tc=new TestContent();
+        Long id=userInfoRepository.save(tc.initialUser).getId();
+        userInfoRepository.save(tc.initialUser2);
+        repository.save(tc.initialAlbum);
+        repository.save(tc.initialAlbum2);
+        repository.save(tc.initialAlbum3);
 
         //When
         mockMvc.perform(get("/user/"+id+"/album"))
@@ -136,11 +87,12 @@ class AlbumControllerIT {
     @WithMockUser(roles="USER")
     void testGetAllAlbumsForInvalidUser() throws Exception {
         //Given
-        userInfoRepository.save(initialUser);
-        userInfoRepository.save(initialUser2);
-        repository.save(initialAlbum);
-        repository.save(initialAlbum2);
-        repository.save(initialAlbum3);
+        TestContent tc=new TestContent();
+        userInfoRepository.save(tc.initialUser);
+        userInfoRepository.save(tc.initialUser2);
+        repository.save(tc.initialAlbum);
+        repository.save(tc.initialAlbum2);
+        repository.save(tc.initialAlbum3);
 
         //When
         mockMvc.perform(get("/user/0/album"))
@@ -154,8 +106,9 @@ class AlbumControllerIT {
     @WithMockUser(roles="USER")
     void testPostNewAlbum() throws Exception {
         //Given
-        Long id=userInfoRepository.save(initialUser).getId();
-        String jwt=jwtService.generateToken(initialUser.getEmail());
+        TestContent tc=new TestContent();
+        Long id=userInfoRepository.save(tc.initialUser).getId();
+        String jwt=jwtService.generateToken(tc.initialUser.getEmail());
 
         //When
         mockMvc.perform(post("/user/"+id+"/album")
@@ -173,8 +126,9 @@ class AlbumControllerIT {
     @WithMockUser(roles="USER")
     void testPostNewInvalidAlbum() throws Exception {
         //Given
-        Long id=userInfoRepository.save(initialUser).getId();
-        String jwt=jwtService.generateToken(initialUser.getEmail());
+        TestContent tc=new TestContent();
+        Long id=userInfoRepository.save(tc.initialUser).getId();
+        String jwt=jwtService.generateToken(tc.initialUser.getEmail());
 
         //When
         mockMvc.perform(post("/user/"+id+"/album")
@@ -191,8 +145,9 @@ class AlbumControllerIT {
     @WithMockUser(roles="USER")
     void testPostNewAlbumWithNonOwner() throws Exception {
         //Given
-        long id=userInfoRepository.save(initialUser).getId()+1234;
-        String jwt=jwtService.generateToken(initialUser.getEmail());
+        TestContent tc=new TestContent();
+        long id=userInfoRepository.save(tc.initialUser).getId()+1234;
+        String jwt=jwtService.generateToken(tc.initialUser.getEmail());
 
         //When
         mockMvc.perform(post("/user/"+id+"/album")
@@ -210,11 +165,12 @@ class AlbumControllerIT {
     @WithMockUser(roles="USER")
     void testSubscribeToAlbum() throws Exception {
         //Given
-        Long id=userInfoRepository.save(initialUser).getId();
-        String jwt=jwtService.generateToken(initialUser.getEmail());
+        TestContent tc=new TestContent();
+        Long id=userInfoRepository.save(tc.initialUser).getId();
+        String jwt=jwtService.generateToken(tc.initialUser.getEmail());
 
-        userInfoRepository.save(initialUser2);
-        Long id2=repository.save(initialAlbum2).getId();
+        userInfoRepository.save(tc.initialUser2);
+        Long id2=repository.save(tc.initialAlbum2).getId();
 
         //When
         mockMvc.perform(post("/user/"+id+"/album/"+id2+"/subscribe")
@@ -229,12 +185,13 @@ class AlbumControllerIT {
     @WithMockUser(roles="USER")
     void testReSubscribeToAlbum() throws Exception {
         //Given
-        Long id=userInfoRepository.save(initialUser).getId();
-        String jwt=jwtService.generateToken(initialUser.getEmail());
+        TestContent tc=new TestContent();
+        Long id=userInfoRepository.save(tc.initialUser).getId();
+        String jwt=jwtService.generateToken(tc.initialUser.getEmail());
 
-        userInfoRepository.save(initialUser2);
-        initialAlbum2.getSubscribers().add(initialUser);
-        Long id2=repository.save(initialAlbum2).getId();
+        userInfoRepository.save(tc.initialUser2);
+        tc.initialAlbum2.getSubscribers().add(tc.initialUser);
+        Long id2=repository.save(tc.initialAlbum2).getId();
 
 
         //When
@@ -250,12 +207,13 @@ class AlbumControllerIT {
     @WithMockUser(roles="USER")
     void testUnSubscribeToAlbum() throws Exception {
         //Given
-        Long id=userInfoRepository.save(initialUser).getId();
-        String jwt=jwtService.generateToken(initialUser.getEmail());
+        TestContent tc=new TestContent();
+        Long id=userInfoRepository.save(tc.initialUser).getId();
+        String jwt=jwtService.generateToken(tc.initialUser.getEmail());
 
-        userInfoRepository.save(initialUser2);
-        initialAlbum2.getSubscribers().add(initialUser);
-        Long id2=repository.save(initialAlbum2).getId();
+        userInfoRepository.save(tc.initialUser2);
+        tc.initialAlbum2.getSubscribers().add(tc.initialUser);
+        Long id2=repository.save(tc.initialAlbum2).getId();
 
         //When
         mockMvc.perform(delete("/user/"+id+"/album/"+id2+"/subscribe")
@@ -270,11 +228,12 @@ class AlbumControllerIT {
     @WithMockUser(roles="USER")
     void testUnSubscribeToAlbumWhenNotSubscribed() throws Exception {
         //Given
-        Long id=userInfoRepository.save(initialUser).getId();
-        String jwt=jwtService.generateToken(initialUser.getEmail());
+        TestContent tc=new TestContent();
+        Long id=userInfoRepository.save(tc.initialUser).getId();
+        String jwt=jwtService.generateToken(tc.initialUser.getEmail());
 
-        userInfoRepository.save(initialUser2);
-        Long id2=repository.save(initialAlbum2).getId();
+        userInfoRepository.save(tc.initialUser2);
+        Long id2=repository.save(tc.initialAlbum2).getId();
 
 
         //When
@@ -290,10 +249,11 @@ class AlbumControllerIT {
     @WithMockUser(roles="USER")
     void testOfflineMyAlbum() throws Exception {
         //Given
-        Long id=userInfoRepository.save(initialUser2).getId();
-        String jwt=jwtService.generateToken(initialUser2.getEmail());
+        TestContent tc=new TestContent();
+        Long id=userInfoRepository.save(tc.initialUser2).getId();
+        String jwt=jwtService.generateToken(tc.initialUser2.getEmail());
 
-        Long id2=repository.save(initialAlbum2).getId();
+        Long id2=repository.save(tc.initialAlbum2).getId();
         AlbumStatusChangeRequest request=AlbumStatusChangeRequest.builder()
                 .action("OFFLINE")
                 .build();
@@ -314,11 +274,12 @@ class AlbumControllerIT {
     @WithMockUser(roles="USER")
     void testOnlineMyModeratedAlbum() throws Exception {
         //Given
-        Long id = userInfoRepository.save(initialUser2).getId();
-        String jwt = jwtService.generateToken(initialUser2.getEmail());
+        TestContent tc=new TestContent();
+        Long id = userInfoRepository.save(tc.initialUser2).getId();
+        String jwt = jwtService.generateToken(tc.initialUser2.getEmail());
 
-        initialAlbum2.setStatus("MODERATED");
-        Long id2 = repository.save(initialAlbum2).getId();
+        tc.initialAlbum2.setStatus("MODERATED");
+        Long id2 = repository.save(tc.initialAlbum2).getId();
         AlbumStatusChangeRequest request = AlbumStatusChangeRequest.builder()
                 .action("ONLINE")
                 .build();
@@ -339,12 +300,13 @@ class AlbumControllerIT {
     @WithMockUser(roles="ADMIN")
     void testOnlineModeratedAlbumFromAdmin() throws Exception {
         //Given
-        Long id=userInfoRepository.save(initialAdmin).getId();
-        String jwt=jwtService.generateToken(initialAdmin.getEmail());
+        TestContent tc=new TestContent();
+        Long id=userInfoRepository.save(tc.initialAdmin).getId();
+        String jwt=jwtService.generateToken(tc.initialAdmin.getEmail());
 
-        userInfoRepository.save(initialUser2);
-        initialAlbum2.setStatus("MODERATED");
-        Long id2=repository.save(initialAlbum2).getId();
+        userInfoRepository.save(tc.initialUser2);
+        tc.initialAlbum2.setStatus("MODERATED");
+        Long id2=repository.save(tc.initialAlbum2).getId();
         AlbumStatusChangeRequest request=AlbumStatusChangeRequest.builder()
                 .action("ONLINE")
                 .build();
@@ -365,12 +327,13 @@ class AlbumControllerIT {
     @WithMockUser(roles="ADMIN")
     void testAdminChangeStatusWithWrongJwt() throws Exception {
         //Given
-        Long id=userInfoRepository.save(initialAdmin).getId();
-        userInfoRepository.save(initialUser2);
-        String jwt=jwtService.generateToken(initialUser2.getEmail());
+        TestContent tc=new TestContent();
+        Long id=userInfoRepository.save(tc.initialAdmin).getId();
+        userInfoRepository.save(tc.initialUser2);
+        String jwt=jwtService.generateToken(tc.initialUser2.getEmail());
 
-        initialAlbum2.setStatus("MODERATED");
-        Long id2=repository.save(initialAlbum2).getId();
+        tc.initialAlbum2.setStatus("MODERATED");
+        Long id2=repository.save(tc.initialAlbum2).getId();
         AlbumStatusChangeRequest request=AlbumStatusChangeRequest.builder()
                 .action("ONLINE")
                 .build();
@@ -391,15 +354,16 @@ class AlbumControllerIT {
     @WithMockUser(roles="ADMIN")
     void testGetAllAlbumsAsAdmin() throws Exception {
         //Given
-        userInfoRepository.save(initialUser);
-        userInfoRepository.save(initialUser2);
-        userInfoRepository.save(initialAdmin);
-        String jwt=jwtService.generateToken(initialAdmin.getEmail());
+        TestContent tc=new TestContent();
+        userInfoRepository.save(tc.initialUser);
+        userInfoRepository.save(tc.initialUser2);
+        userInfoRepository.save(tc.initialAdmin);
+        String jwt=jwtService.generateToken(tc.initialAdmin.getEmail());
 
-        initialAlbum2.setStatus("OFFLINE");
-        repository.save(initialAlbum);
-        repository.save(initialAlbum2);
-        repository.save(initialAlbum3);
+        tc.initialAlbum2.setStatus("OFFLINE");
+        repository.save(tc.initialAlbum);
+        repository.save(tc.initialAlbum2);
+        repository.save(tc.initialAlbum3);
 
         //When
         mockMvc.perform(get("/album")
@@ -417,15 +381,16 @@ class AlbumControllerIT {
     @WithMockUser(roles="USER")
     void testGetAllAlbumsAsuser() throws Exception {
         //Given
-        userInfoRepository.save(initialUser);
-        userInfoRepository.save(initialUser2);
-        userInfoRepository.save(initialAdmin);
-        String jwt=jwtService.generateToken(initialUser.getEmail());
+        TestContent tc=new TestContent();
+        userInfoRepository.save(tc.initialUser);
+        userInfoRepository.save(tc.initialUser2);
+        userInfoRepository.save(tc.initialAdmin);
+        String jwt=jwtService.generateToken(tc.initialUser.getEmail());
 
-        initialAlbum2.setStatus("OFFLINE");
-        repository.save(initialAlbum);
-        repository.save(initialAlbum2);
-        repository.save(initialAlbum3);
+        tc.initialAlbum2.setStatus("OFFLINE");
+        repository.save(tc.initialAlbum);
+        repository.save(tc.initialAlbum2);
+        repository.save(tc.initialAlbum3);
 
         //When
         mockMvc.perform(get("/album")
@@ -443,9 +408,10 @@ class AlbumControllerIT {
     @WithMockUser(roles="USER")
     void testUpdateAlbumByOwner() throws Exception {
         //Given
-        userInfoRepository.save(initialUser);
-        String jwt=jwtService.generateToken(initialUser.getEmail());
-        Long id=repository.save(initialAlbum).getId();
+        TestContent tc=new TestContent();
+        userInfoRepository.save(tc.initialUser);
+        String jwt=jwtService.generateToken(tc.initialUser.getEmail());
+        Long id=repository.save(tc.initialAlbum).getId();
 
         //When
         mockMvc.perform(put("/album/"+id)
@@ -463,9 +429,10 @@ class AlbumControllerIT {
     @WithMockUser(roles="USER")
     void testUpdateAlbumByOwnerWithWrongData() throws Exception {
         //Given
-        userInfoRepository.save(initialUser);
-        String jwt=jwtService.generateToken(initialUser.getEmail());
-        Long id=repository.save(initialAlbum).getId();
+        TestContent tc=new TestContent();
+        userInfoRepository.save(tc.initialUser);
+        String jwt=jwtService.generateToken(tc.initialUser.getEmail());
+        Long id=repository.save(tc.initialAlbum).getId();
 
         //When
         mockMvc.perform(put("/album/"+id)
@@ -481,10 +448,11 @@ class AlbumControllerIT {
     @WithMockUser(roles="ADMIN")
     void testUpdateAlbumByAdmin() throws Exception {
         //Given
-        userInfoRepository.save(initialUser);
-        userInfoRepository.save(initialAdmin);
-        String jwt=jwtService.generateToken(initialAdmin.getEmail());
-        Long id=repository.save(initialAlbum).getId();
+        TestContent tc=new TestContent();
+        userInfoRepository.save(tc.initialUser);
+        userInfoRepository.save(tc.initialAdmin);
+        String jwt=jwtService.generateToken(tc.initialAdmin.getEmail());
+        Long id=repository.save(tc.initialAlbum).getId();
 
         //When
         mockMvc.perform(put("/album/"+id)
@@ -501,10 +469,11 @@ class AlbumControllerIT {
     @WithMockUser(roles="USER")
     void testUpdateAlbumByAnother() throws Exception {
         //Given
-        userInfoRepository.save(initialUser);
-        userInfoRepository.save(initialUser2);
-        String jwt=jwtService.generateToken(initialUser2.getEmail());
-        Long id=repository.save(initialAlbum).getId();
+        TestContent tc=new TestContent();
+        userInfoRepository.save(tc.initialUser);
+        userInfoRepository.save(tc.initialUser2);
+        String jwt=jwtService.generateToken(tc.initialUser2.getEmail());
+        Long id=repository.save(tc.initialAlbum).getId();
 
         //When
         mockMvc.perform(put("/album/"+id)
@@ -521,11 +490,12 @@ class AlbumControllerIT {
     @WithMockUser(roles="USER")
     void testDeleteAlbum() throws Exception {
         //Given
-        userInfoRepository.save(initialUser);
-        userInfoRepository.save(initialUser2);
-        String jwt=jwtService.generateToken(initialUser.getEmail());
-        Long id=repository.save(initialAlbum).getId();
-        repository.save(initialAlbum2);
+        TestContent tc=new TestContent();
+        userInfoRepository.save(tc.initialUser);
+        userInfoRepository.save(tc.initialUser2);
+        String jwt=jwtService.generateToken(tc.initialUser.getEmail());
+        Long id=repository.save(tc.initialAlbum).getId();
+        repository.save(tc.initialAlbum2);
         assertThat(repository.findAll().size()).isEqualTo(2);
 
         //When
@@ -542,11 +512,15 @@ class AlbumControllerIT {
     @WithMockUser(roles="USER")
     void testAddModerator() throws Exception {
         //Given
-        Long userId=userInfoRepository.save(initialUser).getId();
-        userInfoRepository.save(initialUser2);
-        String jwt=jwtService.generateToken(initialUser.getEmail());
-        Long albumId=repository.save(initialAlbum).getId();
-
+        TestContent tc=new TestContent();
+        Long userId=userInfoRepository.save(tc.initialUser).getId();
+        userInfoRepository.save(tc.initialUser2);
+        String jwt=jwtService.generateToken(tc.initialUser.getEmail());
+        System.out.println(tc.initialUser);
+        System.out.println(tc.initialUser2);
+        System.out.println(userId);
+        System.out.println(tc.initialAlbum);
+        Long albumId=repository.save(tc.initialAlbum).getId();
 
 
         //When
@@ -566,10 +540,11 @@ class AlbumControllerIT {
     @WithMockUser(roles="USER")
     void testAddMyselfAsModerator() throws Exception {
         //Given
-        Long userId=userInfoRepository.save(initialUser).getId();
-        userInfoRepository.save(initialUser2);
-        String jwt=jwtService.generateToken(initialUser.getEmail());
-        Long albumId=repository.save(initialAlbum).getId();
+        TestContent tc=new TestContent();
+        Long userId=userInfoRepository.save(tc.initialUser).getId();
+        userInfoRepository.save(tc.initialUser2);
+        String jwt=jwtService.generateToken(tc.initialUser.getEmail());
+        Long albumId=repository.save(tc.initialAlbum).getId();
 
         //When
         mockMvc.perform(post("/user/"+userId+"/album/"+albumId+"/moderation")
@@ -585,10 +560,11 @@ class AlbumControllerIT {
     @WithMockUser(roles="USER")
     void testAddModeratorFromUser() throws Exception {
         //Given
-        Long userId=userInfoRepository.save(initialUser).getId();
-        userInfoRepository.save(initialUser2);
-        String jwt=jwtService.generateToken(initialUser2.getEmail());
-        Long albumId=repository.save(initialAlbum).getId();
+        TestContent tc=new TestContent();
+        Long userId=userInfoRepository.save(tc.initialUser).getId();
+        userInfoRepository.save(tc.initialUser2);
+        String jwt=jwtService.generateToken(tc.initialUser2.getEmail());
+        Long albumId=repository.save(tc.initialAlbum).getId();
 
         //When
         mockMvc.perform(post("/user/"+userId+"/album/"+albumId+"/moderation")
@@ -604,11 +580,12 @@ class AlbumControllerIT {
     @WithMockUser(roles="USER")
     void testRemoveModerator() throws Exception {
         //Given
-        Long userId=userInfoRepository.save(initialUser).getId();
-        Long moderatorId=userInfoRepository.save(initialUser2).getId();
-        String jwt=jwtService.generateToken(initialUser.getEmail());
-        initialAlbum.setModerators(List.of(initialUser2));
-        Long albumId=repository.save(initialAlbum).getId();
+        TestContent tc=new TestContent();
+        Long userId=userInfoRepository.save(tc.initialUser).getId();
+        Long moderatorId=userInfoRepository.save(tc.initialUser2).getId();
+        String jwt=jwtService.generateToken(tc.initialUser.getEmail());
+        tc.initialAlbum.setModerators(List.of(tc.initialUser2));
+        Long albumId=repository.save(tc.initialAlbum).getId();
 
         //When
         mockMvc.perform(delete("/user/"+userId+"/album/"+albumId+"/moderation/"+moderatorId)
@@ -627,10 +604,11 @@ class AlbumControllerIT {
     @WithMockUser(roles="USER")
     void testRemoveInexistantModerator() throws Exception {
         //Given
-        Long userId=userInfoRepository.save(initialUser).getId();
-        Long moderatorId=userInfoRepository.save(initialUser2).getId();
-        String jwt=jwtService.generateToken(initialUser.getEmail());
-        Long albumId=repository.save(initialAlbum).getId();
+        TestContent tc=new TestContent();
+        Long userId=userInfoRepository.save(tc.initialUser).getId();
+        Long moderatorId=userInfoRepository.save(tc.initialUser2).getId();
+        String jwt=jwtService.generateToken(tc.initialUser.getEmail());
+        Long albumId=repository.save(tc.initialAlbum).getId();
 
         //When
         mockMvc.perform(delete("/user/"+userId+"/album/"+albumId+"/moderation/"+moderatorId)
@@ -646,11 +624,12 @@ class AlbumControllerIT {
     @WithMockUser(roles="USER")
     void testRemoveSelfAsModerator() throws Exception {
         //Given
-        Long userId=userInfoRepository.save(initialUser).getId();
-        Long moderatorId=userInfoRepository.save(initialUser2).getId();
-        String jwt=jwtService.generateToken(initialUser2.getEmail());
-        initialAlbum.setModerators(List.of(initialUser2));
-        Long albumId=repository.save(initialAlbum).getId();
+        TestContent tc=new TestContent();
+        Long userId=userInfoRepository.save(tc.initialUser).getId();
+        Long moderatorId=userInfoRepository.save(tc.initialUser2).getId();
+        String jwt=jwtService.generateToken(tc.initialUser2.getEmail());
+        tc.initialAlbum.setModerators(List.of(tc.initialUser2));
+        Long albumId=repository.save(tc.initialAlbum).getId();
 
         //When
         mockMvc.perform(delete("/user/"+userId+"/album/"+albumId+"/moderation/"+moderatorId)
@@ -669,12 +648,13 @@ class AlbumControllerIT {
     @WithMockUser(roles="USER")
     void testRemoveOtherModeratorAsModerator() throws Exception {
         //Given
-        Long userId=userInfoRepository.save(initialUser).getId();
-        userInfoRepository.save(initialUser2);
-        Long moderatorId=userInfoRepository.save(initialAdmin).getId();
-        String jwt=jwtService.generateToken(initialUser2.getEmail());
-        initialAlbum.setModerators(List.of(initialUser2,initialAdmin));
-        Long albumId=repository.save(initialAlbum).getId();
+        TestContent tc=new TestContent();
+        Long userId=userInfoRepository.save(tc.initialUser).getId();
+        userInfoRepository.save(tc.initialUser2);
+        Long moderatorId=userInfoRepository.save(tc.initialAdmin).getId();
+        String jwt=jwtService.generateToken(tc.initialUser2.getEmail());
+        tc.initialAlbum.setModerators(List.of(tc.initialUser2,tc.initialAdmin));
+        Long albumId=repository.save(tc.initialAlbum).getId();
 
         //When
         mockMvc.perform(delete("/user/"+userId+"/album/"+albumId+"/moderation/"+moderatorId)
