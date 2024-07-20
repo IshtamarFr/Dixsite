@@ -33,10 +33,10 @@ public class CommentController {
     private final CommentMapper commentMapper;
 
     public CommentController(
-            UserInfoServiceImpl userInfoService,
+            UserInfoService userInfoService,
             JwtService jwtService,
-            CommentServiceImpl commentService,
-            PicvidServiceImpl picvidService,
+            CommentService commentService,
+            PicvidService picvidService,
             CommentMapper commentMapper
     ){
         this.userInfoService = userInfoService;

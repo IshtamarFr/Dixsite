@@ -39,7 +39,7 @@ public class AuthController {
     private String BASE_URL;
 
     public AuthController(
-            UserInfoServiceImpl service,
+            UserInfoService service,
             JwtService jwtService,
             UserMapper userMapper,
             EmailService emailSender

@@ -34,7 +34,7 @@ public class AdminController {
     public AdminController(
             PicvidRepository picvidRepository,
             AlbumRepository albumRepository,
-            FileUploadServiceImpl fileUploadServiceImpl
+            FileUploadService fileUploadServiceImpl
     ){
         this.picvidRepository=picvidRepository;
         this.albumRepository=albumRepository;

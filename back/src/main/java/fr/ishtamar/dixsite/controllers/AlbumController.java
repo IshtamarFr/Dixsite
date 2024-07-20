@@ -28,7 +28,7 @@ public class AlbumController {
     private final UserInfoService userInfoService;
     private final AlbumMapper albumMapper;
 
-    public AlbumController(AlbumServiceImpl albumService, UserInfoServiceImpl userInfoService, AlbumMapper albumMapper, JwtService jwtService) {
+    public AlbumController(AlbumService albumService, UserInfoService userInfoService, AlbumMapper albumMapper, JwtService jwtService) {
         this.albumService = albumService;
         this.userInfoService = userInfoService;
         this.albumMapper = albumMapper;

@@ -19,7 +19,7 @@ public class EmailService {
     private final UserInfoService userInfoService;
 
     final private JavaMailSender emailSender;
-    public EmailService(JavaMailSender emailSender, UserInfoServiceImpl userInfoService){
+    public EmailService(JavaMailSender emailSender, UserInfoService userInfoService){
         this.emailSender=emailSender;
         this.userInfoService=userInfoService;
     }

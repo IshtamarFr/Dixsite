@@ -33,10 +33,10 @@ public class PicvidController {
     private final PicvidMapper picvidMapper;
 
     public PicvidController(
-            UserInfoServiceImpl userInfoService,
-            AlbumServiceImpl albumService,
+            UserInfoService userInfoService,
+            AlbumService albumService,
             JwtService jwtService,
-            PicvidServiceImpl picvidService,
+            PicvidService picvidService,
             PicvidMapper picvidMapper
     ){
         this.userInfoService = userInfoService;
